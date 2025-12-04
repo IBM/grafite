@@ -1,0 +1,101 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/utilities/button-reset';
+
+.ModelOutputHandler {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .aiLabel {
+    position: absolute;
+    top: 0;
+    left: 5.75rem;
+  }
+
+  .useLLM {
+    @include button-reset.reset();
+    @include type-style('label-01');
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    column-gap: 0.5rem;
+    align-items: center;
+    width: fit-content;
+    color: $text-primary;
+
+    > :last-child {
+      transition: 0.2s;
+    }
+
+    &.open {
+      > :last-child {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+.actionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  transition: 0.2s;
+  height: 2rem;
+
+  > :first-child {
+    margin-left: 0;
+  }
+
+  &.close {
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+  }
+
+  .modelDropdown {
+    flex: 1;
+  }
+
+  .modelTag {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.completion {
+  padding: calc(0.75rem + rem(1px));
+
+  @include type-style('body-01');
+
+  border: rem(1px) solid $border-subtle-00;
+  max-height: 100%;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.prompt {
+  margin-top: 1rem;
+  border: rem(1px) solid $border-subtle-00;
+  background: $layer-02;
+  padding: 1rem;
+
+  p {
+    @include type-style('body-01');
+
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
+.empty {
+  @include type-style('helper-text-01');
+
+  color: $text-error;
+}
+
+.aiLabel .info {
+  @include type-style('helper-text-01');
+}

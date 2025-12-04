@@ -1,0 +1,28 @@
+@use '@styles/common' as *;
+
+.scoreCell {
+  line-height: 1;
+  padding-block-start: rem(8px);
+}
+
+.justificationCell {
+  line-height: 1.4;
+  padding-block: rem(8px);
+}
+
+.warning {
+  color: $text-error;
+  margin-block-start: rem(11px);
+}
+
+.gridFooter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.na {
+  color: $text-secondary;
+  @include type-style(label-01);
+  padding-inline-end: 1rem;
+  padding-block-start: 0.75rem;
+}

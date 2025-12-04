@@ -1,0 +1,69 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/utilities/button-reset';
+
+.row {
+  td {
+    padding: 0.1rem 0.25rem;
+    text-align: end;
+    position: relative;
+
+    &.label {
+      padding-inline-start: 1rem;
+      vertical-align: middle;
+    }
+
+    &:not(:first-child).label {
+      &::after {
+        content: '';
+        position: absolute;
+        height: 1em;
+        width: rem(1px);
+        background: $border-subtle-01;
+        inset-block-start: 50%;
+        inset-inline-start: (0.25rem);
+        transform: translateY(-50%);
+      }
+
+      &.humanEval {
+        padding-inline-start: 1.25rem;
+
+        &::after {
+          background: $border-strong-01;
+          inset-inline-start: (0.5rem);
+        }
+
+        &::before {
+          content: '';
+          position: absolute;
+          height: 1em;
+          width: rem(1px);
+          background: $border-strong-01;
+          inset-block-start: 50%;
+          inset-inline-start: (0.25rem);
+          transform: translateY(-50%);
+        }
+      }
+
+      &.identifier + .label::after {
+        display: none;
+      }
+    }
+  }
+}
+
+.na,
+.humanEval {
+  color: $text-primary;
+}
+
+.na {
+  @include type-style('label-01');
+}
+
+.tooltipBtn {
+  @include button-reset.reset();
+  border-block-end: rem(1px) dotted $border-strong-01;
+  font-size: rem(18px);
+  line-height: 1rem;
+  vertical-align: middle;
+}

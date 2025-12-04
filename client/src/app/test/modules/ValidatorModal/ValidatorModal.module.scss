@@ -1,0 +1,22 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/utilities/button-reset';
+
+.wrapper {
+  > button {
+    @include button-reset.reset();
+
+    display: block;
+    margin-bottom: 0.5rem;
+
+    &.selected {
+      border: rem(1px) solid $interactive;
+    }
+  }
+}
+
+.alert {
+  @include type-style('helper-text-01');
+
+  color: $text-error;
+  margin-bottom: 1rem;
+}

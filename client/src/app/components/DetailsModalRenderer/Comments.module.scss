@@ -1,0 +1,99 @@
+@use '@styles/common' as *;
+
+.root {
+  border: rem(1px) solid $border-subtle-01;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: $layer-accent-01;
+
+  @include breakpoint-up('lg') {
+    min-inline-size: rem(300px);
+    max-inline-size: rem(300px);
+    max-block-size: 100%;
+    block-size: min(calc(var(--container-height) - 2rem), calc(96dvh - rem(116px) - 6rem));
+    position: fixed;
+    inset-block-start: calc(4rem - rem(4px));
+  }
+
+  h3 {
+    color: $text-secondary;
+    padding: 1rem;
+  }
+}
+
+.contents {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  padding-block-start: 0.5rem;
+  padding-block-end: 1.5rem;
+  @include scrollbar();
+  scrollbar-color: $layer-accent-active transparent;
+
+  &::-webkit-scrollbar-thumb {
+    background: $layer-accent-active;
+  }
+
+  @include breakpoint-down('lg') {
+    max-block-size: rem(300px);
+  }
+}
+
+.empty {
+  color: $text-secondary;
+  @include type-style(label-01);
+}
+
+.input {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  background: $field-02;
+
+  &:has(textarea:disabled) {
+    background: $field-01;
+  }
+
+  textarea {
+    flex: 1;
+    border: none;
+    border-radius: 0;
+    @include type-style('body-compact-01');
+    color: $text-primary;
+    padding: 0.625rem 1rem;
+    padding-inline-end: 2rem;
+    max-height: 30dvh;
+    resize: none;
+    min-height: rem(40px);
+    background: transparent;
+
+    &:focus {
+      outline-color: $interactive;
+      -moz-outline-radius: 0;
+    }
+  }
+
+  .sendButton {
+    :global(.cds--popover) {
+      display: none;
+    }
+  }
+}
+
+.inlineLoading {
+  inline-size: rem(40px);
+  block-size: rem(40px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.errorMsg {
+  position: absolute;
+  inset-block-end: 0;
+  transform: translateY(calc(100% + rem(4px)));
+  color: $text-error;
+  @include type-style(label-01);
+}

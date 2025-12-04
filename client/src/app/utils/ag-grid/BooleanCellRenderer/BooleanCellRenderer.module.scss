@@ -1,0 +1,8 @@
+@use '@styles/common' as *;
+
+.checkbox {
+  height: rem(16px);
+  width: rem(16px);
+  cursor: pointer;
+  border-radius: 0 !important;
+}

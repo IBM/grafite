@@ -1,0 +1,48 @@
+@use '@styles/common' as *;
+
+.root {
+  display: flex;
+  align-items: center;
+  column-gap: 0.25rem;
+  padding-inline: 1rem;
+  block-size: 3rem;
+  background: $layer-01;
+  width: 100%;
+  border: rem(1px) solid $border-subtle-00;
+}
+
+.statusCell {
+  width: rem(100px) !important;
+
+  display: flex;
+  align-items: center;
+  column-gap: rem(4px);
+}
+
+.progressIcon {
+  fill: $support-info;
+  flex-shrink: 0;
+}
+
+.errorIcon {
+  fill: $support-error;
+  flex-shrink: 0;
+}
+
+.completedIcon {
+  fill: $support-success;
+  flex-shrink: 0;
+}
+
+.empty {
+  @include type-style('label-01');
+}
+
+.loading {
+  display: flex;
+  justify-content: flex-end;
+  min-block-size: 2rem;
+  > * {
+    inline-size: fit-content;
+  }
+}

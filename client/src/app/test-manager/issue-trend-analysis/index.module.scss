@@ -1,0 +1,52 @@
+@use '@styles/common' as *;
+
+.header {
+  p {
+    @include type-style('body-01');
+
+    max-width: 50em;
+    color: $text-secondary;
+    margin-top: 0.75rem;
+  }
+
+  margin-bottom: 2rem;
+}
+
+.contents {
+  padding-block-end: 4rem;
+  margin-inline: -2rem;
+  inline-size: calc(100% + 4rem);
+
+  section {
+    margin-block-start: 1.5rem;
+    padding-block-start: 1rem;
+
+    h3 {
+      @include type-style('heading-03');
+      color: $text-secondary;
+      font-size: rem(18px);
+    }
+  }
+
+  > *:not(:last-child) {
+    margin-block-end: 1.5rem;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset-block-end: -1.5rem;
+      inset-inline-start: -2rem;
+      block-size: 1.5rem;
+      inline-size: calc(100% + 2rem);
+      background-color: $layer-01;
+      border-block-start: rem(1px) solid $border-subtle-00;
+      border-block-end: rem(1px) solid $border-subtle-00;
+    }
+  }
+}
+
+.old {
+  float: right;
+  margin-block-start: -4rem;
+}

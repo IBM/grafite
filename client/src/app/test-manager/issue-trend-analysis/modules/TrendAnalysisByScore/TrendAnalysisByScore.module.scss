@@ -1,0 +1,28 @@
+@use '@styles/common' as *;
+
+.header {
+  padding-inline: rem(48px);
+  padding-block-end: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-block-end: rem(1px) solid $border-subtle-00;
+}
+
+.row {
+  inline-size: 100%;
+  display: flex;
+  padding: 0;
+  padding-inline: rem(16px);
+}
+
+.chartWrapper {
+  padding: 2rem 2rem 4rem;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+
+  &:not(:first-of-type) {
+    border-inline-start: rem(1px) solid $border-subtle-00;
+  }
+}

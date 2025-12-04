@@ -1,0 +1,22 @@
+@use '@styles/common' as *;
+
+.additionalParameterItem {
+  margin-block-end: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  column-gap: rem(1px);
+
+  > * {
+    flex: 1;
+
+    &:not(.additionalParameterName) {
+      flex: 1.28;
+    }
+
+    &.deleteButton {
+      flex: 0 0 calc(2rem + rem(1px));
+      align-self: flex-start;
+      padding-inline-start: rem(1px);
+    }
+  }
+}

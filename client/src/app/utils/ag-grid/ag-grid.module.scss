@@ -1,0 +1,38 @@
+@use '@styles/common' as *;
+
+.loading {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-start: -2rem;
+}
+
+.rowTotal {
+  @include type-style('helper-text-02');
+  padding-block-start: 0.5rem;
+  color: $text-secondary;
+}
+
+.tooltip {
+  background: $background;
+  color: $text-primary;
+  border: rem(1px) solid $border-subtle-00;
+  padding: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  inline-size: 95%;
+  max-width: 55em;
+  @include type-style('body-compact-01');
+}
+
+.tag {
+  margin-block-end: 0.25rem;
+  margin-inline-end: 0.25rem;
+  max-inline-size: rem(500px); //random value to avoid tag cropped
+  min-inline-size: auto;
+}
+
+.hasHumanEval {
+  @include type-style('heading-03');
+  color: $text-helper;
+  vertical-align: middle;
+}

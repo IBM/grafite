@@ -1,0 +1,15 @@
+
+FROM python:3.12
+RUN apt-get update && apt-get install -y vim
+
+WORKDIR /app
+COPY . .
+
+# ARG GH_TOKEN
+
+RUN pip install .
+# RUN pip install -r requirements.txt
+
+
+CMD ["python", "src/grafite/services/digit_listener.py"]
+

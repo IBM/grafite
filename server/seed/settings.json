@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "labels",
+    "issue": {
+      "tag": [
+        "Code",
+        "Information extraction",
+        "Math / reasoning",
+        "Temporal reasoning"
+      ],
+      "resolution": [
+        "QA Test"
+      ]
+    },
+    "test": {
+      "tag": [
+        "Require domain expert"
+      ]
+    }
+  }
+]

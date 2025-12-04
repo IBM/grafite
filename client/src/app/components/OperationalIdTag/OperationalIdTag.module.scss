@@ -1,0 +1,10 @@
+@use '@styles/common' as *;
+
+button.tagWrapper {
+  padding: 0;
+  background: transparent;
+
+  .tag {
+    background: transparent;
+  }
+}

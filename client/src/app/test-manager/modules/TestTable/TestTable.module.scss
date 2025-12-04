@@ -1,0 +1,24 @@
+@use '@styles/common' as *;
+@import '@utils/ag-grid/ag-grid.module';
+
+.maximizeBtn {
+  opacity: 0;
+  height: 2rem;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.explanation {
+  @include type-style('body-compact-01');
+  display: flex;
+  align-items: center;
+  padding-inline-start: 0.25rem;
+  column-gap: 0.5rem;
+  color: $text-primary;
+}
+
+.sourceIdTag {
+  max-inline-size: 100%;
+}

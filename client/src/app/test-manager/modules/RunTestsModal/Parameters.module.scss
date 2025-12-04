@@ -1,0 +1,49 @@
+@use '@styles/common' as *;
+
+.root {
+  margin-top: 1.5rem;
+
+  h4 {
+    @include type-style('heading-compact-01');
+    color: $text-secondary;
+  }
+
+  .parametersTitle {
+    margin-block-end: 1.5rem;
+  }
+
+  .defaultParameters {
+    margin-block-end: 1.5rem;
+    display: flex;
+    align-items: center;
+    column-gap: rem(1px);
+    flex-wrap: wrap;
+
+    > * {
+      inline-size: calc(50% - rem(1px));
+      max-inline-size: calc(50% - rem(1px));
+    }
+  }
+
+  .thinking {
+    display: flex;
+    align-items: center;
+
+    .thinkingCheckbox {
+      margin-inline-start: 2rem;
+      display: flex;
+      align-items: center;
+
+      .warning {
+        padding-inline-start: 0.75rem;
+        @include type-style('label-01');
+        color: $text-secondary;
+        line-height: 1;
+
+        svg {
+          vertical-align: sub;
+        }
+      }
+    }
+  }
+}

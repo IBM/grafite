@@ -1,0 +1,31 @@
+@use '@styles/common' as *;
+
+.row {
+  display: flex;
+
+  > * {
+    flex: 1;
+  }
+
+  &.quarter > :first-child {
+    flex: 0.25;
+  }
+}
+
+.notification {
+  margin-block-end: 2rem;
+  max-inline-size: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.hr {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: none;
+  border-bottom: rem(1px) solid $border-subtle-01;
+}

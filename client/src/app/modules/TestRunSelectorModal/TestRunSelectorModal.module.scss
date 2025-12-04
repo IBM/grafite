@@ -1,0 +1,89 @@
+@use '@styles/common' as *;
+
+.root {
+  container-type: inline-size;
+  --modal-width: 100cqw;
+}
+
+.statusCell {
+  width: rem(30px) !important;
+
+  display: flex;
+  align-items: center;
+  column-gap: rem(4px);
+}
+
+.creator {
+  max-inline-size: calc((100cqw - rem(70px)) / 10) !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progressIcon {
+  fill: $support-info;
+  flex-shrink: 0;
+}
+
+.errorIcon {
+  fill: $support-error;
+  flex-shrink: 0;
+}
+
+.completedIcon {
+  fill: $support-success;
+  flex-shrink: 0;
+}
+
+.reportList {
+  padding-block-start: 0.5rem;
+  @include type-style('body-compact-01');
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  label {
+    @include type-style('heading-01');
+    color: $text-secondary;
+  }
+
+  > div:not(:first-of-type) {
+    padding-inline-start: rem(4px);
+    position: relative;
+
+    &::after {
+      content: ',';
+      position: absolute;
+      inset-inline-start: rem(-7px);
+    }
+
+    &.comparisonMode {
+      padding-inline-start: rem(34px);
+
+      ::before {
+        content: 'vs';
+        @include type-style('label-01');
+        position: absolute;
+        inset-inline-start: 0;
+        inset-block-start: rem(-4px);
+        inline-size: rem(26px);
+        aspect-ratio: 1;
+        padding: 0.25rem;
+        border-radius: 50%;
+        background: $layer-02;
+        border: rem(1px) solid $border-subtle-00;
+        line-height: 1;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: flex-end;
+  min-block-size: 2rem;
+
+  > * {
+    inline-size: fit-content;
+  }
+}

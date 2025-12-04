@@ -1,0 +1,40 @@
+@use '@styles/common' as *;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+
+  .score {
+    @include type-style('heading-03');
+
+    line-height: 1;
+    color: $text-primary;
+  }
+
+  &.sm .score {
+    @include type-style('body-compact-01');
+  }
+
+  > :last-child {
+    height: 1rem;
+  }
+
+  .success svg {
+    fill: $support-info !important;
+  }
+
+  .warning svg {
+    fill: $support-error !important;
+  }
+}
+
+.scoreButton {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+
+  .score {
+    color: $interactive;
+  }
+}

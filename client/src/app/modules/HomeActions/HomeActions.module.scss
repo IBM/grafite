@@ -1,0 +1,51 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/utilities/button-reset';
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: rem(24px);
+
+  h3 {
+    @include type-style('heading-02');
+  }
+}
+
+.search {
+  position: relative;
+  flex: 1;
+}
+
+.searchResult {
+  position: absolute;
+  top: 2.5rem;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-shadow: $box-shadow;
+  overflow-x: hidden;
+
+  button {
+    @include button-reset.reset();
+    @include type-style('body-01');
+
+    padding: 0.875rem;
+    background: $layer-01;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: $text-primary;
+
+    &:not(:last-of-type) {
+      border-bottom: rem(1px) solid $border-subtle-00;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: $layer-hover-01;
+    }
+  }
+}

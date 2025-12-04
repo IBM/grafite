@@ -1,0 +1,50 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/utilities/button-reset';
+
+.expandable {
+  position: relative;
+  padding-bottom: 2rem;
+  transition: 0.2;
+  container: size;
+
+  &.collapsed {
+    max-height: rem(400px);
+    overflow-y: hidden;
+    background: linear-gradient($text-primary, $text-primary 86%, transparent 96%);
+    background-clip: text;
+    color: transparent;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: rem(50px);
+      background: linear-gradient(transparent, var(--cds-layer-01));
+    }
+  }
+
+  .expandBtn {
+    @include button-reset.reset();
+
+    display: flex;
+    align-items: center;
+    position: absolute;
+    z-index: 999;
+    width: fit-content;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    column-gap: 0.5rem;
+    color: $interactive;
+  }
+}
+
+.hidden {
+  position: fixed;
+  z-index: -9999;
+  left: rem(-9999px);
+  top: rem(-9999px);
+  width: calc(50% - 1rem);
+}

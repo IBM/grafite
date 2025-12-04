@@ -1,0 +1,177 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/utilities/convert' as *;
+
+@include type-classes();
+
+.markdownWrapper {
+  @include type-style('body-01');
+
+  > * > * > *:not(.optionsWrapper) {
+    margin-block-end: 1rem;
+  }
+
+  p {
+    @include type-style('body-01');
+  }
+
+  code {
+    @include type-style('code-01');
+
+    font-family: var(--cds-code-01-font-family) !important;
+
+    span {
+      word-break: break-word;
+      white-space: pre-wrap;
+      display: inline;
+    }
+  }
+
+  h1 {
+    @include type-style('heading-04');
+
+    color: $text-primary;
+  }
+
+  h2 {
+    @include type-style('heading-03');
+
+    color: $text-primary;
+  }
+
+  h3 {
+    @include type-style('heading-02');
+
+    color: $text-primary;
+  }
+
+  table {
+    margin-block: 0.5em;
+
+    th,
+    td {
+      border: rem(1px) solid $border-subtle-00;
+      padding: 0.25rem 0.75rem;
+    }
+  }
+
+  ol,
+  ul,
+  blockquote,
+  q,
+  p {
+    word-break: break-word;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    vertical-align: top;
+  }
+
+  p:not(:last-of-type) {
+    margin-block: 0;
+    margin-block-end: 0.5em;
+  }
+
+  pre {
+    white-space: pre-wrap;
+  }
+
+  ol,
+  ul,
+  blockquote,
+  q {
+    white-space: normal;
+    padding-inline-start: 2.5rem;
+    margin-inline-end: 2.5rem;
+    font-family:
+      'IBM Plex Sans',
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      '.SFNSText-Regular',
+      sans-serif;
+    letter-spacing: rem(0.16px);
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  ol,
+  ul {
+    padding-inline-start: 1.25em;
+
+    li {
+      white-space: inherit;
+      margin-block-end: 0.5em;
+      margin-block-start: 0;
+    }
+  }
+
+  blockquote {
+    margin-block: 1rem;
+    padding: 0.75rem rem(20px);
+    color: $text-secondary;
+    border-inline-start: rem(2px) solid $border-subtle-00;
+  }
+
+  q {
+    &::before {
+      content: '\201C';
+    }
+
+    &::after {
+      content: '\201D';
+    }
+  }
+
+  hr {
+    background: $border-subtle-00;
+    block-size: rem(1px);
+    border: none;
+  }
+}
+
+.codeWrapper {
+  position: relative;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.codeBlock {
+  min-height: 3.0625rem;
+  padding-right: 2.5rem !important;
+}
+
+.optionsWrapper {
+  text-align: right;
+
+  > button {
+    @include type-style('label-01');
+
+    background-color: transparent;
+    border: 0;
+    color: $text-helper;
+    cursor: pointer;
+  }
+}
+
+.copyBtn {
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  width: fit-content !important;
+  position: absolute;
+  right: 0;
+  top: 1.7rem;
+}
+
+.separator {
+  position: absolute;
+  top: rem(4px);
+  height: 0.8rem;
+  width: rem(0.3px);
+  background-color: $text-helper;
+}

@@ -1,0 +1,28 @@
+@use '@carbon/react/scss/theme';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.wrapper {
+  padding: layout.$spacing-10 layout.$spacing-03 0;
+  max-width: 32rem;
+  margin: 0 auto;
+  margin-top: 45dvh;
+  transform: translateY(-50%);
+}
+
+.loading {
+  justify-content: center;
+}
+
+.btnWrapper {
+  text-align: center;
+  margin-bottom: layout.$spacing-05;
+}
+
+.title {
+  @include type.type-style('heading-04');
+
+  color: theme.$text-secondary;
+  text-align: center;
+  margin-bottom: layout.$spacing-09;
+}

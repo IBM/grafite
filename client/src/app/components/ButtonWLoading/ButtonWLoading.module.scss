@@ -1,0 +1,11 @@
+@use '@carbon/react/scss/theme';
+
+.btnLoading {
+  :global(.cds--loading__background) {
+    stroke: transparent;
+  }
+
+  :global(.cds--loading__stroke) {
+    stroke: theme.$text-on-color-disabled;
+  }
+}

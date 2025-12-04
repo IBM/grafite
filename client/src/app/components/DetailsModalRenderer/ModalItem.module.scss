@@ -1,0 +1,39 @@
+@use '@styles/common' as *;
+
+.divider {
+  margin-block: 2rem;
+  border: none;
+  border-block-end: rem(1px) solid $border-subtle-01;
+}
+
+.row {
+  display: flex;
+  column-gap: 2rem;
+
+  > * {
+    flex: 1;
+  }
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+
+  * {
+    max-width: 100%;
+  }
+
+  > * {
+    margin-left: 0;
+  }
+}
+
+.idTag,
+.tag {
+  margin-inline: 0;
+}
+
+.tagWoBackground button {
+  background: transparent !important;
+}

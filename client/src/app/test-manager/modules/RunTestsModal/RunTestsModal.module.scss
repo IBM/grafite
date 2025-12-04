@@ -1,0 +1,25 @@
+@use '@styles/common' as *;
+
+.root {
+  position: relative;
+}
+
+.errorNotification {
+  margin-block-end: 1rem;
+  inline-size: 100%;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+
+  .prevBtn {
+    width: 50%;
+  }
+
+  .loading {
+    width: 50%;
+
+    padding-left: 1rem;
+  }
+}

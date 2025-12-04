@@ -1,0 +1,17 @@
+@use '@styles/common' as *;
+
+.container section {
+  margin-top: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tableWrapper {
+  height: rem(400px);
+  margin: 0.5rem 0;
+  padding-bottom: 3rem;
+}

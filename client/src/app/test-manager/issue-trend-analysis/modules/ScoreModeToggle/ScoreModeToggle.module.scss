@@ -1,0 +1,12 @@
+.toggle {
+  display: flex;
+  align-items: start;
+
+  > :nth-child(2) {
+    margin-inline-start: 0.5rem;
+  }
+
+  label.selected {
+    font-weight: 600;
+  }
+}

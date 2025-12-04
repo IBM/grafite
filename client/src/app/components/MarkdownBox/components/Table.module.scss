@@ -1,0 +1,21 @@
+@use '@styles/common' as *;
+
+.root {
+  overflow-x: auto;
+}
+
+.table {
+  @include type-style('body-01');
+  &,
+  th,
+  td {
+    border: rem(1px) solid $border-subtle-00;
+  }
+  th,
+  td {
+    padding: rem(8px) rem(12px);
+  }
+  th {
+    font-weight: bold;
+  }
+}

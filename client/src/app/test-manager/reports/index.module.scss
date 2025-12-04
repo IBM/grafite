@@ -1,0 +1,18 @@
+@use '@styles/common' as *;
+
+.header,
+.tableWrapper {
+  width: 100%;
+}
+
+.header {
+  p {
+    @include type-style('body-01');
+
+    max-width: 50em;
+    color: $text-secondary;
+    margin-top: 0.75rem;
+  }
+
+  margin-bottom: 2rem;
+}

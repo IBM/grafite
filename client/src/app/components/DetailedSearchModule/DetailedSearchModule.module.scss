@@ -1,0 +1,48 @@
+@use '@styles/common' as *;
+
+.root {
+  .editorLabel {
+    @include type-style('label-01');
+    color: $text-secondary;
+    margin-bottom: 0.5rem;
+  }
+
+  inline-size: 100%;
+
+  :global(.cds--list-box__wrapper) {
+    margin-top: 0.5rem;
+  }
+
+  :global(.cds--list-box__menu-item),
+  :global(.cds--list-box__menu-item__option) {
+    min-block-size: rem(100px);
+    block-size: fit-content;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  li:nth-child(n + 10) {
+    display: none;
+  }
+}
+
+.dropdownItem {
+  .row {
+    display: flex;
+    row-gap: rem(8px);
+    column-gap: rem(24px);
+    > * {
+      flex: 1;
+    }
+  }
+
+  > label {
+    display: inline-block;
+    inline-size: 100%;
+    @include type-style('heading-01');
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-block-end: 0.5rem;
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "extends": ["stylelint-config-recommended-scss", "stylelint-config-css-modules"],
+  "rules": {
+    "block-no-empty": true,
+    "selector-class-pattern": null,
+    "no-descending-specificity": null,
+    "unit-disallowed-list": [
+      ["px"],
+      {
+        "ignoreFunctions": ["rem"]
+      }
+    ]
+  }
+}

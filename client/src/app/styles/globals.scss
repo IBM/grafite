@@ -1,0 +1,66 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/reset';
+@use '@carbon/styles/scss/fonts';
+@use '@carbon/styles/scss/layer';
+@use '@carbon/styles/scss/layout';
+@use '@carbon/styles/scss/zone';
+// Carbon components
+@use '@carbon/styles/scss/components/accordion';
+@use '@carbon/styles/scss/components/ai-label';
+@use '@carbon/styles/scss/components/checkbox';
+@use '@carbon/styles/scss/components/combo-box';
+@use '@carbon/styles/scss/components/button';
+@use '@carbon/styles/scss/components/content-switcher';
+@use '@carbon/styles/scss/components/dropdown';
+@use '@carbon/styles/scss/components/data-table';
+@use '@carbon/styles/scss/components/data-table/expandable';
+@use '@carbon/styles/scss/components/data-table/sort';
+@use '@carbon/styles/scss/components/fluid-combo-box';
+@use '@carbon/styles/scss/components/fluid-dropdown';
+@use '@carbon/styles/scss/components/fluid-text-input';
+@use '@carbon/styles/scss/components/fluid-number-input';
+@use '@carbon/styles/scss/components/loading';
+@use '@carbon/styles/scss/components/link';
+@use '@carbon/styles/scss/components/notification';
+@use '@carbon/styles/scss/components/number-input';
+@use '@carbon/styles/scss/components/modal';
+@use '@carbon/styles/scss/components/pagination';
+@use '@carbon/styles/scss/components/progress-indicator';
+@use '@carbon/styles/scss/components/tag';
+@use '@carbon/styles/scss/components/skeleton-styles';
+@use '@carbon/styles/scss/components/tabs';
+@use '@carbon/styles/scss/components/text-area';
+@use '@carbon/styles/scss/components/text-input';
+@use '@carbon/styles/scss/components/toggle';
+@use '@carbon/styles/scss/components/inline-loading';
+@use '@carbon/styles/scss/components/search';
+@use '@carbon/styles/scss/components/multiselect';
+@use '@carbon/styles/scss/components/select';
+@use '@carbon/styles/scss/components/tile';
+@use '@carbon/styles/scss/components/ui-shell';
+@use '@carbon/styles/scss/components/contained-list';
+@use '@carbon/styles/scss/components/fluid-text-area';
+@use '@components/ThemePreference/theme-preference';
+
+main {
+  margin-top: $spacing-09;
+  width: 100%;
+}
+
+label {
+  @include type-style('label-01');
+
+  color: $text-secondary;
+}
+
+h1 {
+  @include type-style('heading-04');
+}
+
+h2 {
+  @include type-style('heading-03');
+}
+
+h3 {
+  @include type-style('heading-01');
+}

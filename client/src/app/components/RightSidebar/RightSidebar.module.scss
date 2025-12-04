@@ -1,0 +1,79 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/utilities/button-reset';
+
+.wrapper {
+  flex: 0 1 20rem;
+  padding: 1.5rem 0;
+  border-left: rem(1px) solid $border-subtle-00;
+  max-height: calc(100dvh - 3rem);
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding: 0 1.5rem;
+
+  h3 {
+    @include type-style('heading-02');
+  }
+}
+
+.search {
+  margin-bottom: 0.675rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0;
+
+  button {
+    @include button-reset.reset();
+
+    padding: 1rem 1.5rem;
+
+    @include type-style('body-01');
+
+    color: $text-primary;
+  }
+
+  button:hover,
+  button:focus,
+  button:active {
+    background: $layer-01;
+  }
+
+  .row > span {
+    @include type-style('label-01');
+
+    color: $text-secondary;
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.75rem;
+
+  > span {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.na {
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+  text-align: center;
+
+  @include type-style('label-01');
+
+  &.noPadding {
+    padding-inline-start: 0;
+    color: $text-helper;
+  }
+}

@@ -1,0 +1,43 @@
+@use '@styles/common' as *;
+
+.chartWrapper {
+  padding: 1rem rem(40px);
+  inline-size: 100%;
+}
+
+.gridArea {
+  padding-inline: rem(40px);
+  padding-block-start: 2rem;
+}
+
+.gridWrapper {
+  block-size: rem(500px);
+  position: relative;
+}
+
+.header {
+  padding-inline: rem(48px);
+  padding-block-end: 1rem;
+  margin-block-end: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-block-end: rem(1px) solid $border-subtle-00;
+
+  .row {
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+
+    .filter {
+      display: flex;
+      align-items: center;
+      padding-inline-end: 1rem;
+      border-inline-end: rem(1px) solid $border-subtle-00;
+    }
+  }
+}
+
+.root {
+  padding-block-end: 2rem;
+}

@@ -1,0 +1,72 @@
+@use '@styles/common' as *;
+
+%cellPadding {
+  padding: rem(8px) rem(16px);
+}
+
+.root {
+  width: 100%;
+  border-top: rem(1px) solid $border-subtle-00;
+}
+
+.root .fixedCell {
+  width: rem(128px);
+}
+
+td.rightAlign {
+  text-align: right;
+}
+
+.root th.rightAlign > div {
+  text-align: end;
+}
+
+.root td div:has(> .expandedRow) {
+  padding-block: 0 !important;
+
+  td.cell {
+    @extend %cellPadding;
+  }
+
+  td.idCell {
+    @extend %cellPadding;
+
+    &.multiModel {
+      width: rem(120px);
+    }
+
+    .tag {
+      background-color: transparent;
+    }
+  }
+}
+
+.expandedRow {
+  margin-inline: -1rem;
+}
+
+.justification {
+  max-width: 84ch;
+}
+
+.modelId {
+  display: flex;
+  justify-content: space-between;
+  row-gap: 0.5rem;
+}
+
+.score {
+  display: flex;
+  align-items: center;
+
+  .hasHumanEval {
+    @include type-style('heading-03');
+    color: $text-helper;
+    transform: translateY(rem(2px));
+  }
+}
+
+td.idCell.noBorder,
+td.scoreCell.noBorder {
+  border-block-end: rem(1px) solid transparent !important;
+}

@@ -1,0 +1,58 @@
+@use 'sass:map';
+
+@forward '@carbon/styles/scss/config' with (
+  // carbon specifies invalid font-display value 'swap', this fixes it
+  $font-display: swap
+);
+@forward '@carbon/styles/scss/type';
+@forward '@carbon/styles/scss/spacing';
+@forward '@carbon/styles/scss/breakpoint';
+@forward '@carbon/styles/scss/colors' as color-*;
+@forward '@carbon/styles/scss/utilities/convert';
+@forward '@carbon/styles/scss/theme';
+
+@use '@carbon/themes/scss/themes' as themes;
+@use '@carbon/styles/scss/theme' as *;
+@use '@carbon/styles/scss/utilities/convert' as *;
+
+themes.$white: map.merge(
+  themes.$white,
+  (
+    box-shadow-color: rgb(0 0 0 / 45%),
+  )
+);
+
+themes.$g100: map.merge(
+  themes.$g90,
+  (
+    box-shadow-color: rgb(193 199 205 / 45%),
+  )
+);
+$box-shadow-color: var(--cds-box-shadow-color);
+
+$box-shadow: 0rem rem(2px) rem(8px) 0rem $box-shadow-color;
+$drop-shadow: 0rem rem(2px) rem(8px) $box-shadow-color;
+
+@mixin scrollbar() {
+  scroll-behavior: smooth;
+  scrollbar-color: $layer-accent-01 transparent;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    inline-size: 1rem;
+    block-size: 1rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: solid transparent;
+    border-width: 0.25rem;
+    border-radius: 0.5rem;
+    background: $layer-accent-01;
+    background-clip: padding-box;
+  }
+}

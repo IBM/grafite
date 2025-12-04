@@ -1,0 +1,11 @@
+@use '@styles/common' as *;
+
+.wrapper {
+  :global(.slices) > * {
+    cursor: pointer;
+  }
+
+  :global(p.title) {
+    white-space: pre-wrap;
+  }
+}

@@ -1,0 +1,66 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/utilities/button-reset';
+
+.wrapper {
+  color: $text-primary;
+  position: relative;
+
+  @include type-style('body-01');
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  &.copiable {
+    padding: 0.75rem;
+    background: $layer-02;
+    border: rem(1px) solid $border-subtle-00;
+    row-gap: 0.75rem;
+  }
+
+  &.narrow {
+    row-gap: 0.25rem;
+  }
+
+  .copyBtn {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+  }
+
+  p {
+    @include type-style('body-01');
+    max-inline-size: 75ch;
+  }
+}
+
+.empty {
+  color: $text-disabled;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .action {
+    display: flex;
+    border: rem(1px) solid $text-helper;
+    border-radius: 0.25rem;
+
+    button {
+      @include button-reset.reset();
+      color: $text-secondary;
+      padding: 0.2rem 0.5rem;
+      @include type-style('label-01');
+      white-space: nowrap;
+
+      &.selected {
+        background: $text-helper;
+        color: $text-inverse;
+      }
+    }
+  }
+}

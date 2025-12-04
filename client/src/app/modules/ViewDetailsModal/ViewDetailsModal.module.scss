@@ -1,0 +1,64 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/utilities/button-reset';
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.hr {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: none;
+  border-bottom: rem(1px) solid $border-subtle-01;
+}
+
+.contentWithTitle {
+  &:has(.title button) {
+    margin-bottom: 0.5rem;
+  }
+
+  .title {
+    color: $text-secondary;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+
+    .buttons {
+      display: flex;
+      column-gap: 0.25rem;
+    }
+
+    button {
+      @include button-reset.reset();
+
+      display: inline-block;
+      white-space: nowrap;
+
+      @include type-style('label-01');
+
+      cursor: pointer;
+      color: $text-secondary;
+
+      &.selected {
+        font-weight: 600;
+      }
+    }
+  }
+
+  .content {
+    @include type-style('body-01');
+
+    color: $text-primary;
+    white-space: pre-wrap;
+  }
+}
+
+.viewConnectedIssue {
+  cursor: pointer;
+}
+
+.empty {
+  color: $text-disabled;
+}

@@ -1,0 +1,25 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "prettier",
+    "eslint-config-prettier"
+  ],
+  "plugins": [
+    "prettier",
+    "simple-import-sort"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error"
+    ],
+    "react/no-unescaped-entities": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ]
+  }
+}

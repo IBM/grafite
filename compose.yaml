@@ -1,0 +1,118 @@
+name: grafite
+
+services:
+    mongo-1:
+        image: mongo
+        container_name: mongodb-nors-1
+        ports:
+            - 27017:27017
+        restart: unless-stopped
+        networks:
+            - grafite-net
+        volumes:
+            - type: volume
+              source: mongo-1-volume-nors
+              target: /data/db
+        healthcheck:
+            test: ['CMD', 'mongosh', '--eval', 'db.runCommand({ping: 1})']
+            interval: 30s
+            timeout: 10s
+            retries: 5
+        profiles:
+            - infra
+            - app
+    rabbitmq:
+        image: rabbitmq:4.0.2-management
+        container_name: rabbitmq
+        ports:
+            - '5672:5672'
+            - '15672:15672'
+        restart: unless-stopped
+        networks:
+            - grafite-net
+        configs:
+            - source: rabbitconf
+              target: /etc/rabbitmq/rabbitmq.conf
+        volumes:
+            - type: volume
+              source: rabbitmq-volume
+              target: /var/lib/rabbitmq
+        healthcheck:
+            test: rabbitmq-diagnostics -q ping
+            interval: 30s
+            timeout: 30s
+            retries: 5
+        profiles:
+            - infra
+            - app
+    client:
+        build:
+            context: client
+            dockerfile: Dockerfile
+        container_name: grafite-client
+        ports:
+            - '3000:3000'
+        restart: unless-stopped
+        networks:
+            - grafite-net
+        depends_on:
+            mongo-1:
+                condition: service_healthy
+            rabbitmq:
+                condition: service_healthy
+        env_file:
+            - client/.env.container
+        profiles:
+            - app
+    server:
+        build:
+            context: server
+            dockerfile: Dockerfile
+        container_name: grafite-server
+        ports:
+            - '29007:29007'
+        restart: unless-stopped
+        networks:
+            - grafite-net
+        depends_on:
+            mongo-1:
+                condition: service_healthy
+            rabbitmq:
+                condition: service_healthy
+        env_file:
+            - server/.env.container
+        profiles:
+            - app
+    test-runner:
+        build:
+            context: server
+            dockerfile: Dockerfile.Runner
+        container_name: grafite-test-runner
+        restart: 'no'
+        networks:
+            - grafite-net
+        depends_on:
+            mongo-1:
+                condition: service_healthy
+            rabbitmq:
+                condition: service_healthy
+            server:
+                condition: service_started
+        env_file:
+            - server/.env.container
+        profiles:
+            - app
+
+configs:
+    rabbitconf:
+        content: 'consumer_timeout = 432000000'
+
+networks:
+    grafite-net:
+        name: grafite-net
+
+volumes:
+    mongo-1-volume-nors:
+        name: mongo-1-volume-nors
+    rabbitmq-volume:
+        name: rabbitmq-volume

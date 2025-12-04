@@ -1,0 +1,114 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/utilities/button-reset';
+$max-screen-height: 54rem;
+$md-screen-height: rem(864px);
+
+.widthHolder {
+  flex: 0 0 14rem;
+
+  &.collapsed {
+    flex: 0 0 3rem;
+
+    .wrapper {
+      width: 3rem;
+      padding: 1.5rem 1rem;
+
+      .main,
+      > div:has(.row) > :not(.row) {
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      .row {
+        flex-direction: column-reverse;
+
+        h3 {
+          transform: rotate(90deg);
+          transform-origin: center;
+          margin-top: 1.5rem;
+        }
+
+        button {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+.wrapper {
+  position: fixed;
+  height: 100%;
+  width: 14rem;
+  background: $layer-01;
+  padding: 1.5rem 1rem 1.5rem 1.5rem;
+  border-right: rem(1px) solid $border-subtle-00;
+  max-width: 14rem;
+
+  @include type-style('body-01');
+
+  transition: 0.2s;
+
+  @media screen and (height <=$md-screen-height) {
+    padding: 1rem;
+  }
+
+  @media screen and (max-height: $max-screen-height) {
+    position: relative;
+  }
+
+  > div {
+    margin-bottom: 1.5rem;
+
+    button {
+      background: transparent;
+      max-width: 100%;
+
+      &:first-of-type {
+        margin-left: 0;
+      }
+    }
+
+    &:not(:first-of-type) {
+      row-gap: 0.375rem;
+    }
+  }
+
+  .main > div {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.na,
+.description {
+  @include type-style('helper-text-01');
+}
+
+.description {
+  margin-top: 1.5rem;
+
+  > div {
+    margin-top: 0.25rem;
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  button {
+    @include button-reset.reset();
+
+    width: 2rem;
+    aspect-ratio: 1;
+    margin-right: -0.5rem;
+  }
+}
+
+.tags {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}

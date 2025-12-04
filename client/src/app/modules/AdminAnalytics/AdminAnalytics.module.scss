@@ -1,0 +1,12 @@
+@use '@styles/common' as *;
+
+.root {
+  position: fixed;
+  inset-inline-end: 0;
+  inset-block-start: 3rem;
+  z-index: 999;
+}
+
+.cta {
+  margin-block-start: 2rem;
+}

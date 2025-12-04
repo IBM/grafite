@@ -1,0 +1,85 @@
+@use '@styles/common' as *;
+
+%fixedCellSize {
+  width: rem(160px) !important;
+}
+
+.fixedCell {
+  @extend %fixedCellSize;
+}
+
+.actionCell {
+  padding-inline: 0 !important;
+  margin-inline: 0 !important;
+  max-inline-size: 3rem;
+
+  > div {
+    inline-size: 100%;
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  .loadingWheel {
+    inline-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.statusCell {
+  width: rem(56px) !important;
+
+  display: flex;
+  align-items: center;
+  gap: rem(8px);
+
+  @include breakpoint-up(xlg) {
+    width: rem(100px) !important;
+  }
+}
+
+.statusErrorCell {
+  display: flex;
+  align-items: center;
+  gap: rem(8px);
+}
+
+.statusDescription {
+  @include breakpoint-down(xlg) {
+    display: none;
+  }
+}
+
+.progressIcon {
+  fill: $support-info;
+  flex-shrink: 0;
+}
+
+.errorIcon {
+  fill: $support-error;
+  flex-shrink: 0;
+}
+
+.errorDetail {
+  @include type-style('body-01');
+}
+
+.completedIcon {
+  fill: $support-success;
+  flex-shrink: 0;
+}
+
+.row {
+  container-type: inline-size;
+}
+
+.creator {
+  width: calc((100cqw - 6rem - rem(56px) - rem(160px)) / 8) !important;
+  max-width: calc((100cqw - 6rem - rem(56px) - rem(160px)) / 8) !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,88 @@
+@use '@styles/common' as *;
+
+.root :global(.cds--tabs) {
+  overflow: visible;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .runInfo {
+    height: rem(200px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: 0.75rem;
+
+    .link {
+      display: flex;
+      align-items: center;
+      gap: rem(8px);
+      width: fit-content;
+    }
+
+    h2 {
+      span {
+        font-weight: 300;
+      }
+    }
+  }
+}
+
+.row {
+  display: flex;
+  column-gap: rem(32px);
+}
+
+.info {
+  margin-top: rem(4px);
+  @include type-style('body-compact-01');
+
+  > * {
+    margin-bottom: rem(20px);
+  }
+}
+
+.root :global(.cds--tab-content) {
+  padding: 0;
+  background: $layer-01;
+}
+
+.gridWrapper {
+  block-size: rem(500px);
+  position: relative;
+}
+
+.sanityCheckMessage {
+  padding: 1rem;
+  @include type-style('body-01');
+  position: relative;
+
+  ol {
+    list-style: decimal;
+    padding-inline-start: 1rem;
+    margin-block-end: 1rem;
+
+    li {
+      margin-block-start: 1rem;
+    }
+  }
+
+  code {
+    @include type-style(code-01);
+    padding-inline: rem(2px);
+    background: $layer-02;
+    border: rem(1px) solid $border-subtle-00;
+  }
+}
+
+.popoverBackdrop {
+  inline-size: 100dvw;
+  block-size: 100dvh;
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+}

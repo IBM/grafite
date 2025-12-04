@@ -1,0 +1,35 @@
+@use '@styles/common' as *;
+
+.comment {
+  @include type-style('helper-text-01');
+  margin-bottom: 1rem;
+
+  &.md .content {
+    @include type-style('body-01');
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    color: $text-helper;
+    overflow: hidden;
+    column-gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .name {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .time {
+    white-space: nowrap;
+  }
+
+  > :last-child {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}

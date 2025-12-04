@@ -1,0 +1,96 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/utilities/button-reset';
+
+.panel {
+  border-left: rem(1px) solid $border-subtle-00;
+  background: $layer-01;
+  block-size: calc(100dvh - 3rem);
+  inline-size: rem(300px);
+  animation: appear 0.2s 1 forwards;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: rem(24px);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  .label {
+    @include type-style(label-01);
+    color: $text-secondary;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    margin-block-start: rem(2px);
+    column-gap: 0.5rem;
+    @include type-style(heading-compact-02);
+  }
+}
+
+.description {
+  @include type-style(helper-text-01);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  :global(.cds--popover) {
+    display: none;
+  }
+
+  > *,
+  button {
+    inline-size: 100%;
+  }
+
+  > button {
+    @include button-reset.reset();
+    background: $background;
+    border: rem(1px) solid $border-subtle-00;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-block-size: rem(58px);
+    padding: 1rem;
+
+    &:hover {
+      background: $layer-hover-01;
+    }
+
+    &:focus {
+      border-color: $border-subtle-01;
+    }
+  }
+
+  .addBtn {
+    border: rem(1px) dashed $border-subtle-01;
+  }
+
+  .model {
+    @include type-style(heading-01);
+  }
+
+  .id {
+    @include type-style(label-01);
+    color: $text-secondary;
+  }
+}
+
+@keyframes appear {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+
+  to {
+    width: rem(300px);
+    opacity: 1;
+  }
+}

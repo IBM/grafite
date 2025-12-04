@@ -1,0 +1,77 @@
+@use '@styles/common' as *;
+@import '@utils/ag-grid/ag-grid.module';
+
+.tooltip p {
+  @include type-style('body-compact-01');
+
+  > span {
+    color: $text-secondary;
+    font-weight: 600;
+    @include type-style('helper-text-01');
+  }
+}
+
+.externalFieldCellEditor {
+  padding-block: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: rem(700px);
+  max-width: 95dvw;
+  background: $background;
+  border: rem(1px) solid $border-subtle-00;
+
+  > label,
+  .tags {
+    padding-inline: 1rem;
+  }
+
+  > label {
+    @include type-style('heading-01');
+  }
+
+  .tags {
+    margin-block-start: rem(8px);
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.padding {
+  padding: 1rem;
+}
+
+.empty {
+  @include type-style('helper-text-01');
+  color: $text-secondary;
+}
+
+.detailedSearchModuleItemTag {
+  margin-left: 0 !important;
+}
+
+.resolveIssueModal {
+  .description {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.runId,
+.na,
+.testCounts {
+  @include type-style(label-01);
+  color: $text-secondary;
+}
+
+.testCounts {
+  vertical-align: middle;
+  padding-inline-end: 0.5rem;
+}
+
+.na {
+  padding-inline-end: 1rem;
+}
+
+.buttonCell {
+  display: inline-block;
+  inline-size: fit-content;
+}

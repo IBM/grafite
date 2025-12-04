@@ -1,0 +1,85 @@
+@use '@styles/common' as *;
+
+.wrapper {
+  padding: 2rem 3rem;
+  flex: 1;
+  position: relative;
+
+  &:has(.header) {
+    background: $layer-01;
+    border-top: rem(1px) solid $border-subtle-00;
+  }
+
+  :global(> .cds--loading-overlay) {
+    position: absolute;
+  }
+}
+
+.header {
+  @include type-style('heading-03');
+
+  font-size: 1.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: rem(1px) solid $border-subtle-00;
+}
+
+.content {
+  display: flex;
+  padding: 1.5rem 0;
+  column-gap: 3rem;
+
+  .title {
+    display: flex;
+    column-gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  > :first-child {
+    //left items
+    flex: 1;
+  }
+
+  > :last-child {
+    //right items
+    flex: 0 0 13.5rem;
+
+    > div {
+      margin-bottom: 2rem;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+
+      button {
+        background: transparent;
+
+        &:first-of-type {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+.validatorWrapper {
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+
+.na {
+  @include type-style('label-01');
+}
+
+.contentSet > :last-child {
+  margin-top: 0.5rem;
+}

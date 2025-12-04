@@ -1,0 +1,92 @@
+@use '@styles/common' as *;
+
+.userName {
+  @include type-style('body-compact-01');
+
+  vertical-align: middle;
+  line-height: 3rem;
+  padding-left: $spacing-03;
+}
+
+a:has(.feedback) > * {
+  inline-size: 100%;
+}
+
+.feedback {
+  display: inline-block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sideNavMenuSelected > button {
+  //force selected style. copyof carbon style
+  position: relative;
+  background-color: $background-selected;
+  color: $text-primary;
+
+  &::before {
+    position: absolute;
+    background-color: $border-interactive;
+    content: '';
+    inline-size: rem(3px);
+    inset-block: 0;
+    inset-inline-start: 0;
+  }
+}
+
+.sideNav {
+  position: relative;
+
+  .bottom {
+    opacity: 0;
+    transition: 0.2s;
+    position: absolute;
+    bottom: 0;
+    padding-block-end: 2rem;
+
+    a {
+      min-block-size: 4.4rem;
+
+      span {
+        overflow: visible;
+        flex: 1;
+      }
+    }
+
+    h3 {
+      padding: 1rem;
+      @include type-style('heading-01');
+    }
+  }
+
+  .otherTools {
+    display: flex;
+    flex-direction: column;
+    row-gap: rem(10px);
+    padding: 0.75rem 0;
+
+    > :first-child {
+      display: flex;
+      justify-content: space-between;
+
+      > span {
+        white-space: normal;
+        word-break: break-word;
+      }
+    }
+  }
+
+  .toolDescription {
+    display: inline-block;
+    width: 100%;
+    @include type-style('label-01');
+    line-height: 1.5;
+    white-space: normal;
+    word-break: break-word;
+  }
+}
+
+.wrapper :global(:has(.cds--side-nav__overlay-active)) .sideNav .bottom {
+  opacity: 1;
+}

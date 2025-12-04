@@ -1,0 +1,52 @@
+@use '@styles/common' as *;
+
+.root {
+  position: relative;
+}
+
+.loading {
+  position: absolute;
+  right: 0;
+  top: -1.7rem;
+}
+
+%fixedCellSize {
+  width: rem(160px) !important;
+}
+
+.fixedCell {
+  @extend %fixedCellSize;
+}
+
+.statusCell {
+  width: rem(200px) !important;
+
+  display: flex;
+  align-items: center;
+  gap: rem(10px);
+}
+
+.statusErrorCell {
+  width: rem(250px) !important;
+
+  .iconRow {
+    display: flex;
+    align-items: center;
+    gap: rem(10px);
+  }
+}
+
+.progressIcon {
+  fill: $support-info;
+  flex-shrink: 0;
+}
+
+.errorIcon {
+  fill: $support-error;
+  flex-shrink: 0;
+}
+
+.completedIcon {
+  fill: $support-success;
+  flex-shrink: 0;
+}

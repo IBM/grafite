@@ -1,0 +1,424 @@
+@use '@styles/common' as *;
+$max-width: 47.875rem;
+$size-transition: 0.2s;
+$query-size: rem(1280px);
+$wrapper-query-size: rem(1500px);
+
+.wrapper {
+  @media screen and (width >= $wrapper-query-size) {
+    display: flex;
+    align-items: stretch;
+    column-gap: 1rem;
+
+    .inferenceArea {
+      flex: 1.5;
+    }
+  }
+
+  &:has(.wide) {
+    .actions,
+    .inputArea,
+    .messageWrapper {
+      max-width: calc(2 * $max-width);
+      margin: 0 auto;
+    }
+
+    .messageWrapper {
+      justify-content: flex-start;
+      margin: 0.5rem auto;
+      animation: appear 0.2s 1 forwards;
+      column-gap: 0;
+
+      > * {
+        max-width: 50%;
+      }
+
+      @media screen and (min-width: $query-size) {
+        column-gap: 1rem;
+      }
+    }
+
+    .message {
+      padding-left: 1rem;
+    }
+
+    .input {
+      margin: 0;
+      max-width: 100%;
+    }
+
+    .loaderWrapper {
+      align-self: flex-start;
+    }
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.chatBox {
+  display: flex;
+  flex-direction: column;
+  height: calc(100dvh - 19.675rem);
+  min-height: 35rem;
+  overflow: hidden;
+  position: relative;
+  border-top: rem(1px) solid $border-subtle-00;
+
+  :global(.cds--loading-overlay) {
+    position: absolute;
+  }
+
+  > * {
+    padding: 0 0.5rem;
+  }
+
+  .actions {
+    width: 100%;
+    max-width: $max-width;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    position: relative;
+    margin: 0 auto;
+    transition: 0.2s;
+
+    .maxWidthWrapper {
+      display: flex;
+
+      > div {
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding-left: rem(1px);
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          width: rem(1px);
+          height: 50%;
+          background: $border-subtle-00;
+        }
+      }
+    }
+
+    &::after {
+      //overflow indicator
+      position: absolute;
+      content: ' ';
+      bottom: -1rem;
+      left: 0;
+      width: 100%;
+      height: 1rem;
+      background: linear-gradient(180deg, $background, transparent);
+    }
+  }
+
+  .messages {
+    flex: 1;
+    padding: 1rem 0;
+    overflow-y: auto;
+    scrollbar-gutter: stable both-edges;
+    scroll-behavior: smooth;
+    overflow-anchor: none;
+    width: 100%;
+
+    .overflowWrapper {
+      width: 100%;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+}
+
+.scrollSnapper {
+  overflow-anchor: auto;
+  display: block;
+  width: rem(1px);
+  height: rem(1px);
+}
+
+.messageWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  margin: 0.5rem auto;
+  transition: $size-transition;
+
+  > * {
+    flex: 0 1 $max-width;
+    transition: $size-transition;
+  }
+
+  &.wide {
+    align-items: stretch;
+
+    > * {
+      flex: 1;
+    }
+  }
+
+  &:hover {
+    background: $layer-01;
+
+    .message .role .msgActions {
+      > :nth-child(1),
+      > :nth-child(2) {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.desired {
+  padding: 1rem;
+  padding-left: 0;
+  opacity: 1;
+  transition:
+    opacity 0.1s,
+    width 0.2s;
+  min-height: rem(200px);
+
+  &.hidden {
+    width: 0;
+    flex: 0 0 0;
+    height: 0;
+    min-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    padding: 0;
+    opacity: 0;
+    transition: height 0s;
+  }
+
+  &.invisible {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    min-height: 0;
+    transition-delay: height 0.2s;
+  }
+
+  @media screen and (min-width: $query-size) {
+    padding-right: 1.5rem;
+  }
+}
+
+.loaderWrapper {
+  padding-left: 3.5rem;
+  transform: translateY(-1.5rem);
+  width: 100%;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 1rem;
+  transition: $size-transition;
+  width: 100%;
+  padding: 1rem;
+  padding-left: 1.5rem;
+
+  @include type-style('body-compact-01');
+
+  > * {
+    width: 100%;
+  }
+
+  > :last-child {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.375rem;
+  }
+
+  :global(p) {
+    -webkit-margin-before: 0 !important;
+    margin-block: 0 !important;
+    -webkit-margin-after: 0 !important;
+  }
+
+  .role {
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 0.5rem;
+
+    > :first-child {
+      flex: 1;
+      column-gap: 0.5rem;
+      align-items: center;
+
+      > :nth-child(2) {
+        color: $text-primary;
+      }
+    }
+
+    > * {
+      display: flex;
+    }
+
+    &:has(.msgActions) {
+      margin-bottom: 0.25rem;
+    }
+
+    .msgActions {
+      justify-content: flex-end;
+
+      > :nth-child(1),
+      > :nth-child(2) {
+        opacity: 0;
+        transition: 0.2s;
+      }
+    }
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: $text-secondary;
+
+  .modelIcon,
+  .userIcon {
+    background: $support-caution-major;
+
+    @include type-style('helper-text-01');
+
+    line-height: 1;
+    color: $text-inverse;
+    border-radius: 1rem;
+
+    flex: 0 0 1.5rem;
+    margin: 0 0.25rem;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.gradient {
+  //overflow indicator
+  margin-top: -1rem;
+  position: relative;
+  width: 100%;
+  height: 1rem;
+  background: linear-gradient(0deg, $background, transparent);
+}
+
+.inputArea {
+  width: 100%;
+}
+
+.input {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: $max-width;
+  margin: 0 auto;
+  position: relative;
+  transition: $size-transition;
+
+  :nth-child(2) {
+    flex: 1;
+  }
+
+  .inputWrapper {
+    position: relative;
+
+    > :first-child {
+      width: 100%;
+    }
+
+    > :last-child {
+      position: absolute;
+      right: 0;
+      opacity: 0;
+      bottom: 0;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &:has(textarea:focus) > :last-child {
+      opacity: 1;
+    }
+
+    textarea.promptInput {
+      border-radius: 0;
+      border: none;
+      background: $layer-01;
+      color: $text-primary;
+      padding: 0.625rem 1rem;
+      min-height: 2.5rem;
+      margin-bottom: rem(-1px);
+      resize: none;
+
+      @include type-style('body-compact-01');
+
+      max-height: 30dvh;
+
+      &:focus {
+        outline-color: $interactive;
+        -moz-outline-radius: 0;
+      }
+    }
+  }
+}
+
+.flaggedLabel button {
+  border-color: transparent;
+  color: $text-error;
+}
+
+.systemPromptInfo {
+  padding: 0.75rem 0 1rem;
+
+  p {
+    @include type-style('body-01');
+
+    margin-bottom: 0.5rem;
+
+    > * {
+      vertical-align: middle;
+    }
+  }
+
+  &:has(.action) {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 0.5rem;
+    align-items: center;
+  }
+}
+
+.modelName {
+  @include type-style('code-01');
+
+  background: $layer-02;
+  border: rem(1px) solid $border-subtle-00;
+  padding: 0 rem(2px);
+}
+
+.modelTag {
+  align-self: center;
+}

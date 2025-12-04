@@ -1,0 +1,26 @@
+@use '@styles/common' as *;
+
+.dropdown {
+  position: relative;
+  margin-block-start: 2rem;
+  margin-block-end: 12rem;
+}
+
+.selectAll {
+  position: absolute;
+  inset-block-start: rem(-8px);
+  inset-inline-end: 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tagList {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}

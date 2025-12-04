@@ -1,0 +1,34 @@
+@use '@styles/common' as *;
+
+.wrapper {
+  display: flex;
+  min-height: calc(100dvh - rem(48px));
+  align-items: stretch;
+  overflow-x: hidden;
+  width: calc(100% - rem(48px));
+
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100dvh - rem(48px));
+    @include scrollbar();
+  }
+}
+
+.titleArea {
+  padding: 2rem 2rem 2.5rem;
+  position: relative;
+  z-index: 999;
+
+  h2 {
+    @include type-style('heading-03');
+    margin-bottom: 1rem;
+  }
+
+  p {
+    @include type-style('body-01');
+    margin-bottom: 2.5rem;
+    color: $text-secondary;
+  }
+}

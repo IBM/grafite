@@ -1,0 +1,19 @@
+@use '@styles/common' as *;
+
+.wrapper {
+  :global(.cds--contained-list-item) {
+    height: rem(33px);
+  }
+
+  ::before {
+    display: none;
+  }
+
+  :global(.cds--contained-list-item__content) {
+    padding: 0 3rem rem(1px) 0;
+  }
+}
+
+.removeAction {
+  border-bottom: rem(1px) solid $border-subtle !important;
+}

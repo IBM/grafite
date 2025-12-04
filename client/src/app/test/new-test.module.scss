@@ -1,0 +1,386 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/utilities/button-reset';
+
+$max-screen-height: 54rem;
+$md-screen-width: rem(1200px);
+
+.loadingBox {
+  display: flex;
+  align-items: center;
+}
+
+.heading {
+  position: fixed;
+  top: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem;
+  border-bottom: rem(1px) solid $border-subtle-00;
+  z-index: 999;
+  background: $background;
+
+  .titleArea {
+    display: flex;
+    align-items: center;
+    column-gap: 0.75rem;
+    white-space: nowrap;
+
+    > :last-child {
+      display: flex;
+
+      > * {
+        align-self: center;
+      }
+
+      button {
+        font-size: 0.75rem;
+        padding-inline: 0.75rem;
+      }
+    }
+
+    .breadcrumb {
+      @include button-reset.reset();
+      display: flex;
+      column-gap: 0.5rem;
+      align-items: center;
+      color: $interactive;
+      @include type-style('label-02');
+      margin-inline-end: 0.25rem;
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    column-gap: 0.5rem;
+  }
+
+  .loadingBox {
+    width: 6.9125rem;
+  }
+
+  @media screen and (max-height: $max-screen-height) {
+    padding: 0.5rem 1rem;
+    position: relative;
+    top: 0;
+  }
+}
+
+.main {
+  display: flex;
+  align-items: stretch;
+  margin-top: 8.5625rem;
+  min-height: calc(100dvh - 8.5625rem);
+
+  @media screen and (max-height: $max-screen-height) {
+    margin-top: 0;
+  }
+
+  .contents {
+    flex: 1;
+    padding: 1.5rem 1rem 1.5rem 2rem;
+
+    @media screen and (width >=$md-screen-width) {
+      padding: 1.5rem 2rem;
+    }
+
+    @media screen and (max-height: $max-screen-height) {
+      padding: 1rem 1rem 1rem 1.5rem;
+    }
+
+    .actions {
+      display: flex;
+      width: 100%;
+      padding: 1rem 0 0;
+      border-top: rem(1px) solid $border-subtle-00;
+
+      &:not(:has(.reverse)) {
+        justify-content: flex-end;
+      }
+
+      .reverse {
+        flex-direction: row-reverse;
+        column-gap: 0.5rem;
+
+        svg {
+          margin: 0;
+        }
+      }
+    }
+
+    textarea {
+      background: transparent;
+      border: rem(1px) solid $border-subtle-00;
+    }
+  }
+}
+
+.actionRow {
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  transition: 0.2s;
+  height: 2rem;
+}
+
+.inferenceFormWrapper,
+.validatorFormWrapper {
+  .row {
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+    width: 100%;
+  }
+}
+
+.inferenceFormWrapper {
+  position: relative;
+
+  > * {
+    margin-bottom: 1.5rem;
+
+    @media screen and (max-height: $max-screen-height) {
+      margin-bottom: 1rem;
+    }
+
+    &.freeFormInput {
+      margin-block-end: 2rem;
+    }
+  }
+
+  :global(> .cds--loading-overlay) {
+    position: absolute;
+    width: calc(100% + 4rem);
+    left: -2rem;
+    top: -1.5rem;
+    height: calc(100% + 3rem);
+  }
+
+  .sectionTitle {
+    justify-content: space-between;
+  }
+
+  .modeSwitcher {
+    flex: 0 0 15rem;
+  }
+
+  .formRow {
+    align-items: stretch;
+  }
+
+  .formRow > * {
+    flex: 1;
+    align-items: stretch;
+
+    > :last-child {
+      flex: 1;
+    }
+  }
+
+  .ModelOutputHandler {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .completion {
+    padding: calc(0.75rem + rem(1px));
+
+    @include type-style('body-01');
+
+    border: rem(1px) solid $border-subtle-00;
+    max-height: 100%;
+    flex: 1;
+    overflow-y: auto;
+  }
+}
+
+.validatorFormWrapper {
+  .ratio_2_3 {
+    margin: 1.5rem 0 2rem;
+
+    > * {
+      flex: 1;
+    }
+
+    > :last-child {
+      flex: 1.5;
+    }
+  }
+
+  .validateActions {
+    column-gap: 0.5rem;
+    margin: 2rem 0 1.5rem;
+
+    .loadingBox {
+      width: 14.266rem;
+    }
+  }
+
+  :global(.cds--accordion__item) {
+    border-color: $border-subtle-00;
+  }
+
+  :global(.cds--accordion__wrapper) {
+    padding: 0;
+  }
+
+  :global(.cds--accordion__content) {
+    padding: 0;
+    margin: 0;
+  }
+
+  .title span {
+    @include type-style('heading-01');
+
+    color: $text-secondary;
+  }
+
+  .existing {
+    display: flex;
+    align-items: center;
+    color: $text-secondary;
+
+    @include type-style('body-01');
+
+    margin-top: 1rem;
+
+    > :first-child {
+      fill: $support-info;
+      margin-right: 0.5rem;
+    }
+
+    > :last-child {
+      @include type-style('label-01');
+    }
+  }
+
+  .judgeValidator {
+    padding: 1.5rem 2rem 2rem;
+
+    @include type-style('body-01');
+
+    background: $layer-01;
+
+    > :first-child {
+      padding-left: 1.25rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .validationTool {
+    margin-left: -2rem;
+    margin-bottom: 2.5rem;
+
+    .title {
+      display: flex;
+      align-items: center;
+      column-gap: 0.5rem;
+    }
+
+    :global(.cds--accordion__item) {
+      border: none;
+
+      > button {
+        padding-left: 1.25rem;
+      }
+    }
+  }
+
+  .ratio_1_3 {
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+
+    > * {
+      flex: 1;
+      min-height: 3.54rem;
+    }
+
+    > :last-child {
+      flex: 3;
+    }
+  }
+}
+
+.expandedCell {
+  width: 100%;
+
+  .row {
+    margin-top: 1.5rem;
+    align-items: flex-start;
+
+    > * {
+      flex: 1;
+    }
+  }
+}
+
+.judgePrompt p {
+  @include type-style('body-01');
+
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-width: 50em;
+}
+
+.rightAction {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0;
+}
+
+.notification {
+  position: fixed;
+  right: 1rem;
+  top: 4rem;
+}
+
+.stale textarea {
+  color: $text-helper;
+}
+
+.access {
+  width: 100%;
+  height: calc(100dvh - 9rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 0.5rem;
+
+  .icon {
+    @include type-style('heading-07');
+
+    color: $support-caution-major;
+  }
+
+  .title {
+    @include type-style('heading-03');
+  }
+
+  .body {
+    @include type-style('body-01');
+
+    margin: 0.25rem 0 2rem;
+  }
+}
+
+.freeformInfoRow {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+.judgeGuidelinesTextarea {
+  :global(.cds--label) {
+    width: 100%;
+
+    .judgeGuidelinesLabel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}

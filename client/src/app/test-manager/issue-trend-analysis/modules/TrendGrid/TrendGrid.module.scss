@@ -1,0 +1,28 @@
+@use '@styles/common' as *;
+
+.info {
+  @include type-style('label-01');
+  color: $text-secondary;
+
+  svg {
+    vertical-align: sub;
+  }
+
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.title {
+  max-inline-size: calc(100% - rem(96px));
+  display: flex;
+  align-items: center;
+}
+
+.gridFooter {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+}

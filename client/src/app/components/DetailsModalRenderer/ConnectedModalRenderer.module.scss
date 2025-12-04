@@ -1,0 +1,35 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/utilities/button-reset';
+
+.root {
+  :global(.cds--modal-header) {
+    overflow-y: visible;
+  }
+}
+
+.row {
+  position: relative;
+  block-size: 100%;
+
+  .crumbButton {
+    position: absolute;
+    top: -1rem;
+    right: 0;
+    display: flex;
+    align-items: center;
+    column-gap: 0.25rem;
+    color: $interactive;
+
+    svg {
+      fill: $interactive;
+    }
+  }
+
+  &.hasComment .crumbButton {
+    right: rem(48px);
+  }
+}
+
+.space {
+  min-height: 50dvh;
+}

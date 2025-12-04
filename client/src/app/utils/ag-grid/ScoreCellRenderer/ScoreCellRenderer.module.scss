@@ -1,0 +1,22 @@
+@use '@styles/common' as *;
+
+.scoreButtonWrapper {
+  display: inline-block;
+  inline-size: fit-content;
+}
+
+.na {
+  color: $text-secondary;
+  @include type-style(label-01);
+  padding-inline-end: 1rem;
+}
+
+.scoreButton {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+
+  .score > :first-child {
+    color: $interactive;
+  }
+}

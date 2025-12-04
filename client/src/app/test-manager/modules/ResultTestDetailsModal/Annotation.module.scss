@@ -1,0 +1,27 @@
+@use '@styles/common' as *;
+
+.actionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: rem(8px);
+
+  :global(.cds--text-area--fluid .cds--text-area__wrapper) {
+    background: $layer-01 !important; //temporary fix until Carbon fix coming
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+
+  .loading {
+    margin-left: 1rem;
+  }
+}

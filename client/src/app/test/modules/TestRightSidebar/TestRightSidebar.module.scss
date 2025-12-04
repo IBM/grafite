@@ -1,0 +1,27 @@
+@use '@styles/common' as *;
+@use '@carbon/styles/scss/utilities/button-reset';
+
+$md-screen-height: rem(864px);
+
+.rightSidebar {
+  flex: 0 0 13rem;
+  margin-top: rem(6px);
+  padding: 1.5rem 1.5rem 1.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+  max-width: 13rem;
+
+  @media screen and (height <= $md-screen-height) {
+    padding: 1rem 1rem 1rem 0.5rem;
+  }
+
+  > * {
+    max-width: 100%;
+    margin-left: 0.5rem;
+  }
+}
+
+.empty {
+  @include type-style('helper-text-01');
+}

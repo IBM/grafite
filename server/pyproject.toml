@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=40.8.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "grafite"
+version = "0.1.0"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { "text" = "Apache-2.0" }
+dependencies = [
+    "requests",
+    "python-dotenv",
+    "python-multipart",
+    "fastapi",
+    "uvicorn",
+    "pymongo",
+    "tqdm",
+    "pika",
+    "ibm-watsonx-ai",
+    "itsdangerous",
+    "transformers",
+    "rich",
+    "openai",
+    "Jinja2",
+    "cryptography"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.3.2",
+  "pytest-dotenv>=0.5.2",
+  "pre-commit>=3.3.2",
+  "pytest-cov>=4.1.0",
+  "pytest-asyncio>=0.21.0",
+  "pytest-mock>=3.10.0",
+  "setuptools-scm>=7.1.0",
+  "pytest-httpx>=0.22.0",
+  "build>=0.10.0"
+]
+
+[options]
+package_dir=[
+  "src"
+]
+
+[options.packages.find]
+where=[
+  "src/grafite"
+]

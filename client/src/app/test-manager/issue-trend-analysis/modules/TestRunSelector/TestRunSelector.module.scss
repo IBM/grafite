@@ -1,0 +1,96 @@
+@use '@styles/common' as *;
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.25rem;
+  padding-inline-start: rem(40px);
+  block-size: rem(90px);
+  inline-size: calc(100%);
+  border-block: rem(1px) solid $border-subtle-00;
+}
+
+.empty {
+  @include type-style('label-01');
+  color: $text-helper;
+}
+
+.reportCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.5rem;
+  padding: 0.5rem;
+  flex: 1;
+
+  .letter {
+    width: rem(21px);
+    height: rem(21px);
+    border-radius: 100%;
+    border: rem(1px) solid $border-subtle-00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > span {
+      color: $text-secondary;
+      font-size: rem(12px);
+    }
+  }
+
+  .info {
+    text-align: center;
+
+    > :first-child {
+      @include type-style('heading-02');
+    }
+
+    > :last-child {
+      @include type-style('label-01');
+      color: $text-secondary;
+    }
+  }
+}
+
+.divider {
+  position: relative;
+
+  > div {
+    position: relative;
+    padding: 0.5rem;
+    background: $layer-01;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    @include type-style('label-01');
+    line-height: 1;
+    border: rem(1px) solid $border-subtle-00;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: rem(90px);
+    width: rem(1px);
+    background-color: $border-subtle-00;
+    inset-inline-start: 50%;
+    inset-block-start: -100%;
+  }
+}
+
+.addBtn {
+  float: right;
+  display: flex;
+  align-items: center;
+  padding-block-start: 0;
+  background-color: $layer-01;
+  max-block-size: rem(90px);
+  block-size: rem(90px);
+  border-inline-start: rem(1px) solid $border-subtle-00;
+
+  > *,
+  > * > *,
+  button {
+    block-size: 100%;
+  }
+}

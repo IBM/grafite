@@ -1,0 +1,10 @@
+@use '@styles/common' as *;
+
+.root {
+  background: $layer-01;
+  display: flex;
+  column-gap: 0.5rem;
+  min-height: rem(48px);
+  align-items: center;
+  padding-inline: rem(16px);
+}
