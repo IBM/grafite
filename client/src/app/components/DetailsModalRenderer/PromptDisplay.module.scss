@@ -12,7 +12,7 @@
   }
 
   &.promptText .displayModeButton {
-    inset-inline-start: rem(calc(235px + 2px));
+    inset-inline-start: rem(calc(133px + 2px));
   }
 }
 
@@ -72,6 +72,7 @@
       @include button-reset.reset();
       color: $text-secondary;
       padding: 0.2rem 0.5rem;
+      
       @include type-style('label-01');
       white-space: nowrap;
 

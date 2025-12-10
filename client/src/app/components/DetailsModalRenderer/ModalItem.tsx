@@ -7,26 +7,40 @@ import StatusTag from '@components/StatusTag';
 import { Fragment, ReactElement, useId } from 'react';
 
 import styles from './ModalItem.module.scss';
+import PromptDisplay from './PromptDisplay';
 import { dataIsFields, DetailsModalRendererData, getKey } from './utils';
 
 interface Props {
-  data: DetailsModalRendererData;
+  rawData: DetailsModalRendererData[];
+  index: number;
   isHeaderItem?: boolean;
 }
-const ModalItem = ({ data, isHeaderItem }: Props) => {
+const ModalItem = ({ rawData, index, isHeaderItem }: Props) => {
   const id = useId();
+  const data = rawData[index];
+
+  const dataIsField = dataIsFields(data);
+  if (dataIsField && data.isPromptElement)
+    return (
+      <Fragment key={data.label}>
+        <PromptDisplay data={rawData} currentData={data} />
+      </Fragment>
+    );
+
+  //dispaly prompt and message in a separate component, and avoid repetition
+  if (dataIsField && (data.isPromptElement || data.label === 'Comments')) return null; //dispaly prompt and message in a separate component, and avoid repetition
 
   if (Array.isArray(data))
     return (
       <div className={styles.row}>
-        {data.map((d) => (
+        {data.map((d, i) => (
           <Fragment key={`${id}-${getKey(d)}`}>
-            <ModalItem data={d} />
+            <ModalItem rawData={data} index={i} />
           </Fragment>
         ))}
       </div>
     );
-  if (!dataIsFields(data)) return null;
+  if (!dataIsField) return null;
   if (!isHeaderItem && data.displayedInHeader) return null;
 
   if (data.renderType === 'divider') return <hr className={styles.divider} />;

@@ -174,18 +174,29 @@ export const mapTestModalData = (data: Test, addData?: (data?: DetailsModalRende
     {
       renderType: FieldRenderType.DIVIDER,
     },
-    {
-      label: 'Raw prompt (Freeform prompt from user)',
-      content: data.prompt,
-      renderProps: ['previewMarkdown', 'expandable'],
-      isPromptElement: true,
-    },
-    {
-      label: 'Messages',
-      content: data.messages,
-      renderProps: ['formatMarkdown', 'expandable'],
-      isPromptElement: true,
-    },
+    [
+      {
+        label: 'Raw (freeform) prompt',
+        content: data.prompt,
+        renderProps: ['previewMarkdown', 'expandable'],
+        isPromptElement: true,
+      },
+      {
+        label: 'Messages',
+        content: data.messages,
+        renderProps: ['formatMarkdown', 'expandable'],
+        isPromptElement: true,
+      },
+      ...(data.tools
+        ? [
+            {
+              label: 'Tools',
+              content: JSON.stringify(data.tools),
+              renderProps: ['formatMarkdown', 'expandable'],
+            },
+          ]
+        : []),
+    ],
     [
       {
         label: 'Model response',
