@@ -15,7 +15,6 @@ import { createPortal } from 'react-dom';
 import Comments from './Comments';
 import styles from './DetailsModalRenderer.module.scss';
 import ModalItem from './ModalItem';
-import PromptDisplay from './PromptDisplay';
 import { dataIsFields, DetailsModalRendererData, findData, getKey } from './utils';
 
 export interface Props {
@@ -102,21 +101,11 @@ const DetailsModalRenderer = ({
                   )}
                   <div className={styles.contents}>
                     {data?.map((d: DetailsModalRendererData, i: number) => {
-                      const dataIsField = dataIsFields(d);
-                      if (dataIsField && d.isPromptElement)
-                        return (
-                          <Fragment key={d.label}>
-                            {' '}
-                            <PromptDisplay data={data} currentData={d} />{' '}
-                          </Fragment>
-                        );
-
-                      if (dataIsField && (d.isPromptElement || d.label === 'Comments')) return null; //dispaly prompt and message in a separate component, and avoid repetition
                       const key = `${id}-${getKey(d) ?? i}`;
 
                       return (
                         <Fragment key={key}>
-                          <ModalItem data={d} />
+                          <ModalItem rawData={data} index={i} />
                         </Fragment>
                       );
                     })}
@@ -166,7 +155,7 @@ const ModalHeaderWTags = ({
         const key = dataIsFields(tag) ? tag.label : index;
         return (
           <Fragment key={`heading-${key}`}>
-            <ModalItem data={tag} isHeaderItem />
+            <ModalItem rawData={headerTags} index={index} isHeaderItem />
           </Fragment>
         );
       })}

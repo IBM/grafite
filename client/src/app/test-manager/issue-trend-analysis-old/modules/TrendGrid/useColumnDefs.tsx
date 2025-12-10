@@ -1,10 +1,12 @@
+import { Tag } from '@carbon/react';
 import MarkdownBox from '@components/MarkdownBox';
 import OperationalIdTag from '@components/OperationalIdTag';
 import { SelectedReport } from '@test-manager/issue-trend-analysis-old/[id]/utils';
 import styles from '@utils/ag-grid/ag-grid.module.scss';
 import ScoreCellRenderer from '@utils/ag-grid/ScoreCellRenderer';
+import TagsTooltip from '@utils/ag-grid/TagsTooltip';
 import { ColDef, ColGroupDef, ICellRendererParams, ITooltipParams, ValueGetterParams } from 'ag-grid-community';
-import { useCallback, useMemo } from 'react';
+import { Fragment, useCallback, useMemo } from 'react';
 
 import { objArrToString, TrendGridData } from './utils';
 
@@ -68,6 +70,23 @@ export const useColumnDefs = (
         editable: false,
         valueGetter: (params: ValueGetterParams) => objArrToString(params.data?.messages),
         tooltipComponent: (params: ITooltipParams) => <MessagesToolTip {...params} />,
+      },
+      {
+        field: 'flags',
+        tooltipField: 'flags',
+        width: 250,
+        cellRenderer: (params: ICellRendererParams) => (
+          <>
+            {params.data.flags?.map((val: string[], idx: number) => (
+              <Fragment key={`flag-${params.data._id}-${idx}`}>
+                <Tag size="sm" type="cool-gray" className={styles.tag}>
+                  {val}
+                </Tag>
+              </Fragment>
+            ))}
+          </>
+        ),
+        tooltipComponent: (params: ITooltipParams) => <TagsTooltip {...params} />,
       },
       ...selectedReports
         ?.filter((report) => !!report.results)

@@ -1,47 +1,20 @@
 import { Tag } from '@carbon/react';
-import MarkdownBox from '@components/MarkdownBox';
 import OperationalIdTag from '@components/OperationalIdTag';
 import { CopiableTag } from '@components/ShortIdTag';
 import { useIsAdmin } from '@hooks/permissionHooks';
+import { Message } from '@types';
 import gridStyles from '@utils/ag-grid/ag-grid.module.scss';
+import MarkdownToolTip from '@utils/ag-grid/MarkdownTooltip';
 import getStatusColDef, { OnStatusChangeParams } from '@utils/ag-grid/StatusCellEditor';
 import TagsTooltip from '@utils/ag-grid/TagsTooltip';
 import { type Test } from '@utils/getFunctions/getDashboardTests';
-import {
-  AgColumn,
-  ColDef,
-  ColGroupDef,
-  ICellRendererParams,
-  ITooltipParams,
-  ValueGetterParams,
-} from 'ag-grid-community';
+import { ColDef, ColGroupDef, ICellRendererParams, ITooltipParams, ValueGetterParams } from 'ag-grid-community';
 import { Fragment, useMemo } from 'react';
 
 import styles from './TestTable.module.scss';
 import { objArrToString } from './utils';
 
 type ColumnDef = ColDef | ColGroupDef;
-const MarkdownToolTip = (props: ITooltipParams<Test & { issueTitle?: string }>) => {
-  const content: unknown = props.value;
-  const isMessage = (props.column as AgColumn)?.colId === 'messages';
-  const contentIsString = typeof content === 'string';
-
-  const formatted = (messages: { role: string; content: string }[]) =>
-    messages.reduce((prev, curr) => `${prev}\n**${curr.role}**: ${curr.content}`, '');
-
-  return (
-    <div className={styles.tooltip}>
-      <MarkdownBox>
-        {isMessage
-          ? formatted(content as { role: string; content: string }[])
-          : contentIsString
-            ? content
-            : `${content}`}
-      </MarkdownBox>
-    </div>
-  );
-};
-
 export const useColumnDefs = (
   selectDetail: (id: string, type: 'issue' | 'test') => void,
   onStatusChange: (params: OnStatusChangeParams) => void,
@@ -96,7 +69,27 @@ export const useColumnDefs = (
         tooltipValueGetter: (params: ITooltipParams) => JSON.stringify(params.value),
         width: 300,
         valueGetter: (params: ValueGetterParams) => objArrToString(params.data?.messages),
-        tooltipComponent: (params: ITooltipParams) => <MarkdownToolTip {...params} />,
+        tooltipComponent: (params: ITooltipParams) => (
+          <MarkdownToolTip
+            {...params}
+            formatter={(value: unknown) =>
+              (value as Message[])?.reduce(
+                (prev: string, curr: Message) => `${prev}\n**${curr.role}**: ${curr.content}`,
+                '',
+              ) ?? ''
+            }
+          />
+        ),
+      },
+      {
+        field: 'tools',
+        tooltipField: 'tools',
+        tooltipValueGetter: (params: ITooltipParams) => JSON.stringify(params.value),
+        valueGetter: (params: ValueGetterParams) => JSON.stringify(params.data?.tools),
+        width: 250,
+        tooltipComponent: (params: ITooltipParams) => (
+          <MarkdownToolTip formatter={(value: unknown) => JSON.stringify(value)} {...params} />
+        ),
       },
       {
         field: 'sampleOutput',

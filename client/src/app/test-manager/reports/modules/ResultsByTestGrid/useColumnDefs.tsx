@@ -1,5 +1,6 @@
 import { WarningFilled } from '@carbon/react/icons';
 import OperationalIdTag from '@components/OperationalIdTag';
+import MarkdownToolTip from '@utils/ag-grid/MarkdownTooltip';
 import ScoreCellRenderer from '@utils/ag-grid/ScoreCellRenderer';
 import { JudgeResult } from '@utils/getFunctions/getDashboardResult';
 import { isHumanEval } from '@utils/isHumanEval';
@@ -111,7 +112,7 @@ export const useColumnDefs = (
               },
               {
                 ...getScoreCol(model.id),
-                ...(!annotator && i === 0) ? { colId: 'testScore' } : undefined,
+                ...(!annotator && i === 0 ? { colId: 'testScore' } : undefined),
               },
               {
                 ...getSafetyWarningCol(model.id),
@@ -154,25 +155,32 @@ export const useColumnDefs = (
       },
       ...((judgeModels?.length ?? 0) > 1
         ? [
-          {
-            field: 'judgeResults',
-            headerName: 'Average score',
-            filter: 'agNumberColumnFilter',
-            colId: 'avgScore',
-            width: 120,
-            valueGetter: (params: ValueGetterParams) => getAvgJudgeScore(params.data) ?? 'N/A',
-            cellRenderer: (params: ICellRendererParams<GridRow>) => (
-              <ScoreCellRenderer
-                clickHandler={() => {
-                  selectTestRun(params.data);
-                }}
-                score={params.value}
-              />
-            ),
-          },
-        ]
+            {
+              field: 'judgeResults',
+              headerName: 'Average score',
+              filter: 'agNumberColumnFilter',
+              colId: 'avgScore',
+              width: 120,
+              valueGetter: (params: ValueGetterParams) => getAvgJudgeScore(params.data) ?? 'N/A',
+              cellRenderer: (params: ICellRendererParams<GridRow>) => (
+                <ScoreCellRenderer
+                  clickHandler={() => {
+                    selectTestRun(params.data);
+                  }}
+                  score={params.value}
+                />
+              ),
+            },
+          ]
         : []),
       ...judgeColumns,
+      {
+        field: 'modelResponse',
+        headerName: 'Model Response',
+        width: 600,
+        tooltipValueGetter: (params: ITooltipParams) => params.value,
+        tooltipComponent: (params: ITooltipParams) => <MarkdownToolTip {...params} />,
+      },
     ],
     [selectTest, selectIssue, selectTestRun, judgeModels, judgeColumns],
   );
