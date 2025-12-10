@@ -7,7 +7,7 @@ const maintainerRoutes = [/^\/test-manager(\/.*)?$/, /^\/issue$/];
 export default withAuth(
   function middleware(req: NextRequestWithAuth) {
     //if not signed in, redirect
-    if (!req.nextauth.token) NextResponse.redirect(new URL('/auth/signin', req.url));
+    if (!req.nextauth.token) return NextResponse.redirect(new URL('/auth/signin', req.url));
 
     const { permissions } = req.nextauth.token!;
 
