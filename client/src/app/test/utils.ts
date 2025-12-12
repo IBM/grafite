@@ -1,5 +1,6 @@
 import { type Test as ServerSchema } from '@api/dashboard/tests/utils';
 import { type Validator } from '@components/SelectedIssueContext';
+import buildJudgePrompt from '@utils/buildJudgePrompt';
 import { type Issue } from '@utils/getFunctions/getDashboardIssues';
 import { getDashboardTest, Test } from '@utils/getFunctions/getDashboardTests';
 import { getEnumKeyByValue, JudgeTypes } from '@utils/keyMappings';
@@ -29,15 +30,18 @@ export const processJudgePrompt = (
   judgeType: keyof typeof JudgeTypes,
   guidelines?: string,
 ) => {
+  if (!judgeType) return '';
   const key = getEnumKeyByValue(JudgeTypes, judgeType);
   if (key) {
-    let prompt = judgeTypes[key];
-
-    prompt = prompt.replace('{{prompt_text}}', bakedPrompt || '');
-    prompt = prompt.replace('{{model_response}}', testInfo.sampleOutput || '');
-    prompt = prompt.replace('{{ground_truth}}', testInfo.desiredOutput || '');
-    // @ts-expect-error when guideline is not given there's always guideline from the test info
-    prompt = prompt.replace('{{judge_guidelines}}', (guidelines ? guidelines : testInfo.judgeGuideline) ?? '');
+    const promptTemplate = judgeTypes[key];
+    const { sampleOutput, desiredOutput } = testInfo;
+    const prompt = buildJudgePrompt(
+      promptTemplate,
+      bakedPrompt,
+      sampleOutput ?? '',
+      desiredOutput ?? '',
+      guidelines ?? '',
+    );
     return prompt;
   }
   return '';

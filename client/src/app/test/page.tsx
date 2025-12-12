@@ -1,24 +1,24 @@
 'use client';
 
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import styles from './new-test.module.scss';
 import { Button, Loading } from '@carbon/react';
 import { ArrowLeft, ArrowRight } from '@carbon/react/icons';
-
-import IssueLeftSidebar from './modules/IssueLeftSidebar';
-import TestRightSidebar from './modules/TestRightSidebar';
-import InferenceDataForm from './modules/InferenceDataForm';
-import ValidatorSettingForm from './modules/ValidatorSettingForm';
-import TestDataContextProvider, { useTestDataContext } from './modules/TestDataContext';
-import TestHeader from './TestHeader';
-import { ChatTestSchema } from './modules/Chat/Chat';
-import { FreeformTestSchema } from './modules/Freeform';
-
+import { useSelectedIssueContext } from '@components/SelectedIssueContext';
 import { useIssuesContext } from '@modules/IssuesContext';
 import { getConnectedTests } from '@test/utils';
-import { useSelectedIssueContext } from '@components/SelectedIssueContext';
 import { type Test } from '@utils/getFunctions/getDashboardTests';
+import { mapMessagesToStr } from '@utils/mapMessagesToStr';
+import { useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+
+import { ChatTestSchema } from './modules/Chat/Chat';
+import { FreeformTestSchema } from './modules/Freeform';
+import InferenceDataForm from './modules/InferenceDataForm';
+import IssueLeftSidebar from './modules/IssueLeftSidebar';
+import TestDataContextProvider, { useTestDataContext } from './modules/TestDataContext';
+import TestRightSidebar from './modules/TestRightSidebar';
+import ValidatorSettingForm from './modules/ValidatorSettingForm';
+import styles from './new-test.module.scss';
+import TestHeader from './TestHeader';
 
 export default function Test() {
   return (
@@ -86,6 +86,7 @@ const Steps = () => {
   }, [issues, selectedIssueId]);
 
   useEffect(() => {
+    //add other tests under the same issue to the validationTestData array
     if (!selectedIssue) {
       setOpenedTests([]);
       updateValidationTestData([]);
@@ -99,15 +100,14 @@ const Steps = () => {
           id: d.id!,
           score: null,
           justification: '',
-          prompt: d.prompt ?? '',
-          messages: d.messages,
+          prompt: (d.messages ? mapMessagesToStr(d.messages) : d.prompt) ?? '',
           sampleOutput: d.sampleOutput ?? '',
           desiredOutput: d.desiredOutput ?? '',
           isSelected: false,
         })),
       );
     })();
-  }, [selectedIssue]);
+  }, [selectedIssue, updateValidationTestData]);
 
   return (
     <div className={styles.wrapper}>

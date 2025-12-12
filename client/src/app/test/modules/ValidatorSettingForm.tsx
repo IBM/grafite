@@ -7,6 +7,7 @@ import ValidationScore from '@components/ValidationScore';
 import { JUDGE_DEFAULT_PARAM } from '@utils/constants';
 import { type Test } from '@utils/getFunctions/getDashboardTests';
 import { JudgeTypes } from '@utils/keyMappings';
+import { mapMessagesToStr } from '@utils/mapMessagesToStr';
 import { parseScores } from '@utils/parseJudgeScore';
 import { postOllamaFreeform } from '@utils/postFunctions/postOllamaFreeform';
 import { SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -28,7 +29,7 @@ const ValidatorSettingForm = ({ openedTests }: Props) => {
   const [isPreviewModalOpen, setPreviewModalOpen] = useState<boolean>(false);
   const [isValidatorModalOpen, setValidatorModalOpen] = useState<boolean>(false);
   const [isValidating, setIsValidating] = useState<boolean>(false);
-  const [bakedPrompt, setBakedPropmt] = useState<string | null>(null);
+  const [formattedPrompt, setFormattedPrompt] = useState<string | null>(null);
   //form rerendring trigger
   const [rerender, setRerender] = useState<boolean>(false);
 
@@ -59,7 +60,7 @@ const ValidatorSettingForm = ({ openedTests }: Props) => {
     if (judgeSettings?.judgeType) {
       const { judgeType, judgeGuidelines } = judgeSettings;
       judgeTemplate.current = processJudgePrompt(
-        bakedPrompt || '',
+        formattedPrompt || '',
         testInfo,
         judgeType as keyof typeof JudgeTypes,
         judgeGuidelines,
@@ -113,8 +114,8 @@ const ValidatorSettingForm = ({ openedTests }: Props) => {
     //apply prompt template in case of chat
     updateJudgeType(judgeType ?? '');
     if (!!testInfo.messages?.length) {
-      setBakedPropmt(testInfo.messages.reduce((prev, curr) => `${prev}\n${curr.role}: ${curr.content}`, ''));
-    } else setBakedPropmt(testInfo.prompt ?? '');
+      setFormattedPrompt(mapMessagesToStr(testInfo.messages));
+    } else setFormattedPrompt(testInfo.prompt ?? '');
   }, [addToastMsg, testInfo, updateJudgeType]);
 
   return (
@@ -181,7 +182,7 @@ const ValidatorSettingForm = ({ openedTests }: Props) => {
                   <ValidatorTestDataTable
                     testInfo={testInfo}
                     updateValidation={updateValidation}
-                    bakedPrompt={bakedPrompt}
+                    bakedPrompt={formattedPrompt}
                   />
                 </div>
               </Layer>
