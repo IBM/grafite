@@ -13,10 +13,10 @@ from starlette.middleware.sessions import SessionMiddleware
 from bson.objectid import ObjectId
 
 from grafite.routers import (
-    feedback, 
-    issue, 
-    run, 
-    test, 
+    feedback,
+    issue,
+    run,
+    test,
     result,
     settings,
     log
@@ -27,14 +27,15 @@ db = Mongo()
 
 API_PREFIX = "/api"
 
+
 def seed_db():
     issue_coll_is_empty = db.issue.count_documents() == 0
     tests_coll_is_empty = db.test.count_documents() == 0
     runs_coll_is_empty = db.run.count_documents() == 0
     settings_coll_is_empty = db.settings.count_documents() == 0
 
-    needs_seed = issue_coll_is_empty and tests_coll_is_empty and runs_coll_is_empty and settings_coll_is_empty
-
+    needs_seed = issue_coll_is_empty or tests_coll_is_empty or settings_coll_is_empty or runs_coll_is_empty
+    
     if needs_seed:
         print('Seeding database...')
 
@@ -52,11 +53,13 @@ def seed_db():
                 data = json.load(f)
 
                 for index, value in enumerate(data):
-                    data[index]["_id"] = ObjectId(value["_id"]["$oid"])
+                    if "$oid" in value["_id"] and ObjectId.is_valid(value["_id"]["$oid"]):
+                        data[index]["_id"] = ObjectId(value["_id"]["$oid"])
 
                 coll = db._get_interface_instance(coll_name)
 
                 coll.save_new_collection(coll_name, data)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -65,26 +68,25 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 app.add_middleware(SessionMiddleware, secret_key="!secret")
-app.add_middleware(CORSMiddleware, 
-                   allow_origins=["*"], 
-                   allow_credentials=True, 
-                   allow_methods=["*"], 
+app.add_middleware(CORSMiddleware,
+                   allow_origins=["*"],
+                   allow_credentials=True,
+                   allow_methods=["*"],
                    allow_headers=["*"]
-)
+                   )
 app.add_middleware(LoggerMiddleware, db=db)
-
 
 
 @app.get('/')
 def home(request: Request):
-    return {"hey":"you"}
+    return {"hey": "you"}
 
 
-app.include_router(feedback.router, prefix=API_PREFIX , tags=["Feedback"])
-app.include_router(issue.router, prefix=API_PREFIX , tags=["Issue"])
-app.include_router(test.router, prefix=API_PREFIX , tags=["Test"])
-app.include_router(run.router, prefix=API_PREFIX , tags=["Test Runner"])
-app.include_router(result.router, prefix=API_PREFIX , tags=["Result"])
+app.include_router(feedback.router, prefix=API_PREFIX, tags=["Feedback"])
+app.include_router(issue.router, prefix=API_PREFIX, tags=["Issue"])
+app.include_router(test.router, prefix=API_PREFIX, tags=["Test"])
+app.include_router(run.router, prefix=API_PREFIX, tags=["Test Runner"])
+app.include_router(result.router, prefix=API_PREFIX, tags=["Result"])
 app.include_router(settings.router, prefix=API_PREFIX, tags=["Setting"])
 app.include_router(log.router, prefix=API_PREFIX, tags=["Log"])
 
@@ -92,6 +94,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", type=str, default="localhost")
     parser.add_argument("--port", type=int, default=21001)
-    
+
     args = parser.parse_args()
     uvicorn.run(app, host=args.host, port=args.port, log_level="info")

@@ -176,6 +176,7 @@ const ResultTestDetailsModal = ({ test, open, modelId, judgeModelId, close, runI
               test.modelResponse,
               test.groundTruth,
               test.judgeGuidelines,
+              test.messages,
             ),
             renderProps: ['expandable', 'previewMarkdown'],
           },

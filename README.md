@@ -38,6 +38,8 @@ ENV NEXT_PUBLIC_TEST_DEFAULT_MODEL_DISPLAY=<<model_display_name>>
 
     This command will build and start the application using docker compose, utilizing the configuration defined in the `.env.container` files. You can view the app at http://localhost:3000.
 
+    If you don't have the database ready, the app will create the database and collections with the sample data in `server/seed` folder.
+
 ```bash
 docker compose --profile app up
 ```

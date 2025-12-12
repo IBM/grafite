@@ -80,7 +80,7 @@ const Toolbar = ({
           ]
         : []),
     ],
-    [isAdmin, getFilteredData],
+    [isAdmin, getFilteredData, selectedTests.length],
   );
 
   return (

@@ -103,9 +103,11 @@ class MongoInterface:
     
 
     def save_new_collection(self, name: str, values: list[dict]):
-        self.collection = self.db.create_collection(name)
-        result = self.collection.insert_many(values)
-        return result.inserted_ids
+        if name not in self.db.list_collection_names():
+            self.collection = self.db.create_collection(name)
+            result = self.collection.insert_many(values)
+            return result.inserted_ids
+        return ""
 
     # # # DELETE # # # # # # # # # # # # # 
     def delete_one(self, filter: dict):

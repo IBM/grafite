@@ -1,13 +1,20 @@
+import { Message } from '@types';
+
+import { mapMessagesToStr } from './mapMessagesToStr';
+
 export default function buildJudgePrompt(
-  judge_prompt: string,
-  prompt_text: string,
-  model_response: string,
-  ground_truth: string,
-  judge_guidelines: string,
+  judgePrompt: string,
+  promptText: string,
+  modelResponse: string,
+  groundTruth: string,
+  judgeGuidelines: string,
+  messages?: Message[],
 ) {
-  return judge_prompt
-    .replace('{{prompt_text}}', prompt_text)
-    .replace('{{model_response}}', model_response)
-    .replace('{{ground_truth}}', ground_truth)
-    .replace('{{judge_guidelines}}', judge_guidelines);
+  if (!judgePrompt) return '';
+  const input = !!messages?.length ? mapMessagesToStr(messages) : promptText;
+  return judgePrompt
+    .replace('{{prompt_text}}', input)
+    .replace('{{model_response}}', modelResponse)
+    .replace('{{ground_truth}}', groundTruth)
+    .replace('{{judge_guidelines}}', judgeGuidelines);
 }

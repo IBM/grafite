@@ -137,9 +137,9 @@ const TestDataContextProvider = ({ children, id }: { children: ReactElement; id:
     setValidation((prev) => ({ ...prev, [type]: value }));
   };
 
-  const updateValidationTestData = (data: TestTableData[]) => {
+  const updateValidationTestData = useCallback((data: TestTableData[]) => {
     setValidationTestData(() => [...data]);
-  };
+  }, []);
 
   useEffect(() => {
     if (id) {

@@ -25,6 +25,8 @@ docker compose --profile infra up
 
 This will run `docker compose` using only MongoDB and RabbitMQ services.
 
+If you don't have the database ready, the app will create the database and collections with the sample data in `server/seed` folder.
+
 **Note:** If you already have MongoDB running locally on port 27017, stop it first. Then run `docker compose` to mount the database which you can access on port 27017.
 
 ### 2. Server
