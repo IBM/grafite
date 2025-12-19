@@ -10,6 +10,17 @@ export type ResultByIssueTag = {
   value: number;
 };
 
+export type Filters =
+  | {
+      better: boolean;
+      worse: boolean;
+      same: boolean;
+      noOverlap: boolean;
+    }
+  | {
+      noOverlap: boolean;
+    };
+
 export const groupScoreResultByIssueTag = (issues: Issue[], results: Result[]): ResultByIssueTag[] => {
   const data: ResultByIssueTag[] = [];
 
@@ -212,4 +223,13 @@ export const comparScores = (reports: SelectedReport[]) => {
         ]
       : []),
   ];
+};
+
+export const filterOutNoOverlap = (reports: SelectedReport[]) => {
+  const testIds = reports.map((r) => r.results?.map((result) => result.testId) ?? []);
+  const filteredTestIds = testIds.reduce((acc: string[], cur: string[]) => [
+    ...(new Set([...acc].filter((d) => cur?.includes(d))) ?? []),
+  ]);
+
+  return filteredTestIds;
 };

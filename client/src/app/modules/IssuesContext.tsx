@@ -1,7 +1,6 @@
-import { createContext, ReactElement, useCallback, useContext, useEffect, useState } from 'react';
-
-import { getDashboardIssues, type Issue } from '@utils/getFunctions/getDashboardIssues';
 import { useToastMessageContext } from '@components/ToastMessageContext';
+import { getDashboardIssues, type Issue } from '@utils/getFunctions/getDashboardIssues';
+import { createContext, ReactElement, useCallback, useContext, useEffect, useState } from 'react';
 
 type IssuesContextType = {
   issues: Issue[] | null;
@@ -42,7 +41,7 @@ export const IssuesContextProvider = ({ children }: { children: ReactElement }) 
       .finally(() => {
         setLoading(false);
       });
-  }, [setIssues, addToastMsg]);
+  }, [addToastMsg]);
 
   useEffect(() => {
     if (!issues) fetchIssues();

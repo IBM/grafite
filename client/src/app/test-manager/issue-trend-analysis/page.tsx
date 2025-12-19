@@ -1,20 +1,20 @@
 'use client';
 
-import { Button, Loading, Tag } from '@carbon/react';
+import { Button, Checkbox, Loading, Tag } from '@carbon/react';
 import { useToastMessageContext } from '@components/ToastMessageContext';
-import { useIssuesContext } from '@modules/IssuesContext';
 import containerStyles from '@styles/sidenav-container.module.scss';
 import { useReportsContext } from '@test-manager/ReportsContext';
 import { getDashboardResult, type Result } from '@utils/getFunctions/getDashboardResult';
 import { getDashboardRunningTest, type TestRun } from '@utils/getFunctions/getDashboardRunningTests';
 import { isHumanEval } from '@utils/isHumanEval';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState, useTransition } from 'react';
+import { useCallback, useEffect, useMemo, useState, useTransition } from 'react';
 
 import styles from './index.module.scss';
 import TestRunSelector from './modules/TestRunSelector';
 import TrendAnalysisByIssueTag from './modules/TrendAnalysisByIssueTag';
 import TrendAnalysisByScore from './modules/TrendAnalysisByScore';
+import { comparScores, filterOutNoOverlap, Filters } from './utils';
 
 type SelectedReport = {
   report: TestRun;
@@ -26,15 +26,33 @@ export default function Home() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const { fetchIssues } = useIssuesContext();
   const { addToastMsg } = useToastMessageContext();
   const { reports } = useReportsContext();
   const [selectedReports, setSelectedReports] = useState<SelectedReport[]>([]);
   const [loading, startTransition] = useTransition();
 
-  useEffect(() => {
-    fetchIssues();
-  }, [fetchIssues]);
+  const [globalFilters, setGlobalFilters] = useState<Filters | null>(null);
+
+  const filteredData = useMemo(() => {
+    if (!globalFilters || selectedReports.length === 1) return selectedReports;
+
+    let filteredTestIds: string[] = [];
+    if (globalFilters && !('better' in globalFilters)) {
+      if (globalFilters.noOverlap) return selectedReports;
+      filteredTestIds = [...filterOutNoOverlap(selectedReports)];
+    } else {
+      comparScores(selectedReports).map(({ group, testIds }) => {
+        if (globalFilters.better && group === 'Better') filteredTestIds.push(...testIds);
+        else if (globalFilters.same && group === 'Same') filteredTestIds.push(...testIds);
+        else if (globalFilters.worse && group === 'Worse') filteredTestIds.push(...testIds);
+        else if (globalFilters.noOverlap && group === 'No overlap') filteredTestIds.push(...testIds);
+      });
+    }
+    return selectedReports.map((report) => ({
+      ...report,
+      results: report.results?.filter((d) => filteredTestIds.includes(d.testId)) ?? [],
+    }));
+  }, [selectedReports, globalFilters]);
 
   const selectReports = useCallback(
     (reports: SelectedReport[]) => {
@@ -100,6 +118,21 @@ export default function Home() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
+
+  useEffect(() => {
+    if (selectedReports?.length < 2) setGlobalFilters(null);
+    else
+      setGlobalFilters(
+        selectedReports?.length === 2
+          ? {
+              better: true,
+              noOverlap: true,
+              same: true,
+              worse: true,
+            }
+          : { noOverlap: true },
+      );
+  }, [selectedReports?.length]);
 
   useEffect(() => {
     //when report is refreshed, update the data to be reloaded if there is any difference to the existing data
@@ -168,10 +201,52 @@ export default function Home() {
         <div>
           <TestRunSelector selectedReports={selectedReports} selectReports={selectReports} />
         </div>
+        <div className={styles.filterRow}>
+          {globalFilters && (
+            <div>
+              <div>
+                <h3>Data filter</h3>
+                <span>Filter the data displayed on the page</span>
+              </div>
+              <div>
+                {'better' in globalFilters && (
+                  <>
+                    <Checkbox
+                      id="filter-better"
+                      labelText="Better"
+                      checked={globalFilters.better}
+                      onChange={(_e, { checked }) => setGlobalFilters((prev) => ({ ...prev!, better: checked }))}
+                    />
+                    <Checkbox
+                      id="filter-worse"
+                      labelText="Worse"
+                      checked={globalFilters.worse}
+                      onChange={(_e, { checked }) => setGlobalFilters((prev) => ({ ...prev!, worse: checked }))}
+                    />
+                    <Checkbox
+                      id="filter-same"
+                      labelText="Same"
+                      checked={globalFilters.same}
+                      onChange={(_e, { checked }) => setGlobalFilters((prev) => ({ ...prev!, same: checked }))}
+                    />
+                  </>
+                )}
+                <Checkbox
+                  id="filter-no-overlap"
+                  labelText="No overlap"
+                  checked={globalFilters.noOverlap}
+                  onChange={(_e, { checked }) => setGlobalFilters((prev) => ({ ...prev!, noOverlap: checked }))}
+                />
+              </div>
+            </div>
+          )}
+        </div>
         {!!selectedReports?.length && (
           <>
-            <TrendAnalysisByScore selectedReports={selectedReports} />
-            <TrendAnalysisByIssueTag selectedReports={selectedReports} />
+            <div className={styles.byScore}>
+              <TrendAnalysisByScore selectedReports={filteredData} />
+            </div>
+            <TrendAnalysisByIssueTag selectedReports={filteredData} />
           </>
         )}
       </div>

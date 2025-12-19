@@ -1,8 +1,9 @@
 import { SelectedReport } from '@test-manager/issue-trend-analysis-old/[id]/utils';
-import ChartByScore from '../ChartByScore';
-import styles from './TrendAnalysisByScore.module.scss';
 import { useEffect, useState } from 'react';
+
+import ChartByScore from '../ChartByScore';
 import ScoreModeToggle from '../ScoreModeToggle';
+import styles from './TrendAnalysisByScore.module.scss';
 
 interface Props {
   selectedReports: SelectedReport[];
@@ -12,7 +13,7 @@ const TrendAnalysisByScore = ({ selectedReports }: Props) => {
 
   useEffect(() => {
     setMode(selectedReports.length !== 2 ? 0 : 1);
-  }, [selectedReports]);
+  }, [selectedReports.length]);
 
   return (
     <section className={styles.root}>

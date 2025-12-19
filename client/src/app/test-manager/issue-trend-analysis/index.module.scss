@@ -28,7 +28,7 @@
     }
   }
 
-  > *:not(:last-child) {
+  >.byScore {
     margin-block-end: 1.5rem;
     position: relative;
 
@@ -49,4 +49,56 @@
 .old {
   float: right;
   margin-block-start: -4rem;
+}
+
+.filterRow {
+  background-color: $layer-01;
+  padding: 1rem 2rem;
+  border-block-start: rem(1px) solid $border-subtle-00;
+  border-block-end: rem(1px) solid $border-subtle-00;
+
+  > div {
+    padding: 1rem;
+    background-color: $background;
+    border: rem(1px) solid $border-subtle-00;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > div {
+      > h3 {
+        color: $text-secondary;
+        font-weight: 600;
+      }
+
+      > span {
+        font-size: rem(12px);
+      }
+
+      display: flex;
+      gap: $spacing-04;
+      align-items: center;
+
+      :global(.cds--checkbox-wrapper) {
+        margin-block-end: 0 !important;
+      }
+    }
+  }
+
+  :global(#filter-better:checked) + label::before {
+    background-color: var(--cds-chart-better);
+  }
+
+  :global(#filter-worse:checked) + label::before {
+    background-color: var(--cds-chart-worse);
+  }
+
+  :global(#filter-same:checked) + label::before {
+    background-color: var(--cds-chart-same);
+  }
+
+  :global(#filter-no-overlap:checked) + label::before {
+    background-color: var(--cds-chart-default);
+  }
 }

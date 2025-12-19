@@ -56,7 +56,7 @@ const TestRunSelector = ({ selectedReports, selectReports }: Props) => {
             label="Select more reports"
             kind="secondary"
             onClick={() => setModalOpen(true)}
-            size="md"
+            size="sm"
             autoAlign
           >
             <Add />
