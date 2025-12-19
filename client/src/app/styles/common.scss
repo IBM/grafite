@@ -1,33 +1,35 @@
 @use 'sass:map';
-
-@forward '@carbon/styles/scss/config' with (
-  // carbon specifies invalid font-display value 'swap', this fixes it
-  $font-display: swap
-);
+@forward '@carbon/styles/scss/config' with ( // carbon specifies invalid font-display value 'swap', this fixes it
+  $font-display: swap);
 @forward '@carbon/styles/scss/type';
 @forward '@carbon/styles/scss/spacing';
 @forward '@carbon/styles/scss/breakpoint';
 @forward '@carbon/styles/scss/colors' as color-*;
 @forward '@carbon/styles/scss/utilities/convert';
 @forward '@carbon/styles/scss/theme';
-
 @use '@carbon/themes/scss/themes' as themes;
 @use '@carbon/styles/scss/theme' as *;
 @use '@carbon/styles/scss/utilities/convert' as *;
 
-themes.$white: map.merge(
-  themes.$white,
-  (
-    box-shadow-color: rgb(0 0 0 / 45%),
-  )
-);
+themes.$white: map.merge(themes.$white,
+    (box-shadow-color: rgb(0 0 0 / 45%),
+      chart-better: #009d9a,
+      chart-worse: #a2191f,
+      chart-same: #c6c6c6,
+      chart-default: #000,
+      chart-pass: #1192e8,
+      chart-fail: #9f1853,
+    ));
 
-themes.$g100: map.merge(
-  themes.$g90,
-  (
-    box-shadow-color: rgb(193 199 205 / 45%),
-  )
-);
+themes.$g100: map.merge(themes.$g90,
+    (box-shadow-color: rgb(193 199 205 / 45%),
+      chart-better: #3ddbd9,
+      chart-worse: #da1e28,
+      chart-same: #a8a8a8,
+      chart-default: #525252,
+      chart-pass: #33b1ff,
+      chart-fail: #ff7eb6,
+    ));
 $box-shadow-color: var(--cds-box-shadow-color);
 
 $box-shadow: 0rem rem(2px) rem(8px) 0rem $box-shadow-color;

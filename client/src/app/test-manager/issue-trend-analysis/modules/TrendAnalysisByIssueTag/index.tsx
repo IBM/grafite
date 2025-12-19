@@ -1,19 +1,20 @@
-import { SelectedReport } from '@test-manager/issue-trend-analysis-old/[id]/utils';
-import ChartByIssueTags from '../ChartByIssueTags';
-import TrendGrid from '../TrendGrid';
-import TagFilterModal from '../TagFilterModal';
-import styles from './TrendAnalysisByIssueTag.module.scss';
-import { useEffect, useMemo, useState } from 'react';
 import { DismissibleTag } from '@carbon/react';
 import { Button } from '@carbon/react';
 import { Filter } from '@carbon/react/icons';
-import ScoreModeToggle from '../ScoreModeToggle';
 import { useIssuesContext } from '@modules/IssuesContext';
 import {
   compareIssueTagResults,
-  groupScoreResultByIssueTag,
   groupPassResultByIssueTag,
+  groupScoreResultByIssueTag,
 } from '@test-manager/issue-trend-analysis/utils';
+import { SelectedReport } from '@test-manager/issue-trend-analysis-old/[id]/utils';
+import { useEffect, useMemo, useState } from 'react';
+
+import ChartByIssueTags from '../ChartByIssueTags';
+import ScoreModeToggle from '../ScoreModeToggle';
+import TagFilterModal from '../TagFilterModal';
+import TrendGrid from '../TrendGrid';
+import styles from './TrendAnalysisByIssueTag.module.scss';
 
 interface Props {
   selectedReports: SelectedReport[];
@@ -26,13 +27,17 @@ const TrendAnalysisByIssueTag = ({ selectedReports }: Props) => {
 
   const chartData = useMemo(() => {
     if (!issues || !selectedReports?.length) return undefined;
-    return selectedReports.length === 1
-      ? [{ mode: 0, data: groupScoreResultByIssueTag(issues || [], selectedReports[0].results || []) }]
-      : [
-          { mode: 0, data: groupPassResultByIssueTag(issues, selectedReports) },
-          { mode: 1, data: compareIssueTagResults(issues, selectedReports) },
-        ];
-  }, [selectedReports, issues, loading]);
+    if (selectedReports.length === 1)
+      return [{ mode: 0, data: groupScoreResultByIssueTag(issues || [], selectedReports[0].results || []) }];
+
+    return [
+      { mode: 0, data: groupPassResultByIssueTag(issues, selectedReports) },
+      {
+        mode: 1,
+        data: compareIssueTagResults(issues, selectedReports),
+      },
+    ];
+  }, [selectedReports, issues]);
 
   const tags = useMemo(() => {
     const tags =
@@ -41,13 +46,13 @@ const TrendAnalysisByIssueTag = ({ selectedReports }: Props) => {
         .flat()
         .filter((d, i, arr) => !!d && arr.indexOf(d) === i) || [];
     if (!selectedTags) setSelectedTags(tags);
-    else setSelectedTags((prev) => prev?.filter((tag) => tags.includes(tag)));
+    else setSelectedTags((prev) => [...new Set([...tags, ...prev!].filter((d) => tags.includes(d)))]);
     return tags;
   }, [chartData]);
 
   useEffect(() => {
     setMode(selectedReports.length !== 2 ? 0 : 1);
-  }, [selectedReports]);
+  }, [selectedReports.length]);
 
   return (
     <section className={styles.root}>
