@@ -1,8 +1,8 @@
+import { AUTH_PROVIDER } from '@utils/constants';
 import { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 import { Permission } from './utils/permission';
-import { AUTH_PROVIDER } from '@utils/constants';
 
 const MOCK_EMAIL = 'admin@email.com';
 const MOCK_NAME = 'Admin';
@@ -48,10 +48,8 @@ const authOptions: AuthOptions = {
       };
     },
     jwt: async ({ token, user }) => {
-      if (user) token.user = user;
-
-      if (token.sub) {
-        token.permissions = MOCK_PERMISSIONS;
+      if (user) {
+        token.permissions = user.permissions;
       }
 
       return token;
