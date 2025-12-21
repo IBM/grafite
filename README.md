@@ -50,3 +50,21 @@ For local development, please refer to the Server and Client READMEs below for d
 
 - [Server](./server/README.md)
 - [Client](./client/README.md)
+
+
+## Contributors
+
+<!-- <a href="https://github.com/IBM/grafite/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=IBM/grafite" />
+</a> -->
+
+<a href="https://github.com/jayolee">
+<img src="https://avatars.githubusercontent.com/u/43683780?v=4" width="70px;" style="border-radius:50%; border: 1px solid #ccc"/></a>
+    <a href="https://github.com/EnzoBozzani">
+<img src="https://avatars.githubusercontent.com/u/97400493?v=4" width="70px;" style="border-radius:50%; border: 1px solid #ccc"/></a>
+<a href="https://github.com/vedem1192">
+<img src="https://avatars.githubusercontent.com/u/22043067?v=4" width="70px;" style="border-radius:50%; border: 1px solid #ccc"/></a>
+    <a href="https://github.com/mirianfsilva">
+<img src="https://avatars.githubusercontent.com/u/29445968?v=4" width="70px;" style="border-radius:50%; border: 1px solid #ccc"/></a>
+<a href="https://github.com/lluisrojass">
+<img src="https://avatars.githubusercontent.com/u/15043356?v=4" width="70px;" style="border-radius:50%; border: 1px solid #ccc"/></a>
