@@ -24,7 +24,7 @@
       {
         "test_score": 1,
         "test_justification": "The model output follows the correct geometric principles and applies the geometric mean theorem accurately. The steps are logically structured, and the calculations are correct. The final answer is expressed in the simplest form as \\(9\\\\sqrt{2}\\\\) cm, which matches the ground truth answer. The numerical approximation provided at the end, \\\\(12.727\\\\), is a correct decimal representation of \\\\(9\\\\sqrt{2}\\\\), but it is not necessary for the answer to be in simplest form. However, since the primary requirement is that the answer matches the reference exactly in its simplest form, and it does, the output adheres to all guidelines.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 1,
@@ -58,7 +58,7 @@
       {
         "test_score": 1,
         "test_justification": "The model output is a well-crafted story that adheres to the guidelines provided. It is a creative piece with no reference answer, and it follows the input request for a story. The story is complete, with no misspellings or incomplete sections. It does not violate any of the guidelines, and it successfully engages with the theme of a magical shop and dream-weaving, which is a valid topic for creative writing. Therefore, the output is well aligned with the input and guidelines.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 1,
@@ -92,7 +92,7 @@
       {
         "test_score": 1,
         "test_justification": "The model output correctly follows the steps to solve the given algebraic equations. It starts by expressing C and D in terms of A and B, substitutes these expressions appropriately, and simplifies the final expression for C + D. The final result, 2A + 3B, matches the ground truth. The model adheres to all the guidelines by correctly simplifying the equations and providing the correct calculation.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 1,
@@ -126,7 +126,7 @@
       {
         "test_score": 0,
         "test_justification": "The model output contains misinformation regarding the highest angle the sun makes in Dallas, TX. The ground truth text calculates the solar noon altitude to be approximately 80.7 degrees, while the model output incorrectly states it as 89.6 degrees. This discrepancy indicates a misunderstanding or miscalculation of the solar angle. The explanation provided by the model is clear and follows a logical reasoning process, but the final answer is incorrect. Therefore, the model output violates the guideline of not containing misinformation.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 0,
@@ -160,7 +160,7 @@
       {
         "test_score": 1,
         "test_justification": "The model output recognizes that no translation is needed, does not attempt to translate the phrase, directly copies the original words, and includes a brief explanation. It adheres to all the guidelines provided.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 1,
@@ -194,7 +194,7 @@
       {
         "test_score": 0,
         "test_justification": "The model output fails to provide the specific information requested in the input. The input clearly asks about the 'War Sage' of the Night Lords Legion in Warhammer 40k, and the ground truth identifies this character as Malcharion. The model's response, however, states that it does not have information about a specific character known as the 'War Sage' of the Night Lords Legion, which does not align with the factual information available. Therefore, the model output violates the guidelines by not confirming the information in question when it is clear and specific.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 0,
@@ -228,7 +228,7 @@
       {
         "test_score": 0,
         "test_justification": "The model output provides an incorrect interpretation of the pattern, does not clarify instructions, and does not inquire about missing questions. It violates multiple guidelines.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 0,
@@ -262,7 +262,7 @@
       {
         "test_score": 0,
         "test_justification": "Max number of retries (5) exceeded. Error:\nFailed to generate model response: Error code: 400 - {'object': 'error', 'message': \"This model's maximum context length is 16384 tokens. However, you requested 18609 tokens (17585 in the messages, 1024 in the completion). Please reduce the length of the messages or completion.\", 'type': 'BadRequestError', 'param': None, 'code': 400}",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 0,
@@ -296,7 +296,7 @@
       {
         "test_score": 1,
         "test_justification": "The model output successfully changed 'yellow' to 'orange' as instructed, without making any unrequested changes. The output aligns with the ground truth and adheres to all guidelines.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 1,
@@ -330,7 +330,7 @@
       {
         "test_score": 0,
         "test_justification": "The model output does not provide the exact SNOMED CT code as per the ground truth, which is a requirement according to the guidelines. Therefore, the model output contains false information regarding the specific code.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 0,
@@ -364,7 +364,7 @@
       {
         "test_score": 0,
         "test_justification": "The model's output does not follow the instructions to make 5 + 5 + 5 = 550 work. It changes the equation to 5 + 5 + 5 = 150, which does not solve the original problem. The correct solution involves changing the first plus sign to a 4, which the model does not do.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 0,
@@ -398,7 +398,7 @@
       {
         "test_score": 1,
         "test_justification": "The model output provides a detailed and accurate description of the Leopardus guttulus, including its physical characteristics, habitat, behavior, diet, conservation status, and interesting facts. The information aligns well with the ground truth, although there are some differences in the common names and conservation status. The model correctly identifies the species as the Kodkod, which is a valid common name, and provides accurate details about its characteristics and behavior. The conservation status is listed as 'Least Concern' in the model output, whereas the ground truth states 'Vulnerable.' However, this discrepancy does not introduce false information, as conservation statuses can vary based on different assessments. Overall, the model output adheres to the guidelines by providing accurate and relevant information without false claims.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 0,
@@ -432,7 +432,7 @@
       {
         "test_score": 1,
         "test_justification": "The model output provides a complete and mostly accurate translation, with minor differences in phrasing that do not significantly alter the meaning. The input was a request for translation, which the model addressed correctly.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 1,
@@ -466,7 +466,7 @@
       {
         "test_score": 0,
         "test_justification": "The model output does not adhere to the guidelines for several reasons. Firstly, the model did not provide a summary of the content of 'Sangetsuki' by Nakajima Atsushi, which was the request in the input. Instead, it provided information about a different work with a similar title by a different author, Nakahara Tomie. This violates the guideline that the main meaning of the original content should be kept in the summary. Additionally, the model added extra information about a different work, which is against the guideline that no extra information should be added. Therefore, the model output does not align with the ground truth or the input request.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 0,
@@ -500,7 +500,7 @@
       {
         "test_score": 0,
         "test_justification": "The model output introduces additional keywords not present in the ground truth and misses some specified keywords, thus not fully adhering to the guidelines.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 0,
@@ -534,7 +534,7 @@
       {
         "test_score": 0,
         "test_justification": "The model output does not adhere to the exact instructions, as it removes an additional column ('First Initial') that was not specified to be removed. This results in a deviation from the desired output, which should have retained the 'First Initial' column.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 0,
@@ -568,7 +568,7 @@
       {
         "test_score": 1,
         "test_justification": "The model output is well-aligned with the ground truth and adheres to all the guidelines. The model correctly identifies the athlete with the second-best time, which is Vonn, and provides a clear step-by-step explanation of how this conclusion was reached. The format of the output respects the logical structure requested in the prompt, and no additional assumptions were made beyond the data provided. The input was effectively used in a list format, and the final calculation was validated correctly.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 1,
@@ -602,7 +602,7 @@
       {
         "test_score": 1,
         "test_justification": "The AI-generated text is consistent with the input prompt, providing relevant SQL procedures and explanations. It does not align with the ground truth, which is a different task, but this is acceptable as the evaluation is based on the input prompt.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 0,
@@ -636,7 +636,7 @@
       {
         "test_score": 1,
         "test_justification": "The model output adheres to all guidelines by addressing the request for debugging, maintaining original functionality, and providing relevant explanations without introducing unnecessary features.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 0,
@@ -670,7 +670,7 @@
       {
         "test_score": 0,
         "test_justification": "The model's output introduces a different error-handling mechanism using `orElseThrow()`, which changes the original functionality by potentially throwing an exception instead of assuming the presence of a value. This deviation from the ground truth's behavior means the output does not maintain the same output behavior as the original code.",
-        "model_id": "phi4"
+        "model_id": "phi-4"
       },
       {
         "test_score": 0,
