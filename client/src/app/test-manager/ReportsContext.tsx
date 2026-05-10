@@ -1,7 +1,7 @@
 import { useToastMessageContext } from '@components/ToastMessageContext';
 import { APICallError } from '@types';
 import { getDashboardRunningTests, type TestRun } from '@utils/getFunctions/getDashboardRunningTests';
-import { createContext, ReactElement, useCallback, useContext, useState } from 'react';
+import { createContext, ReactNode, useCallback, useContext, useState } from 'react';
 
 type ReportsContextType = {
   reports: TestRun[] | null;
@@ -13,7 +13,7 @@ const ReportsContext = createContext<ReportsContextType>({ reports: null, fetchR
 
 export const useReportsContext = () => useContext(ReportsContext);
 
-export const ReportsContextProvider = ({ children }: { children: ReactElement }) => {
+export const ReportsContextProvider = ({ children }: { children: ReactNode }) => {
   const { addToastMsg } = useToastMessageContext();
 
   const [reports, setReports] = useState<TestRun[] | null>(null);

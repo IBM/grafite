@@ -163,7 +163,6 @@ export const RunTestsModal = ({
       _setModelId(null);
       _setJudgeType('single');
       setError(null);
-      setIsModalOpen(false);
       parameters.current = getDefaultParameters();
       additionalParameters.current = [];
       paramsWValidationError.current = [];
@@ -202,7 +201,8 @@ export const RunTestsModal = ({
             setIsModalOpen(false);
           }}
         >
-          <ModalHeader title={`Run tests - ${testLength} test${testLength > 1 ? 's' : ''}`} />
+          <ModalHeader title={`Run tests - ${testLength} test${testLength > 1 ? 's' : ''}`}
+            buttonOnClick={() => setIsModalOpen(false)} />
           <ModalBody className={styles.root}>
             {error && (
               <ToastNotification

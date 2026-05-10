@@ -127,21 +127,19 @@ export default function ReportResultsPage() {
           loading={loadingResults}
         />
       </div>
+      
       <Tabs
         selectedIndex={selectedTabIdx}
         onChange={({ selectedIndex }: { selectedIndex: number }) => {
           setSelectedTabIdx(selectedIndex);
+          if (selectedIndex === 1 && !isTableRendered) {
+            setTableRendered(true);
+          }
         }}
       >
         <TabList aria-label="Data views">
           <Tab>Raw data</Tab>
-          <Tab
-            onClick={() => {
-              if (!isTableRendered) setTableRendered(true);
-            }}
-          >
-            Grouped by issue
-          </Tab>
+          <Tab>Grouped by issue</Tab>
           <Popover open={popoverOpen} align="right" autoAlign isTabTip caret>
             <div className="trigger">
               <Button kind="ghost" size="md" renderIcon={WarningFilled} onClick={() => setPopoverOpen(true)}>
