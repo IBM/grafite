@@ -2,9 +2,9 @@
 
 import { TestContextProvider } from '@modules/TestContext';
 import { ReportsContextProvider } from '@test-manager/ReportsContext';
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
-export default function Layout({ children }: { children: ReactElement }) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <TestContextProvider>
       <ReportsContextProvider>{children}</ReportsContextProvider>

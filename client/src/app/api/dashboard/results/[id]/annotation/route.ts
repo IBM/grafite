@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { JudgeResult } from '../../utils';
 
-export async function POST(req: NextRequest, { params }: { params: { id: string | undefined | null } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     if (!process.env.MONGODB_SERVICE_URL) {
       return NextResponse.json(
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     }
 
     const body = await req.json();
-    const { id } = params;
+    const { id } = await params;
 
     const res = await fetchWithEmailHeader(`${process.env.MONGODB_SERVICE_URL}/api/result/${id}/annotation`, {
       method: 'POST',

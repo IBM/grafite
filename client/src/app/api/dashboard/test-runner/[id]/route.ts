@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { Run } from '../utils';
 
-export async function GET(req: NextRequest, { params }: { params: { id: string | undefined | null } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     if (!process.env.MONGODB_SERVICE_URL) {
       return NextResponse.json(
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string |
       );
     }
 
-    const { id } = params;
+    const { id } = await params;
 
     const res = await fetch(`${process.env.MONGODB_SERVICE_URL}/api/run/${id}`, {
       method: 'GET',
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string |
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string | undefined | null } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     if (!process.env.MONGODB_SERVICE_URL) {
       return NextResponse.json(
@@ -52,7 +52,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
       );
     }
 
-    const { id } = params;
+    const { id } = await params;
 
     const res = await fetchWithEmailHeader(`${process.env.MONGODB_SERVICE_URL}/api/run/${id}`, {
       method: 'DELETE',

@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@carbon/charts-react": "^1.27.0",
-    "@carbon/react": "^1.95.0",
+    "@carbon/react": "^1.107.1",
     "@streamparser/json-whatwg": "^0.0.21",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
@@ -25,7 +25,7 @@
     "amqplib": "^0.10.9",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^29.7.0",
-    "next": "^14.2.33",
+    "next": "^15.0.0",
     "next-auth": "^4.24.13",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

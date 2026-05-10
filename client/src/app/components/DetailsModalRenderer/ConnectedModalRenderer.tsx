@@ -2,13 +2,15 @@ import { Button, InlineLoading, ModalProps } from '@carbon/react';
 import { ChevronLeft } from '@carbon/react/icons';
 import shortenID from '@utils/shortenID';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import type { RefObject } from 'react';
 
 import DetailsModalRenderer from '.';
 import styles from './ConnectedModalRenderer.module.scss';
 import { Props as DetailsModalRendererProps } from './index';
 import { dataIsFields, DetailsModalRendererData, findData, findDataType } from './utils';
 
-export type ConnectedModalRendererData = ModalProps & DetailsModalRendererProps;
+export type ConnectedModalRendererData = Omit<ModalProps, 'launcherButtonRef'> &
+  DetailsModalRendererProps & { launcherButtonRef?: RefObject<HTMLButtonElement | null> };
 interface Props {
   modalProps: ConnectedModalRendererData | undefined;
   close: () => void;
