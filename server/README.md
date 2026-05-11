@@ -1,4 +1,4 @@
-# Generative AI Field Tests - Running Server Locally
+# Generative Regression Analysis Framework for Issue Tracking and Evaluation - Running Server Locally
 
 ## Installation
 

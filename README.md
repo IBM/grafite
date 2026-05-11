@@ -1,6 +1,6 @@
-# Generative AI Field Tests
+# Generative Regression Analysis Framework for Issue Tracking and Evaluation
 
-Generative AI Field Tests (GraFiTe) is an application for continuous large language model (LLM) evaluation.
+Generative Regression Analysis Framework for Issue Tracking and Evaluation (GRAFITE) is an application for continuous large language model (LLM) evaluation.
 
 ## Features
 
@@ -21,7 +21,7 @@ Generative AI Field Tests (GraFiTe) is an application for continuous large langu
 
     Modify the models you want to use by editing the Dockerfile located in the client directory. For further details, please check out [client README](./client/README.md). 
     
-    GraFiTe supports Ollama (client, server) and WatsonX AI (server) for model inference. If you use Ollama, **please make sure that you have the model available on your machine.**
+    GRAFITE supports Ollama (client, server) and WatsonX AI (server) for model inference. If you use Ollama, **please make sure that you have the model available on your machine.**
 ```
 ...
 ENV NEXT_PUBLIC_JUDGE_MODEL=<<model_id>>

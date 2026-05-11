@@ -1,6 +1,6 @@
 import '@styles/globals.scss';
 
-import { APP_NAME } from '@utils/constants';
+import { APP_NAME, APP_NAME_SHORT } from '@utils/constants';
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import { getServerSession } from 'next-auth';
@@ -10,8 +10,8 @@ import { setInitialThemeScript } from './components/ThemePreference';
 import LayoutShell from './modules/LayoutShell';
 
 export const metadata: Metadata = {
-  title: APP_NAME,
-  description: 'Generative AI Field Tests',
+  title: APP_NAME_SHORT,
+  description: APP_NAME,
 };
 
 export default async function RootLayout({
