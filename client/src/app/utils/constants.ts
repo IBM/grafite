@@ -1,5 +1,5 @@
-export const APP_NAME = 'Generative AI Field Tests';
-export const HEADER_NAME = 'Generative AI Field Tests';
+export const APP_NAME = 'Generative Regression Analysis Framework for Issue Tracking and Evaluation';
+export const APP_NAME_SHORT = 'GRAFITE';
 export const DEFAULT_PARAM = {
   temperature: 0,
   top_p: 1,

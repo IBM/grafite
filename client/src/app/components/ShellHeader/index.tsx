@@ -13,7 +13,7 @@ import {
 } from '@carbon/react';
 import { Dashboard, Launch, Light, Logout, Moon } from '@carbon/react/icons';
 import { useIsMaintainer } from '@hooks/permissionHooks';
-import { HEADER_NAME } from '@utils/constants';
+import { APP_NAME_SHORT } from '@utils/constants';
 import { usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import { Fragment } from 'react';
@@ -38,7 +38,7 @@ const ShellHeader = () => {
       <Theme theme="g100">
         <Header className={styles.wrapper}>
           <HeaderName href="/" prefix="">
-            {HEADER_NAME}
+            {APP_NAME_SHORT}
           </HeaderName>
           <HeaderGlobalBar>
             <HeaderGlobalAction
