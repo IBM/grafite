@@ -22,7 +22,7 @@ services:
             - infra
             - app
     rabbitmq:
-        image: rabbitmq:4.0.2-management
+        image: rabbitmq:4.3.0-management
         container_name: rabbitmq
         ports:
             - '5672:5672'
