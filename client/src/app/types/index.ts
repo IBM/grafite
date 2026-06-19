@@ -20,7 +20,7 @@ export interface InferenceParametersObj {
     decay_factor: number;
     start_index: number;
   };
-  max_new_tokens?: number;
+  max_tokens?: number;
   min_new_tokens?: number;
   random_seed?: number;
   stop_str?: string[];
@@ -72,7 +72,7 @@ export type ModelConfig = {
     top_k: number;
     repetition_penalty: number;
     max_output_tokens?: number;
-    max_new_tokens?: number;
+    max_tokens?: number;
   };
   tokenizer_optional_encode_args?: { [key: string]: string };
   tokenizer_optional_decode_args?: { [key: string]: string };

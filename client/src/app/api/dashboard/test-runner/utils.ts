@@ -19,7 +19,7 @@ type Parameters = {
   frequency_penalty: number;
   presence_penalty: number;
   repetition_penalty: number;
-  max_new_tokens: number;
+  max_tokens: number;
   additional_params: { [key: string]: unknown };
   thinking?: boolean;
 };

@@ -26,7 +26,7 @@ class OllamaProvider(Provider):
                     "Content-Type": "application/json"
                 },
                 frequency_penalty=parameters.frequency_penalty,
-                max_completion_tokens=parameters.max_new_tokens,
+                max_completion_tokens=parameters.max_tokens,
                 presence_penalty=parameters.presence_penalty,
                 top_p=parameters.top_p,
                 temperature=parameters.temperature,
@@ -59,7 +59,7 @@ class OllamaProvider(Provider):
                     "Content-Type": "application/json"
                 },
                 frequency_penalty=parameters.frequency_penalty,
-                max_tokens=parameters.max_new_tokens,
+                max_tokens=parameters.max_tokens,
                 presence_penalty=parameters.presence_penalty,
                 top_p=parameters.top_p,
                 temperature=parameters.temperature,

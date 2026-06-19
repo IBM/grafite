@@ -92,7 +92,7 @@ class WatsonXProvider(Provider):
         default_params = TextChatParameters(
             temperature=parameters.temperature,
             top_p=parameters.top_p,
-            max_tokens=parameters.max_new_tokens,
+            max_tokens=parameters.max_tokens,
             frequency_penalty=parameters.frequency_penalty,
             presence_penalty=parameters.presence_penalty
         ).to_dict()
@@ -108,7 +108,7 @@ class WatsonXProvider(Provider):
             top_p=parameters.top_p,
             repetition_penalty=parameters.repetition_penalty,
             top_k=parameters.top_k,
-            max_new_tokens=parameters.max_new_tokens
+            max_new_tokens=parameters.max_tokens
         ).to_dict()
 
         return { **default_params, **parameters.additional_params }
