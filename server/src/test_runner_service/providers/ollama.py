@@ -17,6 +17,16 @@ class OllamaProvider(Provider):
         try:
             client = OpenAI(base_url=OLLAMA_BASE_URL, api_key="ollama")
 
+            body_params = {
+                **parameters.additional_params,
+                'max_tokens': parameters.max_tokens,
+                'temperature': parameters.temperature,
+                'top_p': parameters.top_p,
+                'frequency_penalty': parameters.frequency_penalty,
+                'presence_penalty': parameters.presence_penalty,
+            }
+            logger.info(f"Ollama extra_body: {body_params}")
+
             res = client.chat.completions.create(
                 model=model_id,
                 messages=messages,
@@ -25,12 +35,7 @@ class OllamaProvider(Provider):
                 extra_headers={
                     "Content-Type": "application/json"
                 },
-                frequency_penalty=parameters.frequency_penalty,
-                max_completion_tokens=parameters.max_tokens,
-                presence_penalty=parameters.presence_penalty,
-                top_p=parameters.top_p,
-                temperature=parameters.temperature,
-                extra_body={ **parameters.additional_params }
+                extra_body=body_params
             )
 
             return res.choices[0].message.model_dump()
@@ -52,18 +57,23 @@ class OllamaProvider(Provider):
         try:
             client = OpenAI(base_url=OLLAMA_BASE_URL, api_key="ollama")
 
+            body_params = {
+                **parameters.additional_params,
+                'max_tokens': parameters.max_tokens,
+                'temperature': parameters.temperature,
+                'top_p': parameters.top_p,
+                'frequency_penalty': parameters.frequency_penalty,
+                'presence_penalty': parameters.presence_penalty,
+            }
+            logger.info(f"Ollama extra_body: {body_params}")
+
             res = client.completions.create(
                 model=model_id,
                 prompt=prompt,
                 extra_headers={
                     "Content-Type": "application/json"
                 },
-                frequency_penalty=parameters.frequency_penalty,
-                max_tokens=parameters.max_tokens,
-                presence_penalty=parameters.presence_penalty,
-                top_p=parameters.top_p,
-                temperature=parameters.temperature,
-                extra_body={ **parameters.additional_params }
+                extra_body=body_params
             )
 
             return res.choices[0].text
