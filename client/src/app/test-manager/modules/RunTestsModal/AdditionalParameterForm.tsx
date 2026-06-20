@@ -1,6 +1,6 @@
 'use client';
 
-import { FluidDropdown, FluidTextInput, IconButton, OnChangeData } from '@carbon/react';
+import { FluidComboBox, FluidDropdown, FluidTextInput, IconButton, OnChangeData } from '@carbon/react';
 import { Close } from '@carbon/react/icons';
 import { ChangeEvent, useCallback, useRef, useState } from 'react';
 
@@ -142,7 +142,8 @@ const AdditionalParameterForm = ({
 
   return (
     <div className={styles.additionalParameterItem}>
-      <FluidDropdown
+      <FluidComboBox
+        allowCustomValue
         className={styles.additionalParameterName}
         onChange={onNameChange}
         items={additionalParamNames}

@@ -13,7 +13,7 @@ class Parameters(BaseModel):
     frequency_penalty: float = 0
     presence_penalty: float = 0
     repetition_penalty: float = 1
-    max_new_tokens: int = 1024
+    max_tokens: int = 1024
     additional_params: dict[str, Any] = {}
     thinking: bool = None
 
