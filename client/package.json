@@ -39,6 +39,9 @@
     "remark-math": "^6.0.0",
     "sass": "^1.94.0"
   },
+  "overrides": {
+    "sharp": "^0.35.4"
+  },
   "devDependencies": {
     "@types/amqplib": "^0.10.8",
     "@types/node": "^20.19.25",
