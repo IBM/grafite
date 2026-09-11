@@ -17,7 +17,7 @@
   "dependencies": {
     "@carbon/charts-react": "^1.27.0",
     "@carbon/react": "^1.107.1",
-    "@streamparser/json-whatwg": "^0.0.22",
+    "@streamparser/json-whatwg": "^0.0.26",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
     "ag-grid-community": "^33.1.1",
@@ -39,6 +39,9 @@
     "remark-math": "^6.0.0",
     "sass": "^1.94.0"
   },
+  "overrides": {
+    "sharp": "^0.35.4"
+  },
   "devDependencies": {
     "@types/amqplib": "^0.10.8",
     "@types/node": "^20.19.25",
@@ -53,7 +56,7 @@
     "prettier": "^3.6.2",
     "stylelint": "^17.0.0",
     "stylelint-config-css-modules": "^4.5.1",
-    "stylelint-config-recommended-scss": "^14.1.0",
+    "stylelint-config-recommended-scss": "^17.0.0",
     "stylelint-scss": "^6.12.1",
     "typescript": "^5.9.3"
   },
