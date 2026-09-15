@@ -8,7 +8,7 @@ from test_runner_service.schemas import Parameters
 from test_runner_service.utils import logger
 from test_runner_service.constants import MAX_RETRY_ATTEMPS, RETRY_TIME
 
-from .provider import Provider
+from .provider import Provider, is_response_format_unsupported
 
 ACCESS_TOKEN_URL="https://iam.cloud.ibm.com/identity/token"
 WX_URL="https://us-south.ml.cloud.ibm.com/"
@@ -21,13 +21,17 @@ class WatsonXProvider(Provider):
     def __init__(self, api_key: str, project_id: str):
         self.__project_id = project_id
         self.__current_retry_attempts = 0
+        self.__structured_output_supported = True
 
         self.__credentials = WXCredentials(
             url=WX_URL,
             api_key=api_key
         )
-    
-    def chat(self, model_id: str, messages: list[dict], parameters: Parameters | dict, tools: dict | None = None):
+
+    def chat(self, model_id: str, messages: list[dict], parameters: Parameters | dict, tools: dict | None = None, *, response_format: dict | None = None):
+        if response_format is not None and not self.__structured_output_supported:
+            response_format = None
+
         try:
             model = ModelInference(
                 model_id=model_id,
@@ -39,23 +43,30 @@ class WatsonXProvider(Provider):
                 messages=messages,
                 tools=tools,
                 tool_choice_option="auto" if tools is not None else "none",
-                params=self._convert_parameters_to_chat_parameters(parameters=parameters)
+                params=self._convert_parameters_to_chat_parameters(parameters=parameters, response_format=response_format)
             )
 
             return res['choices'][0]['message']
         except Exception as e:
+            # Not transient: don't sleep, don't consume a retry attempt (the counter is
+            # shared across judge threads), just drop response_format and re-dispatch.
+            if response_format is not None and is_response_format_unsupported(e):
+                logger.warning(f"Model '{model_id}' rejected response_format ({e}); falling back to prompt-instructed JSON.")
+                self.__structured_output_supported = False
+                return self.chat(model_id=model_id, messages=messages, tools=tools, parameters=parameters, response_format=None)
+
             self.__current_retry_attempts += 1
 
             if self.__current_retry_attempts > MAX_RETRY_ATTEMPS:
                 err_message = f"Max number of retries ({MAX_RETRY_ATTEMPS}) exceeded. Error:\nFailed to generate model response: " + str(e)
                 logger.error(err_message)
                 raise Exception(err_message)
-        
+
             logger.error("Failed to generate model response: " + str(e))
             logger.info(f"Retrying in {RETRY_TIME} seconds...")
             sleep(RETRY_TIME)
 
-            return self.chat(model_id=model_id, messages=messages, tools=tools, parameters=parameters)
+            return self.chat(model_id=model_id, messages=messages, tools=tools, parameters=parameters, response_format=response_format)
 
     def completions(self, model_id: str, prompt: str, parameters: Parameters | dict) -> str:
         try:
@@ -85,19 +96,26 @@ class WatsonXProvider(Provider):
 
             return self.completions(model_id=model_id, prompt=prompt, parameters=parameters)
 
-    def _convert_parameters_to_chat_parameters(self, parameters: Parameters | dict) -> TextChatParameters:
+    def _convert_parameters_to_chat_parameters(self, parameters: Parameters | dict, response_format: dict | None = None) -> dict:
         if isinstance(parameters, dict):
-            return parameters
-        
-        default_params = TextChatParameters(
-            temperature=parameters.temperature,
-            top_p=parameters.top_p,
-            max_tokens=parameters.max_tokens,
-            frequency_penalty=parameters.frequency_penalty,
-            presence_penalty=parameters.presence_penalty
-        ).to_dict()
+            merged = { **parameters }
+        else:
+            default_params = TextChatParameters(
+                temperature=parameters.temperature,
+                top_p=parameters.top_p,
+                max_tokens=parameters.max_tokens,
+                frequency_penalty=parameters.frequency_penalty,
+                presence_penalty=parameters.presence_penalty
+            ).to_dict()
 
-        return { **default_params, **parameters.additional_params }
+            merged = { **default_params, **parameters.additional_params }
+
+        if response_format is not None:
+            # Plain dict on purpose: TextChatParameters is an unvalidated dataclass and
+            # the SDK does payload.update(params), so this reaches the REST body verbatim.
+            merged["response_format"] = response_format
+
+        return merged
     
     def _convert_parameters_to_completion_parameters(self, parameters: Parameters | dict) -> TextChatParameters:
         if isinstance(parameters, dict):

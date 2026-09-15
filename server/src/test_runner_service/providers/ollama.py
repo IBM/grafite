@@ -7,13 +7,17 @@ from test_runner_service.utils import logger
 from test_runner_service.constants import MAX_RETRY_ATTEMPS, RETRY_TIME
 from grafite.constants import OLLAMA_BASE_URL
 
-from .provider import Provider
+from .provider import Provider, is_response_format_unsupported
 
 class OllamaProvider(Provider):
     def __init__(self):
         self.__current_retry_attempts = 0
+        self.__structured_output_supported = True
 
-    def chat(self, model_id: str, messages: list[dict], parameters: Parameters, tools: dict | None = None):
+    def chat(self, model_id: str, messages: list[dict], parameters: Parameters, tools: dict | None = None, *, response_format: dict | None = None):
+        if response_format is not None and not self.__structured_output_supported:
+            response_format = None
+
         try:
             client = OpenAI(base_url=OLLAMA_BASE_URL, api_key="ollama")
 
@@ -27,6 +31,10 @@ class OllamaProvider(Provider):
             }
             logger.info(f"Ollama extra_body: {body_params}")
 
+            create_kwargs = {}
+            if response_format is not None:
+                create_kwargs['response_format'] = response_format
+
             res = client.chat.completions.create(
                 model=model_id,
                 messages=messages,
@@ -35,23 +43,31 @@ class OllamaProvider(Provider):
                 extra_headers={
                     "Content-Type": "application/json"
                 },
-                extra_body=body_params
+                extra_body=body_params,
+                **create_kwargs
             )
 
             return res.choices[0].message.model_dump()
         except Exception as e:
+            # Not transient: don't sleep, don't consume a retry attempt (the counter is
+            # shared across judge threads), just drop response_format and re-dispatch.
+            if response_format is not None and is_response_format_unsupported(e):
+                logger.warning(f"Model '{model_id}' rejected response_format ({e}); falling back to prompt-instructed JSON.")
+                self.__structured_output_supported = False
+                return self.chat(model_id=model_id, messages=messages, tools=tools, parameters=parameters, response_format=None)
+
             self.__current_retry_attempts += 1
 
             if self.__current_retry_attempts > MAX_RETRY_ATTEMPS:
                 err_message = f"Max number of retries ({MAX_RETRY_ATTEMPS}) exceeded. Error:\nFailed to generate model response: " + str(e)
                 logger.error(err_message)
                 raise Exception(err_message)
-        
+
             logger.error("Failed to generate model response: " + str(e))
             logger.info(f"Retrying in {RETRY_TIME} seconds...")
             sleep(RETRY_TIME)
 
-            return self.chat(model_id=model_id, messages=messages, tools=tools, parameters=parameters)
+            return self.chat(model_id=model_id, messages=messages, tools=tools, parameters=parameters, response_format=response_format)
 
     def completions(self, model_id: str, prompt: str, parameters: Parameters):
         try:
