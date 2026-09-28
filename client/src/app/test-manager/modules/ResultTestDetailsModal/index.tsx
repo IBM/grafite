@@ -160,6 +160,18 @@ const ResultTestDetailsModal = ({ test, open, modelId, judgeModelId, close, runI
               renderProps: ['expandable', 'previewMarkdown'],
             },
           ],
+          ...(test.modelReasoning
+            ? [
+                [
+                  {
+                    label: 'Model Reasoning',
+                    content: test.modelReasoning,
+                    renderProps: ['expandable', 'previewMarkdown'],
+                  },
+                  { content: <div /> },
+                ],
+              ]
+            : []),
           {
             renderType: FieldRenderType.DIVIDER,
           },

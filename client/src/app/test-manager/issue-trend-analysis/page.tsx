@@ -19,6 +19,7 @@ import { comparScores, filterOutNoOverlap, Filters } from './utils';
 type SelectedReport = {
   report: TestRun;
   results: Result[] | null;
+  uploaded?: boolean; // parsed from an uploaded file — has no runId to fetch or sync to the URL
 };
 
 export default function Home() {
@@ -30,7 +31,6 @@ export default function Home() {
   const { reports } = useReportsContext();
   const [selectedReports, setSelectedReports] = useState<SelectedReport[]>([]);
   const [loading, startTransition] = useTransition();
-
   const [globalFilters, setGlobalFilters] = useState<Filters | null>(null);
 
   const filteredData = useMemo(() => {
@@ -57,9 +57,10 @@ export default function Home() {
   const selectReports = useCallback(
     (reports: SelectedReport[]) => {
       const reportsWOResults = reports.filter((d) => !d.results?.length).map((d) => d.report.runId);
-      const promises = reportsWOResults.map((id) => getDashboardResult(id));
-      Promise.all(promises)
-        .then((results) => {
+      startTransition(async () => {
+        try {
+          const results = await Promise.all(reportsWOResults.map((id) => getDashboardResult(id)));
+
           setSelectedReports(() => {
             return reports.map((report) => {
               const index = reportsWOResults.indexOf(report.report.runId);
@@ -72,17 +73,19 @@ export default function Home() {
           params.delete('report');
 
           if (reports.length > 0) {
-            reports.forEach((r) => {
-              params.append('report', r.report.runId);
-            });
+            reports
+              .filter((r) => !r.uploaded)
+              .forEach((r) => {
+                params.append('report', r.report.runId);
+              });
           }
 
           router.push(`?${params.toString()}`);
-        })
-        .catch((e) => {
+        } catch (e) {
           console.error(e);
           addToastMsg('error', 'Please try again or select another report', 'Failed to load report');
-        });
+        }
+      });
     },
     [addToastMsg, router, searchParams],
   );
@@ -136,14 +139,15 @@ export default function Home() {
 
   useEffect(() => {
     //when report is refreshed, update the data to be reloaded if there is any difference to the existing data
-    const selectedReportIds = selectedReports.map((r) => r.report.runId!);
-    const promises = selectedReportIds.map((id) => getDashboardResult(id));
+    // uploaded reports have no server-side runId to refetch — skip them (and keep index alignment)
+    const fetchedReports = selectedReports.filter((r) => !r.uploaded);
+    const promises = fetchedReports.map((r) => getDashboardResult(r.report.runId!));
 
     Promise.all(promises)
       .then((results) => {
         for (const index in results) {
           const result = results[index];
-          const existingResults = selectedReports[index].results;
+          const existingResults = fetchedReports[index].results;
           if (!existingResults) return;
 
           for (let i = 0; i < existingResults.length; i++) {

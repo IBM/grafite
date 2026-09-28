@@ -1,5 +1,6 @@
 import { Result as ServerSchema } from '@api/dashboard/results/utils';
 import { APICallError } from '@types';
+import formatModelId from '@utils/formatModelId';
 
 export type JudgeResult = {
   testScore: number;
@@ -18,6 +19,8 @@ export type Result = {
   judgeGuidelines: string;
   groundTruth: string;
   modelResponse: string;
+  modelReasoning?: string;
+  modelToolCalls?: string;
   judgeResults: JudgeResult[];
 };
 
@@ -33,10 +36,12 @@ const mapResultstoClientSchema = (result: ServerSchema[]): Result[] => {
     judgeGuidelines: r.judge_guidelines,
     groundTruth: r.ground_truth,
     modelResponse: r.model_response,
+    modelReasoning: r.model_reasoning,
+    modelToolCalls: r.model_tool_calls,
     judgeResults: r.judge_results.map((j) => ({
       testScore: j.test_score,
       testJustification: j.test_justification,
-      modelId: j.model_id,
+      modelId: formatModelId(j.model_id),
       ...(j.type && { type: j.type }),
     })),
   }));

@@ -106,7 +106,7 @@ export const useColumnDefs = (
           headerName: `${d.report.modelId}\n${d.report.createdAt}`,
           headerStyle: { whiteSpace: 'wrap' },
           cellStyle: { textAlign: 'right' },
-          width: 250,
+          width: 200,
           comparator: (a: number | string, b: number | string) => {
             if (a === 'N/A' && b === 'N/A') return 0;
             if (a === 'N/A') return -1;

@@ -8,6 +8,7 @@ export type ResultByIssueTag = {
   key: string;
   testIds: string[];
   value: number;
+  total?: number;
 };
 
 export type Filters =
@@ -108,7 +109,13 @@ export const groupPassResultByIssueTag = (issues: Issue[], reports: SelectedRepo
     }
   }
 
-  return data.map(({ group, key, testIds, value, total }) => ({ group, key, testIds, value: (value / total) * 100 }));
+  return data.map(({ group, key, testIds, value, total }) => ({
+    group,
+    key,
+    testIds,
+    value: (value / total) * 100,
+    total,
+  }));
 };
 
 export const compareIssueTagResults = (issues: Issue[], reports: SelectedReport[]): ResultByIssueTag[] => {

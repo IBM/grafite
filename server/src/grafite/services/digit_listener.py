@@ -123,7 +123,8 @@ def process_digit_run(channel, delivery_tag, body):
             db=db,
             tests=tests,
             number_of_tests=len(test_list),
-            run_params=run_params.model_dump()
+            run_params=run_params.model_dump(),
+            description=job_parameters.get("description")
         )
         
         # LOG # # # # # # # # # # # # # #

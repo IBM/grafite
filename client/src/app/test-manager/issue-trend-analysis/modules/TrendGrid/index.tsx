@@ -2,17 +2,16 @@ import { useToastMessageContext } from '@components/ToastMessageContext';
 import DetailsModal from '@modules/DetailsModal';
 import { SelectedReport } from '@test-manager/issue-trend-analysis-old/[id]/utils';
 import ResultTestDetailsModal, { Props as RunResultModalProps } from '@test-manager/modules/ResultTestDetailsModal';
-import { stringifyJudgeModelId } from '@utils/stringifyJudgeModelId';
-import { AgGridReact } from 'ag-grid-react';
-import { useCallback, useEffect, useRef, useState } from 'react';
-
-import { useRouter } from 'next/navigation';
-import Grid from './Grid';
-import { aggregateReportScores } from '@utils/ag-grid/ScoreAggregator/utils';
-
-import localStyles from './TrendGrid.module.scss';
 import styles from '@utils/ag-grid/ag-grid.module.scss';
 import ScoreAggregator from '@utils/ag-grid/ScoreAggregator';
+import { aggregateReportScores } from '@utils/ag-grid/ScoreAggregator/utils';
+import { stringifyJudgeModelId } from '@utils/stringifyJudgeModelId';
+import { AgGridReact } from 'ag-grid-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+import Grid from './Grid';
+import localStyles from './TrendGrid.module.scss';
 
 const TrendGrid = ({
   selectedReports,
@@ -23,6 +22,8 @@ const TrendGrid = ({
 }) => {
   const { addToastMsg } = useToastMessageContext();
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const [selectedTestId, setSelectedTestId] = useState<{ type: 'test' | 'issue'; id: string } | undefined>(undefined);
   const [selectedTestRun, setSelectedTestRun] = useState<{
@@ -63,6 +64,21 @@ const TrendGrid = ({
     [addToastMsg],
   );
 
+  const updateModalSearchParams = useCallback(
+    (reportId: string | null, testId: string | null) => {
+      const nextParams = new URLSearchParams(searchParams.toString());
+      if (reportId && testId) {
+        nextParams.set('report_id', reportId);
+        nextParams.set('test_id', testId);
+      } else {
+        nextParams.delete('report_id');
+        nextParams.delete('test_id');
+      }
+      router.replace(`${pathname}?${nextParams.toString()}`, { scroll: false });
+    },
+    [pathname, router, searchParams],
+  );
+
   const selectTestRun = useCallback(
     (reportId: string, testId: string) => {
       const selectedReport = selectedReports.find(({ report }) => report.runId === reportId);
@@ -72,26 +88,32 @@ const TrendGrid = ({
         const selectedTestRun = selectedReport.results;
         const testResult = selectedTestRun?.find((result) => result.testId === testId) ?? null;
 
-        if (!testResult) return;
-        setSelectedTestRun(() => ({
-          modelId,
-          judgeModelId,
-          reportId,
-          test: {
-            testId: testId,
-            promptText: testResult.promptText,
-            messages: testResult.messages,
-            modelResponse: testResult.modelResponse,
-            groundTruth: testResult.groundTruth,
-            judgePrompt: testResult.judgePrompt,
-            judgeGuidelines: testResult.judgeGuidelines,
-            judgeResults: testResult.judgeResults,
-          },
-        }));
+        if (testResult) {
+          setSelectedTestRun(() => ({
+            modelId,
+            judgeModelId,
+            reportId,
+            test: {
+              testId: testId,
+              promptText: testResult.promptText,
+              messages: testResult.messages,
+              modelResponse: testResult.modelResponse,
+              modelReasoning: testResult.modelReasoning,
+              groundTruth: testResult.groundTruth,
+              judgePrompt: testResult.judgePrompt,
+              judgeGuidelines: testResult.judgeGuidelines,
+              judgeResults: testResult.judgeResults,
+            },
+          }));
+          updateModalSearchParams(reportId, testId);
+        } else {
+          addToastMsg('error', 'No test found with the ID. Please check and try again.', 'Failed to open test details');
+        }
       }
     },
-    [selectedReports],
+    [selectedReports, updateModalSearchParams, addToastMsg],
   );
+
   const getAggregatedScores = useCallback(() => {
     const reports = selectedReports.map((r) => ({
       runId: r.report.runId,
@@ -115,6 +137,20 @@ const TrendGrid = ({
     setAggregatedScores(() => getAggregatedScores());
     router.refresh();
   }, [getAggregatedScores, router]);
+
+  useEffect(() => {
+    if (selectedTestRun || selectedReports.length === 0) return;
+
+    const reportId = searchParams.get('report_id');
+    const testId = searchParams.get('test_id');
+    if (!reportId || !testId) return;
+
+    const selectedReport = selectedReports.find(({ report }) => report.runId === reportId);
+    if (!selectedReport?.results) return;
+
+    selectTestRun(reportId, testId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedReports, searchParams]);
 
   return (
     <>
@@ -166,6 +202,7 @@ const TrendGrid = ({
         open={!!selectedTestRun}
         close={() => {
           setSelectedTestRun(null);
+          updateModalSearchParams(null, null);
         }}
         test={selectedTestRun?.test || null}
         modelId={selectedTestRun?.modelId || ''}

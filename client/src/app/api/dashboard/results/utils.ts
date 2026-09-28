@@ -9,6 +9,8 @@ export type Result = {
   judge_guidelines: string;
   ground_truth: string;
   model_response: string;
+  model_reasoning?: string;
+  model_tool_calls?: string;
   judge_results: JudgeResult[];
 };
 

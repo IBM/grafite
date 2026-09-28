@@ -15,8 +15,9 @@ class TestRunnerWrapper:
     __test_runner: TestRunnerService
     __number_of_tests: int
     __run_params: Union[dict, Parameters]
-    
-    
+    __description: Union[str, None]
+
+
     def __init__(
         self,
         creator: str,
@@ -25,10 +26,11 @@ class TestRunnerWrapper:
         number_of_tests: int,
         run_params: dict,
         tests: Union[list[str], Literal["*"]] = "*",
+        description: Union[str, None] = None,
     ):
         now = datetime.now(timezone.utc)
         date = now.strftime("%Y%m%d%H%M%S")
-        
+
         self.__created_at = now.strftime('%Y-%m-%d %H:%M')
         self.run_id = f'run_{date}'
         self.__creator = creator
@@ -36,6 +38,7 @@ class TestRunnerWrapper:
         self.__test_runner = test_runner
         self.__number_of_tests = number_of_tests
         self.__run_params = run_params
+        self.__description = description
         self.db = db
         
         self.__run_params['additional_judge_system_prompt'] = JUDGE_SYSTEM_PROMPT
@@ -48,7 +51,8 @@ class TestRunnerWrapper:
             **(self.__test_runner.details()),
             "number_of_tests": self.__number_of_tests,
             "created_at": self.__created_at,
-            "config": self.__run_params
+            "config": self.__run_params,
+            "description": self.__description
         }
 
         return run_details

@@ -10,3 +10,4 @@ class Run(BaseModel):
     tests: Optional[Union[Literal["*"], list[str]]] = "*"
     params: Optional[dict] = None
     number_of_tests: Optional[int] = None
+    description: Optional[str] = None

@@ -11,7 +11,8 @@
 }
 
 .gridWrapper {
-  block-size: rem(500px);
+  min-block-size: rem(500px);
+  block-size: calc(100dvh - 12rem);
   position: relative;
 }
 
