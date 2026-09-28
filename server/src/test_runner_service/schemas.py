@@ -26,7 +26,13 @@ class JudgeResponse(BaseModel):
     test_score: Literal[0, 1]
     test_justification: str
     model_id: str
-    
+
+class JudgeVerdict(BaseModel):
+    # Order matters: constrained decoders emit keys in schema order, and
+    # utils.extract_json_object's fallback regex requires justification before score.
+    justification: str
+    score: Literal[0, 1]
+
 class Credentials(BaseModel):
     watsonx_api_key: str | None = None
     watsonx_project_id: str | None = None
