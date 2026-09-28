@@ -3,7 +3,15 @@ import json
 import logging
 from datetime import datetime, timezone
 
-from test_runner_service.schemas import TestResult, JudgeResponse
+from test_runner_service.schemas import TestResult, JudgeResponse, JudgeVerdict
+
+def judge_response_format() -> dict:
+    schema = JudgeVerdict.model_json_schema()
+    schema["additionalProperties"] = False
+    return {
+        "type": "json_schema",
+        "json_schema": {"name": "judge_verdict", "schema": schema},
+    }
 
 def extract_json_object(input_string):
     # Remove markdown code block markers (```json or ```)
@@ -40,7 +48,14 @@ def extract_json_object(input_string):
 
     return input_string
 
-def post_process_judge_response(resp_str: str, model_id: str):
+def post_process_judge_response(resp_str: str, model_id: str) -> JudgeResponse:
+    # Fast path: schema-constrained output (response_format) validates directly.
+    try:
+        verdict = JudgeVerdict.model_validate_json(resp_str.strip())
+        return JudgeResponse(test_score=verdict.score, test_justification=verdict.justification, model_id=model_id)
+    except Exception:
+        pass
+
     resp_dict_str = extract_json_object(resp_str.strip())
     
     try:
