@@ -60,4 +60,6 @@ class TestResult(BaseModel):
     messages: list[dict] | None = None
     ground_truth: str | None = None
     model_response: str | None = None
+    model_reasoning: str | None = None          # reasoning trace from thinking-capable models
+    model_tool_calls: str | None = None         # serialised tool_calls when model invokes a tool
     judge_results: list[JudgeResponse]

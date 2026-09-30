@@ -19,6 +19,17 @@
   text-overflow: ellipsis;
 }
 
+.descriptionCell {
+  max-inline-size: calc((100cqw - rem(70px)) / 6) !important;
+}
+
+.descriptionText {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .progressIcon {
   fill: $support-info;
   flex-shrink: 0;

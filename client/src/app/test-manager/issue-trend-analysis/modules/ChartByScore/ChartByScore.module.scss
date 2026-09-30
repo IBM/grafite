@@ -1,0 +1,13 @@
+@use '@styles/common' as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .subtitle {
+    @include type-style('label-02');
+    color: $text-primary;
+    margin-block-start: 1rem;
+  }
+}

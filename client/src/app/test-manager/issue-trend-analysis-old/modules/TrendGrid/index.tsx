@@ -305,7 +305,7 @@ const Toolbar = memo(function Toolbar({
   selectedReportLoading,
   refreshData,
 }: {
-  gridRef: RefObject<AgGridReact>;
+  gridRef: RefObject<AgGridReact | null>;
   selectedReportLoading: boolean;
   refreshData: () => void;
 }) {

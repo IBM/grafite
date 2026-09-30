@@ -11,7 +11,7 @@
   justify-content: space-between;
 
   .runInfo {
-    height: rem(200px);
+    min-height: rem(200px);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -32,17 +32,15 @@
   }
 }
 
-.row {
-  display: flex;
-  column-gap: rem(32px);
-}
-
 .info {
   margin-top: rem(4px);
   @include type-style('body-compact-01');
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: rem(20px) rem(32px);
 
-  > * {
-    margin-bottom: rem(20px);
+  >* {
+    max-inline-size: 42rem;
   }
 }
 

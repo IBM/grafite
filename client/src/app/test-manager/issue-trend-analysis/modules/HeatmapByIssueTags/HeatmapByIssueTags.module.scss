@@ -1,0 +1,126 @@
+@use '@styles/common' as *;
+
+.wrapper {
+  inline-size: 100%;
+}
+
+.titleRow {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  column-gap: rem(16px);
+  margin-block-end: 1rem;
+}
+
+.title {
+  @include type-style('heading-02');
+}
+
+.columnLegend {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: rem(12px);
+
+  span {
+    display: flex;
+    align-items: center;
+    column-gap: rem(6px);
+    @include type-style('label-01');
+  }
+}
+
+.letterBadge {
+  flex: 0 0 rem(21px);
+  inline-size: rem(21px);
+  height: rem(21px);
+  border-radius: 50%;
+  border: rem(1px) solid $border-subtle-00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-secondary;
+  font-size: rem(12px);
+}
+
+.tables {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.grid {
+  display: grid;
+  flex: 1 1 rem(420px);
+  min-inline-size: 0;
+  column-gap: rem(4px);
+  row-gap: rem(4px);
+
+  > * {
+    border-bottom: rem(1px) solid $border-subtle-00;
+  }
+}
+
+.headerCell {
+  @include type-style('label-01');
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: rem(4px) rem(10px);
+  color: $text-secondary;
+  overflow-wrap: anywhere;
+}
+
+.rowLabel {
+  @include type-style('label-01');
+  display: flex;
+  align-items: center;
+  column-gap: rem(4px);
+  padding: rem(4px) rem(10px);
+  color: $text-primary;
+}
+
+.rowLabelText {
+  min-inline-size: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.rowLabelTotal {
+  flex: 0 0 auto;
+  color: $text-secondary;
+}
+
+.cell {
+  @include type-style('label-01');
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: rem(6px) rem(10px);
+  font-weight: 600;
+  color: $text-inverse;
+}
+
+.cellEmpty {
+  color: $text-secondary;
+  font-weight: 400;
+  border-bottom: rem(1px) solid $border-subtle-00;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: rem(8px);
+  margin-block-start: 1rem;
+
+  span {
+    @include type-style('label-01');
+    color: $text-secondary;
+  }
+}
+
+.legendGradient {
+  inline-size: rem(200px);
+  block-size: rem(8px);
+}

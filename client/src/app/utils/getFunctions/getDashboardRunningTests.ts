@@ -1,5 +1,6 @@
-import { Run as ServerSchema } from '@api/dashboard/test-runner/utils';
+import { Run as ServerSchema, RunConfig } from '@api/dashboard/test-runner/utils';
 import { APICallError } from '@types';
+import formatModelId from '@utils/formatModelId';
 
 export type TestRun = {
   id?: string;
@@ -12,7 +13,9 @@ export type TestRun = {
   createdAt: string;
   status: string;
   errorMsg?: string;
-  number_of_tests?: number | null;
+  description?: string;
+  numberOfTests?: number | null;
+  config?: RunConfig;
 };
 
 const mapTestRuntoClientSchema = (run: ServerSchema): TestRun => {
@@ -20,13 +23,15 @@ const mapTestRuntoClientSchema = (run: ServerSchema): TestRun => {
     id: run._id,
     runId: run.run_id.trim(),
     creator: run.creator,
-    modelId: run.model_id,
-    ...(run.judge_model_id && { judgeModelId: run.judge_model_id }),
-    ...(run.judge_model_ids && { judgeModelIds: run.judge_model_ids }),
+    modelId: formatModelId(run.model_id),
+    ...(run.judge_model_id && { judgeModelId: formatModelId(run.judge_model_id) }),
+    ...(run.judge_model_ids && { judgeModelIds: run.judge_model_ids.map((id) => formatModelId(id)) }),
     databuilder: run.databuilder,
     createdAt: run.created_at,
     status: run.status,
-    number_of_tests: run.number_of_tests,
+    description: run.description,
+    numberOfTests: run.number_of_tests,
+    config: run.config,
     ...(run.error_msg && { errorMsg: run.error_msg }),
   };
 };

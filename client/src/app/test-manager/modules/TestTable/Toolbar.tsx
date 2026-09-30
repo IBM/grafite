@@ -18,7 +18,7 @@ const Toolbar = ({
   selectedTests,
   selectableTestTotal,
 }: {
-  gridRef: RefObject<AgGridReact<Test>>;
+  gridRef: RefObject<AgGridReact<Test> | null>;
   selectedTests: string[];
   selectableTestTotal: number;
 }) => {

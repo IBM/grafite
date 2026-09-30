@@ -1,11 +1,12 @@
 import { Button } from '@carbon/react';
 import { IconButton } from '@carbon/react';
-import { Add, Close } from '@carbon/react/icons';
+import { Add, Close, DocumentAdd } from '@carbon/react/icons';
 import TestRunSelectorModal from '@modules/TestRunSelectorModal';
 import { SelectedReport } from '@test-manager/issue-trend-analysis-old/[id]/utils';
 import { type TestRun } from '@utils/getFunctions/getDashboardRunningTests';
 import { Fragment, useState } from 'react';
 
+import ReportUploadModal from '../ReportUploadModal/ReportUploadModal';
 import styles from './TestRunSelector.module.scss';
 
 type Props = {
@@ -15,6 +16,13 @@ type Props = {
 
 const TestRunSelector = ({ selectedReports, selectReports }: Props) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [uploadOpen, setUploadOpen] = useState<boolean>(false);
+
+  const addUploadedReports = (uploaded: SelectedReport[]) => {
+    const existIds = selectedReports.map((d) => d.report.id);
+    selectReports([...selectedReports, ...uploaded.filter((u) => !existIds.includes(u.report.id))]);
+    setUploadOpen(false);
+  };
 
   const selectTestRuns = (testRuns: TestRun[]) => {
     const existReportIds = selectedReports.map((d) => d.report.id);
@@ -37,19 +45,20 @@ const TestRunSelector = ({ selectedReports, selectReports }: Props) => {
     <div className={styles.root}>
       {selectedReports.map((d, i) => (
         <Fragment key={`selected_${d.report.id}`}>
-          {i > 0 && (
-            <div className={styles.divider}>
-              <div>vs</div>
-            </div>
-          )}
+          {i > 0 && <div className={styles.divider}></div>}
           <ReportCard index={i} report={d.report} deselect={deselectTestRun} />
         </Fragment>
       ))}
       {!selectedReports.length && <span className={styles.empty}>Select reports to start analysis</span>}
       {!selectedReports.length ? (
-        <Button kind="ghost" size="sm" onClick={() => setModalOpen(true)}>
-          Select reports
-        </Button>
+        <>
+          <Button kind="ghost" size="sm" onClick={() => setModalOpen(true)}>
+            Select reports
+          </Button>
+          <Button kind="ghost" size="sm" onClick={() => setUploadOpen(true)}>
+            Upload reports
+          </Button>
+        </>
       ) : (
         <div className={styles.addBtn}>
           <IconButton
@@ -61,6 +70,9 @@ const TestRunSelector = ({ selectedReports, selectReports }: Props) => {
           >
             <Add />
           </IconButton>
+          <IconButton label="Upload reports" kind="secondary" onClick={() => setUploadOpen(true)} size="sm" autoAlign>
+            <DocumentAdd />
+          </IconButton>
         </div>
       )}
       <TestRunSelectorModal
@@ -70,6 +82,12 @@ const TestRunSelector = ({ selectedReports, selectReports }: Props) => {
         }}
         submit={selectTestRuns}
         defaultSelectedReports={selectedReports}
+      />
+      <ReportUploadModal
+        open={uploadOpen}
+        onClose={() => setUploadOpen(false)}
+        onAdd={addUploadedReports}
+        existingFilenames={selectedReports.filter((d) => d.uploaded).map((d) => d.report.modelId)}
       />
     </div>
   );
@@ -91,7 +109,10 @@ const ReportCard = ({
       </div>
       <div className={styles.info}>
         <div>{report.modelId}</div>
-        <div>({report.runId})</div>
+        <div className={styles.runId}>({report.runId})</div>
+        <div className={styles.description} title={report.description}>
+          {report.description}
+        </div>
       </div>
       <IconButton
         size="sm"

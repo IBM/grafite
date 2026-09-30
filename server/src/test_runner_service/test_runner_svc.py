@@ -56,22 +56,29 @@ class TestRunnerService:
         logger.info(f"Generating model response for test '{test.test_id}'.")
 
         model_response = ''
+        model_reasoning = None
+        model_tool_calls = None
 
         if test.messages is not None and len(test.messages) > 0:
             try:
-                model_response = provider.chat(model_id=self.__model_id, messages=test.messages, tools=test.tools, parameters=self.__parameters)
+                raw_response = provider.chat(model_id=self.__model_id, messages=test.messages, tools=test.tools, parameters=self.__parameters)
 
-                has_valid_content = 'content' in model_response and model_response['content'] is not None
-                has_valid_tool_calls = 'tool_calls' in model_response and model_response['tool_calls'] is not None
-                
-                
+                # reasoning is independent capture it whenever present
+                if raw_response.get('reasoning') is not None:
+                    model_reasoning = raw_response.get('reasoning')
+
+                has_valid_content = 'content' in raw_response and raw_response['content'] is not None
+                has_valid_tool_calls = 'tool_calls' in raw_response and raw_response['tool_calls'] is not None
+
+
                 if has_valid_content:
-                    model_response = model_response['content']
+                    model_response = raw_response['content']
                 elif has_valid_tool_calls :
-                    model_response = json.dumps(model_response['tool_calls'])
+                    model_tool_calls = json.dumps(raw_response['tool_calls'])
+                    model_response = model_tool_calls   # backward compat: model_response still gets the tool_calls JSON
                 else :
                     model_response = ''
-                    
+
 
             except Exception as e:
                 model_response = str(e)
@@ -95,6 +102,8 @@ class TestRunnerService:
             judge_guidelines=test.judge_guidelines or '',
             ground_truth=test.ground_truth,
             model_response=model_response,
+            model_reasoning=model_reasoning,
+            model_tool_calls=model_tool_calls,
             test_id=test.test_id,
             judge_results=[]
         )

@@ -18,7 +18,6 @@
   inline-size: calc(100% + 4rem);
 
   section {
-    margin-block-start: 1.5rem;
     padding-block-start: 1rem;
 
     h3 {
@@ -28,7 +27,7 @@
     }
   }
 
-  >.byScore {
+  > .byScore {
     margin-block-end: 1.5rem;
     position: relative;
 

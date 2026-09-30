@@ -46,6 +46,10 @@ const headers = [
     header: 'Title',
   },
   {
+    key: 'description',
+    header: 'Description',
+  },
+  {
     key: 'creator',
     header: 'Creator',
   },
@@ -70,7 +74,7 @@ const headers = [
     header: 'Status',
   },
   {
-    key: 'number_of_tests',
+    key: 'numberOfTests',
     header: '',
   },
 ];
@@ -108,6 +112,14 @@ const CellRenderer = ({ value, header }: { value: string; header: string }) => {
           <StatusCell status={value} />
         </TableCell>
       );
+    case 'description':
+      return (
+        <TableCell className={styles.descriptionCell}>
+          <span className={styles.descriptionText} title={value || ''}>
+            {value || '-'}
+          </span>
+        </TableCell>
+      );
     case 'judgeModelId':
       return <TableCell>{stringifyJudgeModelId(value)}</TableCell>;
     default:
@@ -125,8 +137,8 @@ const RunTable = ({ reports, defaultSelected, select, deselect }: TableProps) =>
 
   const rows: Row[] = useMemo(
     () =>
-      reports?.map((r) => ({
-        id: r.id || r.runId,
+      reports?.map((r, i) => ({
+        id: r.id || `${r.runId}-${i}`,
         disabled: r.status !== 'done',
         isSelected: !!defaultSelected?.map((d) => d.report)?.find((d) => d.id === r.id),
         ...r,
@@ -203,7 +215,7 @@ const RunTable = ({ reports, defaultSelected, select, deselect }: TableProps) =>
                         {row.cells.map((cell) => {
                           if (cell.info.header === 'runId') {
                             const runId = row.cells.find((c) => c.info.header === 'runId')!.value;
-                            const numberOfTests = row.cells.find((c) => c.info.header === 'number_of_tests')!.value;
+                            const numberOfTests = row.cells.find((c) => c.info.header === 'numberOfTests')!.value;
 
                             return (
                               <TableCell key={cell.id}>
@@ -222,7 +234,7 @@ const RunTable = ({ reports, defaultSelected, select, deselect }: TableProps) =>
                             return <TableCell key={cell.id}>{judgeModelIds}</TableCell>;
                           }
 
-                          if (['judgeModelIds', 'number_of_tests'].includes(cell.info.header)) return null;
+                          if (['judgeModelIds', 'numberOfTests'].includes(cell.info.header)) return null;
 
                           return (
                             <Fragment key={cell.id}>

@@ -8,7 +8,7 @@ import { isHumanEval } from '@utils/isHumanEval';
 import { getAvgJudgeScore } from '@utils/parseJudgeScore';
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
-import { memo, MutableRefObject, RefObject, useCallback, useEffect, useState } from 'react';
+import { memo, MutableRefObject, RefObject, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { filterByTag } from '../TrendAnalysisByIssueTag/utils';
 import Toolbar from './Toolbar';
@@ -38,7 +38,7 @@ const Grid = memo(function Grid({
   selectTestRun: (reportId: string, testId: string) => void;
   updateTotalRowItems: () => void;
   gridDataRefreshRef: MutableRefObject<(() => void) | null>;
-  gridRef: RefObject<AgGridReact>;
+  gridRef: RefObject<AgGridReact | null>;
 }) {
   const { issues } = useIssuesContext();
   const { tests } = useTestContext();
@@ -110,6 +110,11 @@ const Grid = memo(function Grid({
     };
   }, [updateTotalRowItems, getRowData, gridRef, gridDataRefreshRef]);
 
+  const filteredRowData = useMemo(
+    () => rowData?.filter((row) => filterByTag(selectedTags ?? [], row?.issueTags ?? [])) ?? null,
+    [rowData, selectedTags],
+  );
+
   return (
     colDef !== null && (
       <>
@@ -119,7 +124,7 @@ const Grid = memo(function Grid({
         ) : (
           <AgGridReact
             ref={gridRef}
-            rowData={rowData.filter((row) => filterByTag(selectedTags ?? [], row?.issueTags ?? []))}
+            rowData={filteredRowData}
             columnDefs={colDef}
             theme={carbonTheme}
             defaultColDef={{ filter: 'agTextColumnFilter' }}

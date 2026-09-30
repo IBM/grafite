@@ -48,6 +48,7 @@ const TrendAnalysisByIssueTag = ({ selectedReports }: Props) => {
     if (!selectedTags) setSelectedTags(tags);
     else setSelectedTags((prev) => [...new Set([...tags, ...prev!].filter((d) => tags.includes(d)))]);
     return tags;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chartData]);
 
   useEffect(() => {

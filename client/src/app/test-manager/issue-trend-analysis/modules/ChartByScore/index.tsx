@@ -1,4 +1,4 @@
-import { ToolbarControlTypes } from '@carbon/charts-react';
+import { Alignments, ToolbarControlTypes } from '@carbon/charts-react';
 import { Loading } from '@carbon/react';
 import Chart from '@components/DonutChart';
 import { useThemePreference } from '@components/ThemePreference';
@@ -7,6 +7,8 @@ import { SelectedReport } from '@test-manager/issue-trend-analysis-old/[id]/util
 import getChartColors from '@utils/getChartColors';
 import { parseBinaryJudgeScore } from '@utils/parseJudgeScore';
 import { useMemo } from 'react';
+
+import styles from './ChartByScore.module.scss';
 
 const ChartByScore = ({ selectedReports }: { selectedReports: SelectedReport[] }) => {
   const { theme } = useThemePreference();
@@ -27,37 +29,52 @@ const ChartByScore = ({ selectedReports }: { selectedReports: SelectedReport[] }
     return comparScores(selectedReports);
   }, [selectedReports]);
 
+  const betterPct = useMemo(() => {
+    if (!mode || !data) return null;
+    const total = data.reduce((sum, d) => sum + d.value, 0);
+    const better = data.find((d) => d.group === 'Better')?.value ?? 0;
+    return total ? ((better / total) * 100).toFixed(1) : 0;
+  }, [mode, data]);
+
   return data ? (
-    <Chart
-      data={data || []}
-      loading={!data}
-      centerLabel={'tests'}
-      options={{
-        title: mode ? 'Score comparison\n(B against A)' : 'Passed / failed',
-        width: '300px',
-        height: '350px',
-        legend: {
-          enabled: true,
-          order: ['Passed', 'Failed'],
-        },
-        pie: { sortFunction: (a, _b) => (a.group === 'Passed' ? 1 : -1) },
-        getFillColor(group, _label, _data, _defaultFillColor) {
-          return getChartColors(group, theme);
-        },
-        toolbar: {
-          enabled: true,
-          numberOfIcons: 3,
-          controls: [
-            {
-              type: ToolbarControlTypes.MAKE_FULLSCREEN,
-            },
-            {
-              type: ToolbarControlTypes.EXPORT_PNG,
-            },
-          ],
-        },
-      }}
-    />
+    <div className={styles.wrapper}>
+      <Chart
+        data={data || []}
+        loading={!data}
+        centerLabel={'tests'}
+        options={{
+          title: mode ? 'Score comparison\n(B against A)' : 'Passed / failed',
+          width: '300px',
+          height: '350px',
+          legend: {
+            enabled: true,
+            order: ['Passed', 'Failed'],
+            alignment: Alignments.CENTER,
+          },
+          pie: { sortFunction: (a, _b) => (a.group === 'Passed' ? 1 : -1) },
+          getFillColor(group, _label, _data, _defaultFillColor) {
+            return getChartColors(group, theme);
+          },
+          toolbar: {
+            enabled: true,
+            numberOfIcons: 3,
+            controls: [
+              {
+                type: ToolbarControlTypes.MAKE_FULLSCREEN,
+              },
+              {
+                type: ToolbarControlTypes.EXPORT_PNG,
+              },
+            ],
+          },
+        }}
+      />
+      {betterPct !== null && (
+        <p className={styles.subtitle}>
+          B is <strong style={{ color: getChartColors('Better', theme) }}>{betterPct}%</strong> better than A
+        </p>
+      )}
+    </div>
   ) : (
     <Loading withOverlay={false} />
   );

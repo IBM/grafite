@@ -1,0 +1,16 @@
+@use '@styles/common' as *;
+
+.intro {
+  margin-block-end: 1rem;
+  color: $text-secondary;
+}
+
+.fileList {
+  margin-block-start: 1rem;
+}
+
+.loaded {
+  @include type-style('label-01');
+  color: $text-helper;
+  margin-block-start: 0.5rem;
+}

@@ -34,6 +34,10 @@
     @include type-style('body-01');
     max-inline-size: 75ch;
   }
+
+  :global(.cds--definition-tooltip) {
+    max-inline-size: 20rem;
+  }
 }
 
 .empty {
@@ -44,6 +48,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  .labelGroup {
+    display: flex;
+    align-items: center;
+    column-gap: 0.25rem;
+  }
 
   .action {
     display: flex;

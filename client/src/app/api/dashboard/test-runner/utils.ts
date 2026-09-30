@@ -1,3 +1,17 @@
+export type RunConfig = {
+  temperature?: number;
+  top_p?: number;
+  top_k?: number;
+  frequency_penalty?: number;
+  presence_penalty?: number;
+  repetition_penalty?: number;
+  max_tokens?: number;
+  additional_params?: { [key: string]: unknown };
+  thinking?: boolean | null;
+  additional_judge_system_prompt?: string | null;
+  [key: string]: unknown;
+};
+
 export type Run = {
   _id?: string;
   run_id: string;
@@ -9,7 +23,9 @@ export type Run = {
   created_at: string;
   status: string;
   error_msg?: string;
+  description?: string;
   number_of_tests?: number | null;
+  config?: RunConfig;
 };
 
 type Parameters = {
