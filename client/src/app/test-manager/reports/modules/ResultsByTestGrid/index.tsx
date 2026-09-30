@@ -224,7 +224,7 @@ const Toolbar = memo(function Toolbar({
   gridRef,
   updateData,
 }: {
-  gridRef: RefObject<AgGridReact>;
+  gridRef: RefObject<AgGridReact | null>;
   updateData: () => void;
 }) {
   const { fetchIssues, loading } = useIssuesContext();

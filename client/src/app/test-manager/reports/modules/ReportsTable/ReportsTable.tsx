@@ -60,6 +60,10 @@ const headers = [
     header: 'Title',
   },
   {
+    key: 'description',
+    header: 'Description',
+  },
+  {
     key: 'creator',
     header: 'Creator',
   },
@@ -92,7 +96,7 @@ const headers = [
     header: '',
   },
   {
-    key: 'number_of_tests',
+    key: 'numberOfTests',
     header: '',
   },
 ];
@@ -153,6 +157,14 @@ const CellRenderer = ({
       return (
         <TableCell className={styles.creator}>
           <span title={value}>{value}</span>
+        </TableCell>
+      );
+    case 'description':
+      return (
+        <TableCell className={styles.descriptionCell}>
+          <span className={styles.descriptionText} title={value || ''}>
+            {value || '-'}
+          </span>
         </TableCell>
       );
     case 'modelId':
@@ -266,7 +278,7 @@ export const ReportsTable = ({ showOnlyFive = false }: ReportsTableProps) => {
                               '',
                           );
                           const status = row.cells.find((c) => c.info.header === 'status')!.value;
-                          const numberOfTests = row.cells.find((c) => c.info.header === 'number_of_tests')!.value;
+                          const numberOfTests = row.cells.find((c) => c.info.header === 'numberOfTests')!.value;
 
                           if (cell.info.header === 'runId') {
                             return (

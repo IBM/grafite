@@ -67,6 +67,9 @@ export default function ReportResultsPage() {
     setFilters((prev) => ({ ...prev, [filter]: !prev[filter as keyof typeof prev] }));
   }, []);
 
+  const formatConfig = (config: unknown) =>
+    JSON.stringify(config, (_key, value) => (value === null ? undefined : value), 2);
+
   const updateData = useCallback(() => {
     getDashboardResult(typeof runId === 'string' ? runId : '')
       .then((value) => {
@@ -102,11 +105,18 @@ export default function ReportResultsPage() {
             Report: <span>{runId}</span>
           </h2>
           <div className={styles.info}>
-            <LabelledItem label="Creator" id="report-detail-creator" narrow>
-              {loadingReport ? <SkeletonText /> : (report?.creator ?? '')}
-            </LabelledItem>
-            <div className={styles.row}>
-              <LabelledItem label="Model" id="report-detail-model" narrow>
+              <LabelledItem label="Creator" id="report-detail-creator" narrow>
+                {loadingReport ? <SkeletonText /> : (report?.creator ?? '')}
+              </LabelledItem>
+              <LabelledItem label="Description" id="report-test-description" narrow>
+                {loadingReport ? <SkeletonText /> : (report?.description ?? '-')}
+              </LabelledItem>
+              <LabelledItem
+                label="Model"
+                id="report-detail-model"
+                narrow
+                labelTooltip={{ title: 'Config', content: formatConfig(report?.config) }}
+              >
                 {loadingReport ? <SkeletonText /> : modelId}
               </LabelledItem>
               <div className={styles.row}>
@@ -114,7 +124,6 @@ export default function ReportResultsPage() {
                   {loadingReport || loadingResults ? <SkeletonText /> : judgeModelId}
                 </LabelledItem>
               </div>
-            </div>
           </div>
         </div>
         <Chart
@@ -127,7 +136,7 @@ export default function ReportResultsPage() {
           loading={loadingResults}
         />
       </div>
-      
+
       <Tabs
         selectedIndex={selectedTabIdx}
         onChange={({ selectedIndex }: { selectedIndex: number }) => {

@@ -1,16 +1,17 @@
-import { Button } from '@carbon/react';
-import { Checkmark, Close, Copy } from '@carbon/react/icons';
+import { Button, DefinitionTooltip, Tooltip } from '@carbon/react';
+import { Checkmark, Close, Copy, Information } from '@carbon/react/icons';
 import ExpandableText from '@components/ExpandableText';
 import MarkdownBox from '@components/MarkdownBox';
 import { useCopyToClipboard } from '@hooks/useCopyToClipboard';
 import { parseReactElementContent } from '@utils/parseReactElemenContent';
-import { ReactElement, useRef, useState } from 'react';
+import { ReactElement, ReactNode, useRef, useState } from 'react';
 
 import styles from './LabelledItem.module.scss';
 
 const LabelledItem = ({
   id,
   label,
+  labelTooltip,
   children,
   expandable,
   copiable,
@@ -20,6 +21,7 @@ const LabelledItem = ({
 }: {
   id: string;
   label: string;
+  labelTooltip?: { title?: string; content: ReactNode };
   children?: ReactElement | string | number;
   expandable?: boolean;
   copiable?: boolean;
@@ -48,7 +50,26 @@ const LabelledItem = ({
   return (
     <div className={`${styles.wrapper} ${!!copiable ? styles.copiable : ''} ${narrow ? styles.narrow : ''}`}>
       <div className={styles.header}>
-        <label id={id}>{label}</label>
+        <div className={styles.labelGroup}>
+          <label id={id}>{label}</label>
+          {labelTooltip &&
+            (labelTooltip.title ? (
+              <DefinitionTooltip
+                definition={labelTooltip.content}
+                openOnHover
+                className={styles.labelTooltip}
+                align="right"
+              >
+                {labelTooltip.title}
+              </DefinitionTooltip>
+            ) : (
+              <Tooltip label={labelTooltip.content} className={styles.labelTooltip} align="right">
+                <button type="button" className={styles.tooltipBtn}>
+                  <Information />
+                </button>
+              </Tooltip>
+            ))}
+        </div>
         {previewMarkdown && hasContent && (
           <div className={styles.action} role="tablist">
             <button onClick={() => setFormatted(false)} className={!formatted ? styles.selected : ''}>

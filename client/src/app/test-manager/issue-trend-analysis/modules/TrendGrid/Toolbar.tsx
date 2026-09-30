@@ -12,7 +12,7 @@ const Toolbar = memo(function Toolbar({
   gridRef,
   selectedReportLoading,
 }: {
-  gridRef: RefObject<AgGridReact>;
+  gridRef: RefObject<AgGridReact | null>;
   selectedReportLoading: boolean;
 }) {
   const { fetchIssues, loading: issueLoading } = useIssuesContext();

@@ -12,7 +12,7 @@ import { RefObject, useCallback, useMemo } from 'react';
 
 import { useIssuesContext } from '../IssuesContext';
 
-export const IssuesTableToolbar = ({ gridRef }: { gridRef: RefObject<AgGridReact<Issue>> }) => {
+export const IssuesTableToolbar = ({ gridRef }: { gridRef: RefObject<AgGridReact<Issue> | null> }) => {
   const { fetchIssues } = useIssuesContext();
 
   const isAdmin = useIsAdmin();

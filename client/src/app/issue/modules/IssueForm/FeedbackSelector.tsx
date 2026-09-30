@@ -15,7 +15,7 @@ interface Props {
   issue: Issue | null | undefined;
   connectedFeedbacks: Feedback[];
   setConnectedFeedbacks: Dispatch<SetStateAction<Feedback[]>>;
-  ghMappingInputRef: RefObject<HTMLInputElement>;
+  ghMappingInputRef: RefObject<HTMLInputElement | null>;
   feedbackChannels: string[];
   setFeedbackChannels: Dispatch<SetStateAction<string[]>>;
 }

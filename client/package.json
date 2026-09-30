@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "dev-https": "next dev --experimental-https --port 443",
-    "build": "next build",
+    "dev": "next dev --webpack",
+    "dev-https": "next dev --webpack --experimental-https --port 443",
+    "build": "next build --webpack",
     "clean": "rm -rf .next",
     "start": "next start",
     "check": "prettier --check src && eslint src && tsc --noEmit -p tsconfig.json && stylelint src/**/*.css src/**/*.scss",

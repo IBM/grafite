@@ -24,7 +24,7 @@ const MessageArea = ({
   setMessages,
 }: {
   updateData: (value: string | Message[], label: string) => void;
-  inputRef: RefObject<HTMLTextAreaElement>;
+  inputRef: RefObject<HTMLTextAreaElement | null>;
   pageLoading: boolean;
   messages: Message[];
   setMessages: Dispatch<SetStateAction<Message[]>>;
@@ -249,7 +249,7 @@ const MessageList = ({
   messages: Message[];
   isLoading: boolean;
   output: string | null;
-  snapperRef: RefObject<HTMLSpanElement>;
+  snapperRef: RefObject<HTMLSpanElement | null>;
   regenerate: (index: number) => void;
   updateData: (value: string | Message[], label: string) => void;
 }) => {

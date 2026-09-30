@@ -38,7 +38,7 @@ const Grid = memo(function Grid({
   selectTestRun: (reportId: string, testId: string) => void;
   updateTotalRowItems: () => void;
   gridDataRefreshRef: MutableRefObject<(() => void) | null>;
-  gridRef: RefObject<AgGridReact>;
+  gridRef: RefObject<AgGridReact | null>;
 }) {
   const { issues } = useIssuesContext();
   const { tests } = useTestContext();

@@ -83,3 +83,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.descriptionCell {
+  max-width: calc((100cqw - 6rem - rem(56px) - rem(160px)) / 6) !important;
+}
+
+.descriptionText {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

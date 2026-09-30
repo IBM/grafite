@@ -1,6 +1,6 @@
 import { RefObject, useState } from 'react';
 
-export const useCopyToClipboard = (target: RefObject<HTMLElement>) => {
+export const useCopyToClipboard = (target: RefObject<HTMLElement | null>) => {
   const [result, setResult] = useState<null | { state: 'success' } | { state: 'error'; message: string }>(null);
 
   const copy = async (text: string) => {
