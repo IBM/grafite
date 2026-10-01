@@ -25,8 +25,11 @@ export const useColumnDefs = (
   selectIssue: (id: string | undefined) => void,
   selectTestRun: (data: GridRow | undefined) => void,
   judgeModels: { id: string; type?: string }[] | null,
+  rows?: GridRow[] | null,
 ) => {
   const isHumanEvalModel = (model: { id: string; type?: string }) => model.type === 'human';
+  const hasModelReasoning = !!rows?.some((row) => row.modelReasoning);
+  const hasModelToolCalls = !!rows?.some((row) => row.modelToolCalls);
 
   const judgeColumns = useMemo(() => {
     const columns = [];
@@ -181,8 +184,30 @@ export const useColumnDefs = (
         tooltipValueGetter: (params: ITooltipParams) => params.value,
         tooltipComponent: (params: ITooltipParams) => <MarkdownToolTip {...params} />,
       },
+      ...(hasModelReasoning
+        ? [
+            {
+              field: 'modelReasoning',
+              headerName: 'Model Reasoning',
+              width: 600,
+              tooltipValueGetter: (params: ITooltipParams) => params.value,
+              tooltipComponent: (params: ITooltipParams) => <MarkdownToolTip {...params} />,
+            },
+          ]
+        : []),
+      ...(hasModelToolCalls
+        ? [
+            {
+              field: 'modelToolCalls',
+              headerName: 'Model Tool Calls',
+              width: 600,
+              tooltipValueGetter: (params: ITooltipParams) => params.value,
+              tooltipComponent: (params: ITooltipParams) => <MarkdownToolTip {...params} />,
+            },
+          ]
+        : []),
     ],
-    [selectTest, selectIssue, selectTestRun, judgeModels, judgeColumns],
+    [selectTest, selectIssue, selectTestRun, judgeModels, judgeColumns, hasModelReasoning, hasModelToolCalls],
   );
 
   return [colDef];

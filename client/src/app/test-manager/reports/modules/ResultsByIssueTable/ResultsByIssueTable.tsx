@@ -120,6 +120,8 @@ export const ResultsByIssueTable = ({
         promptText: result.promptText,
         messages: result.messages,
         modelResponse: result.modelResponse,
+        modelReasoning: result.modelReasoning,
+        modelToolCalls: result.modelToolCalls,
         groundTruth: result.groundTruth,
         judgePrompt: result.judgePrompt,
         judgeGuidelines: result.judgeGuidelines,

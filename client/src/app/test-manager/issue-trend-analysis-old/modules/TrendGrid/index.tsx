@@ -101,6 +101,8 @@ const TrendGrid = ({ tests }: Props) => {
             promptText: testResult.promptText,
             messages: testResult.messages,
             modelResponse: testResult.modelResponse,
+            modelReasoning: testResult.modelReasoning,
+            modelToolCalls: testResult.modelToolCalls,
             groundTruth: testResult.groundTruth,
             judgePrompt: testResult.judgePrompt,
             judgeGuidelines: testResult.judgeGuidelines,

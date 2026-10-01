@@ -75,6 +75,8 @@ const ResultsByTestGrid = memo(function ResultsByTestGrid({
         judgePrompt: data.judgePrompt,
         judgeGuidelines: data.judgeGuidelines,
         judgeResults: data.judgeResults,
+        modelReasoning: data.modelReasoning,
+        modelToolCalls: data.modelToolCalls,
       });
     },
     [setSelectedTestRun, addToastMsg],
@@ -94,7 +96,7 @@ const ResultsByTestGrid = memo(function ResultsByTestGrid({
     setJudgeModels(judges);
   }, [rows]);
 
-  const [colDef] = useColumnDefs(selectTest, selectIssue, selectTestRun, judgeModels);
+  const [colDef] = useColumnDefs(selectTest, selectIssue, selectTestRun, judgeModels, rows);
   const gridRef = useRef<AgGridReact>(null);
 
   const getAggregatedScores = useCallback(() => {
