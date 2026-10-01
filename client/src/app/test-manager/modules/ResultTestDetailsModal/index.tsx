@@ -160,15 +160,23 @@ const ResultTestDetailsModal = ({ test, open, modelId, judgeModelId, close, runI
               renderProps: ['expandable', 'previewMarkdown'],
             },
           ],
-          ...(test.modelReasoning
+          ...(test.modelReasoning || test.modelToolCalls
             ? [
                 [
-                  {
-                    label: 'Model Reasoning',
-                    content: test.modelReasoning,
-                    renderProps: ['expandable', 'previewMarkdown'],
-                  },
-                  { content: <div /> },
+                  test.modelReasoning
+                    ? {
+                        label: 'Model Reasoning',
+                        content: test.modelReasoning,
+                        renderProps: ['expandable', 'previewMarkdown'],
+                      }
+                    : { content: <div /> },
+                  test.modelToolCalls
+                    ? {
+                        label: 'Model Tool Calls',
+                        content: test.modelToolCalls,
+                        renderProps: ['expandable', 'previewMarkdown'],
+                      }
+                    : { content: <div /> },
                 ],
               ]
             : []),
