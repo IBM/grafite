@@ -1,6 +1,5 @@
 @use '@styles/common' as *;
 @use '@carbon/styles/scss/utilities/convert' as *;
-
 @include type-classes();
 
 .markdownWrapper {
@@ -20,7 +19,7 @@
     font-family: var(--cds-code-01-font-family) !important;
 
     span {
-      word-break: break-word;
+      overflow-wrap: anywhere;
       white-space: pre-wrap;
       display: inline;
     }
@@ -59,7 +58,7 @@
   blockquote,
   q,
   p {
-    word-break: break-word;
+    overflow-wrap: anywhere;
     font-size: inherit;
     line-height: inherit;
     letter-spacing: inherit;

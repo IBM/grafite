@@ -105,25 +105,25 @@ export default function ReportResultsPage() {
             Report: <span>{runId}</span>
           </h2>
           <div className={styles.info}>
-              <LabelledItem label="Creator" id="report-detail-creator" narrow>
-                {loadingReport ? <SkeletonText /> : (report?.creator ?? '')}
+            <LabelledItem label="Creator" id="report-detail-creator" narrow>
+              {loadingReport ? <SkeletonText /> : (report?.creator ?? '')}
+            </LabelledItem>
+            <LabelledItem label="Description" id="report-test-description" narrow>
+              {loadingReport ? <SkeletonText /> : (report?.description ?? '-')}
+            </LabelledItem>
+            <LabelledItem
+              label="Model"
+              id="report-detail-model"
+              narrow
+              labelTooltip={{ title: 'Config', content: formatConfig(report?.config) }}
+            >
+              {loadingReport ? <SkeletonText /> : modelId}
+            </LabelledItem>
+            <div className={styles.row}>
+              <LabelledItem label="Judge model(s)" id="report-detail-judge-model" narrow>
+                {loadingReport || loadingResults ? <SkeletonText /> : judgeModelId}
               </LabelledItem>
-              <LabelledItem label="Description" id="report-test-description" narrow>
-                {loadingReport ? <SkeletonText /> : (report?.description ?? '-')}
-              </LabelledItem>
-              <LabelledItem
-                label="Model"
-                id="report-detail-model"
-                narrow
-                labelTooltip={{ title: 'Config', content: formatConfig(report?.config) }}
-              >
-                {loadingReport ? <SkeletonText /> : modelId}
-              </LabelledItem>
-              <div className={styles.row}>
-                <LabelledItem label="Judge model(s)" id="report-detail-judge-model" narrow>
-                  {loadingReport || loadingResults ? <SkeletonText /> : judgeModelId}
-                </LabelledItem>
-              </div>
+            </div>
           </div>
         </div>
         <Chart

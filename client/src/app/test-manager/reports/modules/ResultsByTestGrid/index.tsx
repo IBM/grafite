@@ -131,10 +131,10 @@ const ResultsByTestGrid = memo(function ResultsByTestGrid({
 
   useEffect(() => {
     if (gridRef.current?.api) {
-      const isMultiJudge = judgeModels && judgeModels.length > 1
+      const isMultiJudge = judgeModels && judgeModels.length > 1;
       const colName = isMultiJudge ? 'avgScore' : 'testScore';
       const filterType = isMultiJudge ? (filters.passed ? 'greaterThan' : 'lessThan') : 'contains';
-      const filterScore = isMultiJudge ? 0.5 : (filters.passed ? '1' : '0');
+      const filterScore = isMultiJudge ? 0.5 : filters.passed ? '1' : '0';
       const currentFilter = gridRef.current.api.getColumnFilterModel(colName);
       if (Object.values(filters).includes(true)) {
         gridRef.current.api.setColumnFilterModel(colName, { type: filterType, filter: filterScore });

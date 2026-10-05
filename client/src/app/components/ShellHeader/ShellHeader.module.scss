@@ -56,6 +56,7 @@ a:has(.feedback) > * {
 
     h3 {
       padding: 1rem;
+
       @include type-style('heading-01');
     }
   }
@@ -72,7 +73,7 @@ a:has(.feedback) > * {
 
       > span {
         white-space: normal;
-        word-break: break-word;
+        overflow-wrap: anywhere;
       }
     }
   }
@@ -80,10 +81,11 @@ a:has(.feedback) > * {
   .toolDescription {
     display: inline-block;
     width: 100%;
+
     @include type-style('label-01');
     line-height: 1.5;
     white-space: normal;
-    word-break: break-word;
+    overflow-wrap: anywhere;
   }
 }
 

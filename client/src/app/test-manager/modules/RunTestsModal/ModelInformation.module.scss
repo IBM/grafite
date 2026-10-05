@@ -52,6 +52,7 @@
 
     > span {
       margin-left: 0.25rem;
+
       @include type-style('label-01');
       color: $text-secondary;
     }

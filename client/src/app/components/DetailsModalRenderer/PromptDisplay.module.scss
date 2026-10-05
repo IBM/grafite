@@ -26,7 +26,7 @@
   p {
     @include type-style('body-01');
     white-space: pre-wrap;
-    word-break: break-word;
+    overflow-wrap: anywhere;
     max-inline-size: 90ch;
   }
 
@@ -72,7 +72,7 @@
       @include button-reset.reset();
       color: $text-secondary;
       padding: 0.2rem 0.5rem;
-      
+
       @include type-style('label-01');
       white-space: nowrap;
 

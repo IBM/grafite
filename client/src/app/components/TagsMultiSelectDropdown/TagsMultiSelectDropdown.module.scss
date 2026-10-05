@@ -53,6 +53,7 @@
   > label {
     display: inline-block;
     inline-size: 100%;
+
     @include type-style('heading-01');
     white-space: nowrap;
     overflow: hidden;

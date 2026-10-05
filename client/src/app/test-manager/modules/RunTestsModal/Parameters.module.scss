@@ -36,6 +36,7 @@
 
       .warning {
         padding-inline-start: 0.75rem;
+
         @include type-style('label-01');
         color: $text-secondary;
         line-height: 1;

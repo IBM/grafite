@@ -15,7 +15,7 @@ $md-screen-height: rem(864px);
       overflow: hidden;
 
       .main,
-      >div:has(.row)> :not(.row) {
+      > div:has(.row) > :not(.row) {
         visibility: hidden;
         opacity: 0;
       }
@@ -60,7 +60,7 @@ $md-screen-height: rem(864px);
     block-size: 100%;
   }
 
-  >div {
+  > div {
     margin-bottom: 1.5rem;
 
     button {
@@ -77,7 +77,7 @@ $md-screen-height: rem(864px);
     }
   }
 
-  .main>div {
+  .main > div {
     margin-bottom: 1.5rem;
   }
 }
@@ -90,7 +90,7 @@ $md-screen-height: rem(864px);
 .description {
   margin-top: 1.5rem;
 
-  >div {
+  > div {
     margin-top: 0.25rem;
   }
 }

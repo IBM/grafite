@@ -86,7 +86,7 @@
     @include type-style('body-01');
 
     white-space: pre-wrap;
-    word-break: break-word;
+    overflow-wrap: anywhere;
   }
 }
 

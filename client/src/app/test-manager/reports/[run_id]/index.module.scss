@@ -34,12 +34,13 @@
 
 .info {
   margin-top: rem(4px);
+
   @include type-style('body-compact-01');
   display: grid;
   grid-template-columns: max-content 1fr;
   gap: rem(20px) rem(32px);
 
-  >* {
+  > * {
     max-inline-size: 42rem;
   }
 }
@@ -56,6 +57,7 @@
 
 .sanityCheckMessage {
   padding: 1rem;
+
   @include type-style('body-01');
   position: relative;
 

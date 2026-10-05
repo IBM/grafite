@@ -22,6 +22,7 @@
 
 .na {
   color: $text-secondary;
+
   @include type-style(label-01);
   padding-inline-end: 1rem;
   padding-block-start: 0.75rem;

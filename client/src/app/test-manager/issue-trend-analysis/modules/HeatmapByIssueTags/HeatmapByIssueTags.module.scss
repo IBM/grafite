@@ -25,6 +25,7 @@
     display: flex;
     align-items: center;
     column-gap: rem(6px);
+
     @include type-style('label-01');
   }
 }

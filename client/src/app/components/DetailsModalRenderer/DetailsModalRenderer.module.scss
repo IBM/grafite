@@ -65,6 +65,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   @include type-style(label-01);
   color: $text-inverse;
   background: $icon-secondary;

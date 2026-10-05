@@ -28,6 +28,7 @@
     align-items: center;
     margin-block-start: rem(2px);
     column-gap: 0.5rem;
+
     @include type-style(heading-compact-02);
   }
 }
