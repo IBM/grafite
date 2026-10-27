@@ -40,7 +40,7 @@
     "sass": "^1.94.0"
   },
   "overrides": {
-    "sharp": "^0.35.4"
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.8",
