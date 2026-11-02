@@ -1,4 +1,5 @@
-from fastapi import APIRouter, HTTPException, Response
+from typing import Annotated
+from fastapi import APIRouter, HTTPException, Path, Response
 from starlette.requests import Request
 from grafite.db.mongodb import Mongo
 from grafite.schemas.result import AddAnnotation
@@ -6,9 +7,13 @@ from grafite.schemas.result import AddAnnotation
 router = APIRouter()
 db = Mongo()
 
+# Only run_YYYYMMDDHHMMSS (see TestRunnerWrapper) names a run-results collection;
+# anything else would reach system collections like settings, issue or run.
+RunId = Annotated[str, Path(pattern=r"^run_\d{14}$")]
+
 
 @router.get("/result/{run_id}")
-async def get_results(request: Request, run_id: str):
+async def get_results(request: Request, run_id: RunId):
     try:
         run_db = db._get_interface_instance(run_id)
         results = run_db.get_all()
@@ -17,7 +22,7 @@ async def get_results(request: Request, run_id: str):
         raise HTTPException(status_code=404, detail=str(e))
     
 @router.delete('/result/{run_id}')
-async def delete_report_results(request: Request, run_id: str):
+async def delete_report_results(request: Request, run_id: RunId):
     try:       
         deleted = db.delete_collection(run_id)
 
@@ -31,7 +36,7 @@ async def delete_report_results(request: Request, run_id: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/result/{run_id}/annotation")
-async def add_annotation(request: Request, body: AddAnnotation, run_id: str):
+async def add_annotation(request: Request, body: AddAnnotation, run_id: RunId):
     try:
         user_email = request.headers.get("x-user-email")
 
