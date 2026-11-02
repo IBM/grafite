@@ -5,7 +5,7 @@ services:
         image: mongo
         container_name: mongodb-nors-1
         ports:
-            - 27017:27017
+            - 127.0.0.1:27017:27017
         restart: unless-stopped
         networks:
             - grafite-net
@@ -70,7 +70,7 @@ services:
             dockerfile: Dockerfile
         container_name: grafite-server
         ports:
-            - '29007:29007'
+            - '127.0.0.1:29007:29007'
         restart: unless-stopped
         networks:
             - grafite-net
