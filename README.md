@@ -45,6 +45,10 @@ docker compose --profile app up
 ```
 
 
+### Security
+
+GRAFITE is a research prototype. The backend server has no authentication, so keep it on localhost or a trusted network. By default `compose.yaml` publishes the server and MongoDB ports only on `127.0.0.1`, and `server/init.sh` starts the dev server on `127.0.0.1`. Do not expose these ports publicly.
+
 ### Local Development
 For local development, please refer to the Server and Client READMEs below for detailed instructions:
 
