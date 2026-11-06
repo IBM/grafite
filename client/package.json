@@ -18,7 +18,7 @@
     "@carbon/charts-react": "^1.27.0",
     "@carbon/react": "^1.107.1",
     "@streamparser/json-whatwg": "^0.0.26",
-    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/jest-dom": "^7.0.0",
     "@testing-library/react": "^16.3.0",
     "ag-grid-community": "^33.1.1",
     "ag-grid-react": "^33.3.2",
