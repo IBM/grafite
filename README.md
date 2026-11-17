@@ -55,6 +55,15 @@ For local development, please refer to the Server and Client READMEs below for d
 - [Server](./server/README.md)
 - [Client](./client/README.md)
 
+## Sample data
+The seed data in `server/seed` is a small sample for trying out the platform, not the full evaluation set used in the paper. It contains one representative test per issue (20 issues). Issues in the seed were generated from test tags and do not include links
+to the original user feedback, which contains user data. Reference answers in the seed are illustrative and were taken from
+sample model outputs.
+
+## Requirements
+The default judge panel needs substantial GPU memory when served locally with Ollama (roughly 40 GB for Llama-3.3-70B and 65 GB
+for gpt-oss-120b at default quantization). To try GRAFITE on a laptop, configure smaller judge models as described in [### Run the application locally using docker](### Run the application locally using docker), or point the platform to a hosted endpoint such as
+watsonx.ai.
 
 ## Contributors
 
