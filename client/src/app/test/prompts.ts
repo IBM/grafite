@@ -37,7 +37,7 @@ The model output should adhere to the following guidelines:
 
 **Scoring Criteria**
 * Score 0: The model output violates any of the guidelines.
-* Score 1: The model output is well aligned with the ground truth, the input to the model, and adheres to all guidelines.
+* Score 1: The model output is well aligned with the ground truth and adheres to all guidelines.
 
 **Return Your Rating**
 Return your rating in the following format:
@@ -56,7 +56,7 @@ The model output should adhere to the following guidelines:
 
 **Scoring Criteria**
 * Score 0: The model output violates any of the guidelines.
-* Score 1: The model output is well aligned with the ground truth, the input to the model, and adheres to all guidelines.
+* Score 1: The model output adheres to all guidelines.
 
 **Return Your Rating**
 Return your rating in the following format:
